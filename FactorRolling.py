@@ -3,7 +3,7 @@
 """
 filename:FactorRolling.py
 Author：zyf
-LastEditTime:2016/9/6
+LastEditTime:2016/9/26
 """
 
 import pandas as pd
@@ -88,7 +88,7 @@ class StockScreener(object):
         self.num = _num
         self.basestockpool = stockpool
         self.datedict = _datedict
-        self.engine = create_engine('sqlite:///E:\Wanda_Work\sqlite\stock.db')
+        self.engine = create_engine('sqlite:///D:\stock.db')
         self.ms = MSSQL(host="USER-GH61M1ULCU", user="sa", pwd="windows-999", db="stocks")
 
     def get_linear_beta(self, stockR, stockF, F_name):
@@ -115,10 +115,10 @@ class StockScreener(object):
             sql_tuple = self.ms.execquery(
                 "SELECT LOWER(SUBSTRING(代码,8,2)) + SUBSTRING(代码,0,7) AS [code] FROM dbo.ZZ500 "
                 "where [日期↓]<'" + select_date +
-                "' GROUP BY 代码 HAVING sum(statecode) = 1 UNION "
+                "' GROUP BY 代码 HAVING SUM(statecode) = 1 UNION "
                 "select LOWER(SUBSTRING(代码,8,2)) + SUBSTRING(代码,0,7) AS [code] FROM dbo.HS300 "
                 "where [日期↓]<'" + select_date +
-                "' GROUP BY 代码 HAVING sum(statecode) = 1")
+                "' GROUP BY 代码 HAVING SUM(statecode) = 1")
 
         dfstockpool = pd.DataFrame(sql_tuple, columns=['code'])
 
@@ -151,18 +151,18 @@ class StockScreener(object):
         T1_F_Beta.Financial_Quality[0] = self.get_linear_beta(T0_stockR, T1_stockF, 'Financial_Quality')
         T1_F_Beta.Industry[0] = 1.0
 
-        # (1) 单因子, 权重1
-        # (2) 单因子, get_linear_beta 权重
-        T1_F_Beta.Earnings_Yield[0] = 0.        #(1) 1.46   =
-        T1_F_Beta.Growth[0] = 0.                #(1) 0.87   <
-        T1_F_Beta.Leverage[0] = 0.              #(1) 1.41   =
-        T1_F_Beta.Liquidity[0] = 0.             #(1) 0.21   <<.     (2) 1.22 <
-        T1_F_Beta.Momentum[0] = 0.              #(1) 1.19   <.
-        T1_F_Beta.Size[0] = 0.                  #(1) 1.388  =.
-        T1_F_Beta.Value[0] = 0.                 #(1) 1.79.  >
-        T1_F_Beta.Volatility[0] = 0.            #(1) 3.8    >
-        T1_F_Beta.Financial_Quality[0] = 0.     #(1) 0.91   <
-        T1_F_Beta.Industry[0] = 1.              #(1) 1.48   >
+        # # (1) 单因子, 权重1
+        # # (2) 单因子, get_linear_beta 权重
+        # T1_F_Beta.Earnings_Yield[0] = 0.  # (1) 1.46   =
+        # T1_F_Beta.Growth[0] = 0.  # (1) 0.87   <
+        # T1_F_Beta.Leverage[0] = 0.  # (1) 1.41   =
+        # T1_F_Beta.Liquidity[0] = 0.  # (1) 0.21   <<.     (2) 1.22 <
+        # T1_F_Beta.Momentum[0] = 0.  # (1) 1.19   <.
+        # T1_F_Beta.Size[0] = 0.  # (1) 1.388  =.
+        # T1_F_Beta.Value[0] = 0.  # (1) 1.79.  >
+        # T1_F_Beta.Volatility[0] = 0.  # (1) 3.8    >
+        # T1_F_Beta.Financial_Quality[0] = 0.  # (1) 0.91   <
+        # T1_F_Beta.Industry[0] = 1.  # (1) 1.48   >
 
         # print T1_F_Beta.T
 
@@ -214,7 +214,7 @@ class ChangebyTime(object):
 
     def changebystock(self):
         """择时"""
-        print('个股择时操作！')
+        # print('个股择时操作！')
         return self.account
 
 
@@ -242,11 +242,11 @@ class Trade(object):
         self.capital_base = _capital_base
         self.chosen_num = _chosen_num
         # 滑点（固定）
-        self.slippage = 0
+        self.slippage = 0.003
         # 买入手续费（固定）
-        self.buycommission = 0
+        self.buycommission = 0.0003
         # 卖出手续费（固定）
-        self.sellcommission = 0
+        self.sellcommission = 0.0013
         # 数据库连接
         self.ms = MSSQL(host="USER-GH61M1ULCU", user="sa", pwd="windows-999", db="stocks")
         # 交易日历
@@ -276,53 +276,52 @@ class Trade(object):
         account = Account(self.capital_base, self.start, self.chosen_num)
         account.current_date = self.start
 
+        # 时间预处理
         startstr = datetime.datetime.strftime(self.start, '%Y-%m-%d')
         endstr = datetime.datetime.strftime(self.end, '%Y-%m-%d')
         eststr = datetime.datetime.strftime(self.datedict["est_date_now"], '%Y-%m-%d')
 
         # 获取指数起始值
         returnlist = self.ms.execquery(
-            "SELECT top 1 [close] AS indexclose FROM index_data WHERE index_code = '" + self.benchmark +
+            "SELECT TOP 1 [close] AS indexclose FROM index_data WHERE index_code = '" + self.benchmark +
             "' AND date < '" + startstr + "' ORDER BY date DESC")
-        account.benchmarkvalue = returnlist[0][0]
+        account.benchmarkvaluebase = returnlist[0][0]
 
-        # 记录下初始值
-        account.benchmarkvaluebase = account.benchmarkvalue
+        # 使用指数起始值做初始化
+        account.benchmarkvalue = account.benchmarkvaluebase
 
+        # 净值起始值设为1
         row = pd.DataFrame(
             [dict(date=account.current_date, fundvalue=1, benchmarkvalue=1), ])
         account.dfFundvalue = account.dfFundvalue.append(row)
 
-        # 创建交易日历加入Trade类中
+        # 创建日历
         sqlstr = "SELECT [date] FROM index_data WHERE [date]>='" + eststr + "' AND [date]<='" + endstr + "'"
         calendars = self.ms.execquery(sqlstr)
         for d in calendars:
             self.tradecalendars.append(d[0])
-        del calendars
 
-        sqlstr = "SELECT (SELECT top 1 [date] FROM index_data b WHERE year(a.[date]) = year(b.[date]) AND " \
+        sqlstr = "SELECT (SELECT TOP 1 [date] FROM index_data b WHERE year(a.[date]) = year(b.[date]) AND " \
                  "month(a.[date]) = month(b.[date]) ORDER BY date ASC)  FROM index_data a WHERE [date]>= '" \
                  + startstr + "' AND [date] < '" + endstr + "' GROUP BY year([date]),month([date])"
         changecalendars = self.ms.execquery(sqlstr)
         for d in changecalendars:
             self.changecalendars.append(d[0])
-        del changecalendars
 
+        # 按日执行策略
         while account.current_date <= self.end:
             self.handle_date(account)
             account.current_date = account.current_date + datetime.timedelta(days=1)
 
-
-
-
-
         # 输出到csv
         account.dfFundvalue.to_csv('fundvalue.csv', index=False, encoding='gbk')
-        account.dfPosition.to_csv('position.csv', encoding='gbk')
+        # account.dfPosition.to_csv('position.csv', encoding='gbk') #好像没什么意义
 
         # 绘制净值曲线
         plt.plotfile('fundvalue.csv', ('date', 'fundvalue', 'benchmarkvalue'), subplots=False)
         plt.show()
+
+        # 打印各项参数
         self.infoprinter()
 
     def handle_date(self, account):
@@ -350,6 +349,8 @@ class Trade(object):
                 # 获取所有需要交易的股票的前复权开盘价格
                 dfOperatelist = self.get_open_history(account.current_date, operatelist)
 
+                print(dfOperatelist)
+
                 # 获取停牌的股票
                 selectstr = ""
                 for stk in account.dfPosition.index.values:
@@ -362,7 +363,7 @@ class Trade(object):
 
                 selectdate = datetime.datetime.strftime(account.current_date, '%Y-%m-%d')
 
-                sqlstr = "SELECT code, (SELECT top 1 adjust_price_f FROM stock_data b WHERE b.[date] < '" + selectdate + \
+                sqlstr = "SELECT code, (SELECT TOP 1 adjust_price_f FROM stock_data b WHERE b.[date] < '" + selectdate + \
                          "' AND b.code = a.code ORDER BY[date] DESC) FROM stock_data a WHERE code IN (" + selectstr + \
                          ") GROUP BY code"
 
@@ -398,9 +399,9 @@ class Trade(object):
                             amount = int(eachvalue / dftemp['adjust_open_f'].values[0] / 100) * 100
                             self.order_to(account, stk, amount, dftemp['adjust_open_f'].values[0])
                         else:
-                            f = open('out.txt',"a")
-                            f.write(str(stk)+'有退市风险:'+str(account.current_date)+'\n')
-                            f.close( )
+                            f = open('out.txt', "a")
+                            f.write(str(stk) + '有退市风险:' + str(account.current_date) + '\n')
+                            f.close()
 
                 # 持仓变化
                 account.dfPosition = account.dfOperate.loc[:, ['stockcode', 'referencenum']]
@@ -408,13 +409,13 @@ class Trade(object):
                 account.dfPosition = account.dfPosition[account.dfPosition.referencenum > 0]
 
                 account.dfPosition.to_csv(
-                    'E:/Wanda_Work/Changelog/' + datetime.datetime.strftime(account.current_date, '%Y-%m-%d') + '-position.csv',
+                    'D:/Changelog/' + datetime.datetime.strftime(account.current_date, '%Y-%m-%d') + '-position.csv',
                     encoding='gbk')
 
                 # 本期变更为上期
                 self.datedict['est_date_pre'] = self.datedict['est_date_now']
 
-            # 个股择时
+            # 择时
             account = ChangebyTime(account).changebystock()
 
             # 计算净值变化
@@ -422,14 +423,11 @@ class Trade(object):
             historyindex = self.get_index_close(account.current_date)
 
             historystock = historystock.groupby('code').sum()
-
             dftemp = pd.merge(account.dfPosition, historystock, left_index='stockcode', right_index='code')
-
             dftemp['value'] = dftemp['referencenum'] * dftemp['adjust_price_f']
             dftemp = dftemp['value']
             account.fundvalue = (dftemp.sum() + account.cash) / self.capital_base
 
-            # 除以初始值
             account.benchmarkvalue = historyindex / account.benchmarkvaluebase
 
             row = pd.DataFrame(
@@ -438,8 +436,7 @@ class Trade(object):
 
             print(datetime.datetime.strftime(account.current_date, '%Y-%m-%d') + '净值:' + str(account.fundvalue))
 
-    @staticmethod
-    def order_to(account, _stockcode, _referencenum, _price):
+    def order_to(self, account, _stockcode, _referencenum, _price):
         """买卖操作"""
         if _stockcode in account.dfPosition.index:
             havenum = account.dfPosition.loc[_stockcode].values[0]
@@ -448,10 +445,13 @@ class Trade(object):
 
         if _referencenum >= havenum:
             _operatetype = '买入'
+            account.cash = account.cash - (_referencenum - havenum) * _price - abs(
+                (_referencenum - havenum) * _price) * (self.slippage + self.buycommission)
         else:
             _operatetype = '卖出'
+            account.cash = account.cash - (_referencenum - havenum) * _price - abs(
+                (_referencenum - havenum) * _price) * (self.slippage + self.sellcommission)
 
-        account.cash -= (_referencenum - havenum) * _price
         row = pd.DataFrame([dict(date=account.current_date, stockcode=_stockcode, operatetype=_operatetype,
                                  referencenum=(_referencenum - havenum), referenceprice=_price), ])
 
@@ -465,13 +465,14 @@ class Trade(object):
             selectstr = selectstr + '\'' + stk + '\','
         selectstr = selectstr[:-1]
         sql_tuple = self.ms.execquery(
-            "SELECT code,[open]*adjust_price_f/[close] AS adjust_open_f FROM stock_data "
-            "WHERE DATE = '" + selectdate + "' AND code IN (" + selectstr + ")")
+            "SELECT code,[open]*adjust_price_f/[close] AS adjust_open_f FROM stock_data WHERE date = '" + selectdate +
+            "' AND code IN (" + selectstr + ")")
         dfOperatelist = pd.DataFrame(sql_tuple, columns=('stockcode', 'adjust_open_f'))
+
         return dfOperatelist
 
     def get_stock_close(self, df, date):
-        """获取股票池收盘价"""
+        """获取股票池收盘价(前复权)"""
         selectdate = datetime.datetime.strftime(date, '%Y-%m-%d')
         selectlist = ''
         for stk in df.index.values:
@@ -479,15 +480,27 @@ class Trade(object):
         selectlist = selectlist[:-1]
 
         queryline = "SELECT code,adjust_price_f FROM stock_data WHERE date = '" + selectdate + \
-            "' AND code IN ( " + selectlist + " )"
+                    "' AND code IN ( " + selectlist + " )"
         # print queryline
-        sql_tuple = self.ms.execquery( queryline )
+        sql_tuple = self.ms.execquery(queryline)
 
         history = pd.DataFrame(sql_tuple, columns=['code', 'adjust_price_f'])
+
+        # 对停牌的价格做下处理
+        suspension = list(set(df.index.values).difference(set(history['code'].values)))
+
+        if len(suspension) != 0:
+            for stk in suspension:
+                queryline = "SELECT top 1 code,adjust_price_f FROM stock_data WHERE date < '" + selectdate + \
+                    "' AND code = '" + stk + "' order by date DESC"
+                sql_tuple = self.ms.execquery(queryline)
+                dfOperatelistAdd = pd.DataFrame(sql_tuple, columns=('code', 'adjust_price_f'))
+                history = pd.concat([history, dfOperatelistAdd])
+
         return history
 
     def get_index_close(self, date):
-        """获取指数收盘价"""
+        """获取指数收盘价(前复权)"""
         selectdate = datetime.datetime.strftime(date, '%Y-%m-%d')
         indexvalue = self.ms.execquery(
             "SELECT [close] AS indexclose FROM index_data WHERE index_code = '" + self.benchmark +
