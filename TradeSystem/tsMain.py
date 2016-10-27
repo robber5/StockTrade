@@ -22,12 +22,14 @@ def main():
         setting['MS_user'],
         setting['MS_pwd'],
         setting['MS_db'],
-        setting['sqlite_DB'],
-        setting['engine_type']
+        setting['sqlite_DB']
     )
 
-    # 运行
-    StrategyTest(main_engine).run()
+    if setting['engine_type'] == "backtest":
+        # 运行
+        StrategyTest(main_engine).run()
+    # else:
+    #     Strategy(main_engine).run()
 
 if __name__ == '__main__':
     main()

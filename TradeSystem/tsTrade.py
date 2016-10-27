@@ -2,6 +2,7 @@
 
 from tsAccount import Account
 from tsFunction import *
+import json
 
 
 class Trade(object):
@@ -62,16 +63,36 @@ class Trade(object):
         print("每日调仓变化")
         pass
 
-    def setSlippage(self, _slippage):
-        """设置滑点点数"""
-        self.slippage = _slippage
+    def load_setting(self):
+        """读取配置"""
+        setting = json.load(file("Trade_Setting.json"))
+        if setting['benchmark'] is None:
+            self.benchmark = setting["benchmark"]
+        if setting['start_day'] is None:
+            self.start_day = setting["start_day"]
+        if setting['end_day'] is None:
+            self.end_day = setting["end_day"]
+        if setting['capital_base'] is None and str(setting['capital_base']).isdigit():
+            self.capital_base = int(str(setting['capital_base']))
+        if setting['chosen_num'] is None and str(setting['chosen_num']).isdigit():
+            self.chosen_num = int(str(setting["chosen_num"]))
+        if setting['slippage'] is None and is_num(setting['slippage']):
+            self.slippage = setting["slippage"]
+        if setting['buy_commission'] is None and is_num(setting['buy_commission']):
+            self.buy_commission = setting["buy_commission"]
+        if setting['sell_commission'] is None and is_num(setting["sell_commission"]):
+            self.sell_commission = setting["sell_commission"]
+        if setting['stock_pool'] is None:
+            self.stock_pool = self.get_stock_pool_by_mark(str(setting['stock_pool']))
 
-    def setBuy_commission(self, _buy_commission):
-        """设置买入手续费"""
-        self.buy_commission = _buy_commission
+    @staticmethod
+    def get_stock_pool_by_mark(value):
+        stock_pool = []
+        print("获取股票池" + value)
+        return stock_pool
 
-    def setSell_commission(self, _sell_commission):
-        """设置卖出点数"""
-        self.sell_commission = _sell_commission
+
+
+
 
 

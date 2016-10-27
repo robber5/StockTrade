@@ -9,7 +9,7 @@ from collections import OrderedDict
 class MainEngine(object):
     """主引擎"""
 
-    def __init__(self, _host, _user, _pwd, _db, _sqlite_path, _engine_type):
+    def __init__(self, _host, _user, _pwd, _db, _sqlite_path):
         """Constructor"""
         # 创建对冲引擎
         self.eventEngine = HedgeEngine()
