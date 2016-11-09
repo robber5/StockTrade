@@ -3,6 +3,7 @@
 import json
 from tsEngine import MainEngine
 from tsStrategy import StrategyTest
+from tsAccount import Account
 
 
 def main():
@@ -27,7 +28,7 @@ def main():
 
     if setting['engine_type'] == "backtest":
         # 运行
-        StrategyTest(main_engine).run()
+        StrategyTest(main_engine).run(Account)
     # else:
     #     Strategy(main_engine).run()
 
