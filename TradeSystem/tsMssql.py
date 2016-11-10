@@ -88,9 +88,12 @@ class MSSQL:
 
         return df
 
-    def get_stock_close(self, df, date):
+    def get_history(self, _stockpool, ):
+
+
+    def get_stock_close(self, df, current_date):
         """获取股票池收盘价(前复权)"""
-        select_date = datetime.datetime.strftime(date, '%Y-%m-%d')
+        select_date = datetime.datetime.strftime(current_date, '%Y-%m-%d')
 
         select_list = ''
 
@@ -119,10 +122,19 @@ class MSSQL:
 
         return history
 
-    def get_index_close(self, benchmark, date):
+    def get_index_close(self, benchmark, current_date):
         """获取指数收盘价(前复权)"""
-        select_date = datetime.datetime.strftime(date, '%Y-%m-%d')
+        select_date = datetime.datetime.strftime(current_date, '%Y-%m-%d')
         index_value = self.execquery(
             "SELECT [close] AS indexclose FROM index_data WHERE index_code = '" + benchmark +
             "' AND date = '" + select_date + "'")
         return index_value[0][0]
+
+    def get_stock_pool(self, key):
+        """获取股票池"""
+        stockpool = []
+        if key == 'A':
+            sql_tuple = self.execquery("SELECT DISTINCT [code] FROM stock_data")
+            df = pd.DataFrame(sql_tuple)
+            stockpool = df[0].tolist()
+        return stockpool

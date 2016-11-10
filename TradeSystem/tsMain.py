@@ -3,7 +3,6 @@
 import json
 from tsEngine import MainEngine
 from tsStrategy import StrategyTest
-from tsAccount import Account
 
 
 def main():
@@ -13,22 +12,23 @@ def main():
     try:
         f = file("Trade_Setting.json")
         setting = json.load(f)
-        print(setting['StrategyTitle'])
+        print(setting['StrategyTitle'].encode('utf-8') + "开始运行")
     except Exception, ex:
         print('配置文件载入错误：' + ex.message)
 
     # 载入配置到交易模块
     main_engine = MainEngine(
-        setting['MS_host'],
-        setting['MS_user'],
-        setting['MS_pwd'],
-        setting['MS_db'],
-        setting['sqlite_DB']
+        setting['MS_host'].encode('utf-8'),
+        setting['MS_user'].encode('utf-8'),
+        setting['MS_pwd'].encode('utf-8'),
+        setting['MS_db'].encode('utf-8'),
+        setting['sqlite_DB'].encode('utf-8')
     )
 
     if setting['engine_type'] == "backtest":
         # 运行
-        StrategyTest(main_engine).run(Account)
+        # 初始资金
+        StrategyTest(main_engine).run()
     # else:
     #     Strategy(main_engine).run()
 

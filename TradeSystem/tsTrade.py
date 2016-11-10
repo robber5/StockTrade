@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 class Trade(object):
     """交易控制"""
 
-    def __init__(self):
+    def __init__(self, _main_engine):
         """初始化"""
         # 总股票池
         self.stock_pool = []
@@ -34,6 +34,8 @@ class Trade(object):
         self.buy_commission = 0.0003
         # 卖出手续费
         self.sell_commission = 0.0013
+        # 数据获取
+        self.mssql = _main_engine.mssqlDB
 
     def print_info(self):
         """信息显示"""
@@ -68,29 +70,27 @@ class Trade(object):
     def load_setting(self):
         """读取配置"""
         setting = json.load(file("Trade_Setting.json"))
-        if setting['benchmark'] is not None:
-            self.benchmark = setting["benchmark"]
-        if setting['start_day'] is not None:
-            self.start_day = setting["start_day"]
-        if setting['end_day'] is not None:
-            self.end_day = setting["end_day"]
-        if setting['capital_base'] is not None and str(setting['capital_base']).isdigit():
+        if 'benchmark' in setting:
+            self.benchmark = str(setting["benchmark"])
+        if 'start_day' in setting:
+            self.start_day = datetime.strptime(setting["start_day"], '%Y-%m-%d')
+        if 'end_day' in setting:
+            self.end_day = datetime.strptime(setting["end_day"], '%Y-%m-%d')
+        if 'capital_base' in setting and str(setting['capital_base']).isdigit():
             self.capital_base = int(str(setting['capital_base']))
-        if setting['chosen_num'] is not None and str(setting['chosen_num']).isdigit():
+        if 'chosen_num' in setting and str(setting['chosen_num']).isdigit():
             self.chosen_num = int(str(setting["chosen_num"]))
-        if setting['slippage'] is not None and is_num(setting['slippage']):
+        if 'slippage' in setting and is_num(setting['slippage']):
             self.slippage = setting["slippage"]
-        if setting['buy_commission'] is not None and is_num(setting['buy_commission']):
+        if 'buy_commission' in setting and is_num(setting['buy_commission']):
             self.buy_commission = setting["buy_commission"]
-        if setting['sell_commission'] is not None and is_num(setting["sell_commission"]):
+        if 'sell_commission' in setting and is_num(setting["sell_commission"]):
             self.sell_commission = setting["sell_commission"]
-        if setting['stock_pool'] is not None:
+        if 'stock_pool' in setting:
             self.stock_pool = self.get_stock_pool_by_mark(str(setting['stock_pool']))
 
-    @staticmethod
-    def get_stock_pool_by_mark(value):
-        stock_pool = []
-        print("获取股票池" + value)
+    def get_stock_pool_by_mark(self, key):
+        stock_pool = self.mssql.get_stock_pool(key)
         return stock_pool
 
     def order_to(self, account, _stockcode, _referencenum, _price):
@@ -114,8 +114,14 @@ class Trade(object):
 
         account.dfOperate = account.dfOperate.append(row)
 
-    def run(self, account):
+    def run(self):
+        """主运行启动"""
+        self.load_setting()
+
+        account = Account(self.capital_base, self.start_day, self.chosen_num)
+
         # @todo 进行各种类型转换
+
         # 按日执行策略
         while account.current_date <= self.end_day:
             self.handle_date(account)
@@ -130,9 +136,3 @@ class Trade(object):
 
         # 打印各项参数
         self.print_info()
-
-
-
-
-
-

@@ -1,9 +1,15 @@
 {
-	"StrategyTitle": "测试策略",
+    "StrategyTitle": "测试策略",
     "MS_host": "USER-GH61M1ULCU",
     "MS_user": "sa",
     "MS_pwd": "windows-999",
     "MS_db": "stocks",
     "sqlite_DB": "D:\\stock.db",
-    "engine_type": "backtest"
+    "engine_type": "backtest",
+    "benchmark": "ZZ500",
+    "start_day": "2011-01-11",
+    "end_day": "2011-01-11",
+    "capital_base": "100000000",
+    "chosen_num": "2000",
+    "stock_pool": "A"
 }
