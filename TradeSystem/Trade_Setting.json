@@ -1,6 +1,6 @@
 {
     "StrategyTitle": "测试策略",
-    "MS_host": "USER-GH61M1ULCU",
+    "MS_host": "127.0.0.1",
     "MS_user": "sa",
     "MS_pwd": "windows-999",
     "MS_db": "stocks",

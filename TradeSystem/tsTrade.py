@@ -36,6 +36,12 @@ class Trade(object):
         self.sell_commission = 0.0013
         # 数据获取
         self.mssql = _main_engine.mssqlDB
+        # 基准指数基础值
+        self.benchmark_base_value = 0
+        # 交易日历
+        self.tradecalendars = []
+        # 调仓日历
+        self.changecalendars = []
 
     def print_info(self):
         """信息显示"""
@@ -90,8 +96,13 @@ class Trade(object):
             self.stock_pool = self.get_stock_pool_by_mark(str(setting['stock_pool']))
 
     def get_stock_pool_by_mark(self, key):
+        """根据获取基础股票池"""
         stock_pool = self.mssql.get_stock_pool(key)
         return stock_pool
+
+    def get_history(self, n, column_list, current_day):
+        """获取历史行情"""
+        self.mssql.get_history(n, column_list, self.stock_pool, current_day-datetime.timedelta(days=1))
 
     def order_to(self, account, _stockcode, _referencenum, _price):
         """买卖操作"""
@@ -120,12 +131,35 @@ class Trade(object):
 
         account = Account(self.capital_base, self.start_day, self.chosen_num)
 
-        # @todo 进行各种类型转换
+        account.current_date = self.start_day
+
+        # 时间预处理
+        calendar_start_str = datetime.datetime.strftime(self.start_day, '%Y-%m-%d')
+        calendar_end_str = datetime.datetime.strftime(self.end_day, '%Y-%m-%d')
+
+        # 创建日历
+        sql_str = "SELECT [date] FROM index_data WHERE [date]>='" + calendar_start_str + \
+                  "' AND [date]<='" + calendar_end_str + "'"
+        calendars = self.mssql.execquery(sql_str)
+        for d in calendars:
+            self.tradecalendars.append(d[0])
+
+        # 获取指数起始值
+        self.benchmark_base_value = self.mssql.get_index(self.benchmark, self.start_day, 'open')
+
+        account.benchmarkvalue = self.benchmark_base_value
+
+        # 将净值起始设为1
+        row = pd.DataFrame(
+            [dict(date=account.current_date, fundvalue=1, benchmarkvalue=1), ])
+        account.dfFundvalue = account.dfFundvalue.append(row)
 
         # 按日执行策略
         while account.current_date <= self.end_day:
             self.handle_date(account)
             account.current_date = account.current_date + datetime.timedelta(days=1)
+
+        # @todo 测试净值曲线计算部分
 
         # 输出到csv
         account.dfFundvalue.to_csv('fundvalue.csv', index=False, encoding='gbk')

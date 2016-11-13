@@ -30,7 +30,9 @@ class Account(object):
     def get_fundvalue(self):
         """获取资金净值"""
         print('获取资金净值')
+        # @todo 获取资金净值
 
     def get_postion(self):
         """获取当前持仓"""
         print("获取当前持仓")
+        # @todo 获取当前持仓
