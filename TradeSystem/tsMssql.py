@@ -71,7 +71,7 @@ class MSSQL:
 
     def get_open_history(self, current_date, _operate_list):
         """获取当日开盘价(前复权)"""
-        select_date = datetime.datetime.strftime(current_date, '%Y-%m-%d')
+        select_date = datetime.strftime(current_date, '%Y-%m-%d')
 
         select_str = ""
 
@@ -80,50 +80,77 @@ class MSSQL:
 
         select_str = select_str[:-1]
 
-        sql_tuple = self.execquery(
-            "SELECT code,[open]*adjust_price_f/[close] AS adjust_open_f FROM stock_data WHERE date = '" + select_date +
-            "' AND code IN (" + select_str + ")")
+        sql_tuple = self.execquery("SELECT code,[open]*adjust_price_f/[close] AS adjust_open_f FROM stock_data WHERE date = '" + select_date + "' AND code IN (" + select_str + ")")
 
         df = pd.DataFrame(sql_tuple, columns=('stockcode', 'adjust_open_f'))
 
         return df
 
+    # def get_stock_close(self, df, current_date):
+    #     """获取股票池收盘价(前复权)"""
+    #     select_date = datetime.strftime(current_date, '%Y-%m-%d')
+    #
+    #     select_list = ''
+    #
+    #     for stk in df.index.values:
+    #         select_list = select_list + '\'' + stk + '\','
+    #
+    #     select_list = select_list[:-1]
+    #
+    #     query_line = "SELECT code,adjust_price_f FROM stock_data WHERE date = '" + select_date + \
+    #                 "' AND code IN ( " + select_list + " )"
+    #
+    #     sql_tuple = self.execquery(query_line)
+    #
+    #     history = pd.DataFrame(sql_tuple, columns=['code', 'adjust_price_f'])
+    #
+    #     # 对停牌的价格做下处理
+    #     suspension = list(set(df.index.values).difference(set(history['code'].values)))
+    #
+    #     if len(suspension) != 0:
+    #         for stk in suspension:
+    #             query_line = "SELECT top 1 code,adjust_price_f FROM stock_data WHERE date < '" + select_date + \
+    #                         "' AND code = '" + stk + "' order by date DESC"
+    #
+    #             sql_tuple = self.execquery(query_line)
+    #             df = pd.DataFrame(sql_tuple, columns=('code', 'adjust_price_f'))
+    #             history = pd.concat([history, df])
+    #
+    #     return history
+
     def get_stock_close(self, df, current_date):
         """获取股票池收盘价(前复权)"""
-        select_date = datetime.datetime.strftime(current_date, '%Y-%m-%d')
+        select_date = datetime.strftime(current_date, '%Y-%m-%d')
 
-        select_list = ''
-
-        for stk in df.index.values:
-            select_list = select_list + '\'' + stk + '\','
-
-        select_list = select_list[:-1]
-
-        query_line = "SELECT code,adjust_price_f FROM stock_data WHERE date = '" + select_date + \
-                    "' AND code IN ( " + select_list + " )"
+        query_line = "SELECT code,adjust_price_f FROM stock_data WHERE date = '" + select_date + "'"
 
         sql_tuple = self.execquery(query_line)
 
         history = pd.DataFrame(sql_tuple, columns=['code', 'adjust_price_f'])
 
-        # 对停牌的价格做下处理
+        # 停牌股票选择上一个交易日
         suspension = list(set(df.index.values).difference(set(history['code'].values)))
 
         if len(suspension) != 0:
+            select_list = ''
+
             for stk in suspension:
-                query_line = "SELECT top 1 code,adjust_price_f FROM stock_data WHERE date < '" + select_date + \
-                            "' AND code = '" + stk + "' order by date DESC"
-                sql_tuple = MSSQL.execquery(query_line)
-                df = pd.DataFrame(sql_tuple, columns=('code', 'adjust_price_f'))
-                history = pd.concat([history, df])
+                select_list = select_list + '\'' + stk + '\','
+
+            query_line = "SELECT top 1 code,adjust_price_f FROM stock_data WHERE date < '" + select_date + \
+                         "' AND code = '" + stk + "' order by date DESC"
+
+            sql_tuple = self.execquery(query_line)
+            df = pd.DataFrame(sql_tuple, columns=('code', 'adjust_price_f'))
+            history = pd.concat([history, df])
 
         return history
 
     def get_index(self, benchmark, current_date, column):
         """获取指数收盘价(前复权)"""
-        select_date = datetime.datetime.strftime(current_date, '%Y-%m-%d')
+        select_date = datetime.strftime(current_date, '%Y-%m-%d')
         index_value = self.execquery(
-            "SELECT " + column + " FROM index_data WHERE index_code = '" + benchmark +
+            "SELECT [" + column + "] FROM index_data WHERE index_code = '" + benchmark + \
             "' AND date = '" + select_date + "'")
         return index_value[0][0]
 
@@ -136,13 +163,15 @@ class MSSQL:
             stockpool = df[0].tolist()
         return stockpool
 
-    def get_history(self, n, column_list, stock_pool):
-        """获取目标股票池前n日个交易日的目标列形成Dataframe"""
-        pass
+    def get_history(self, column_list, current_date):
+        select_date = datetime.strftime(current_date, '%Y-%m-%d')
+        sql_tuple = self.execquery("SELECT code,[" + column_list + "] FROM stock_data where date ='" + select_date + "'")
+        df = pd.DataFrame(sql_tuple)
+        return df
 
     def get_index_open(self, benchmark, current_date):
         """获取指数收盘价(前复权)"""
-        select_date = datetime.datetime.strftime(current_date, '%Y-%m-%d')
+        select_date = datetime.strftime(current_date, '%Y-%m-%d')
         index_value = self.execquery(
             "SELECT [close] AS indexclose FROM index_data WHERE index_code = '" + benchmark +
             "' AND date = '" + select_date + "'")

@@ -5,6 +5,8 @@ from tsFunction import *
 import json
 import pandas as pd
 import matplotlib.pyplot as plt
+from datetime import *
+from datetime import timedelta
 
 
 class Trade(object):
@@ -29,7 +31,7 @@ class Trade(object):
         # 持仓股票数量
         self.chosen_num = 10
         # 滑点
-        self.slippage = 0.003
+        self.slippage = 0.001
         # 买入手续费
         self.buy_commission = 0.0003
         # 卖出手续费
@@ -42,13 +44,17 @@ class Trade(object):
         self.tradecalendars = []
         # 调仓日历
         self.changecalendars = []
+        # sqlite数据库连接
+        self.sqlite = _main_engine.sqliteDB
+        # 读取用户设置
+        self.load_setting()
 
     def print_info(self):
         """信息显示"""
         print('股票池:{0}'.format(str(self.stock_pool)))
         print('基准指数:{0}'.format(self.benchmark))
-        print('回测起始时间:' + self.start_day)
-        print('回测结束时间:' + self.end_day)
+        print('回测起始时间:' + str(self.start_day))
+        print('回测结束时间:' + str(self.end_day))
         print('调仓频率:{0}'.format(str(self.refresh_rate)))
         print('调仓周期:{0}'.format(self.freq))
         print('初始资金:{0}'.format(str(self.capital_base)))
@@ -100,14 +106,15 @@ class Trade(object):
         stock_pool = self.mssql.get_stock_pool(key)
         return stock_pool
 
-    def get_history(self, n, column_list, current_day):
+    def get_history(self, column_list, current_day):
         """获取历史行情"""
-        self.mssql.get_history(n, column_list, self.stock_pool, current_day-datetime.timedelta(days=1))
+        return self.mssql.get_history(column_list, self.tradecalendars[self.tradecalendars.index(current_day) + 1])
 
     def order_to(self, account, _stockcode, _referencenum, _price):
         """买卖操作"""
-        if _stockcode in account.dfPosition.index:
-            have_num = account.dfPosition.loc[_stockcode].values[0]
+        df = account.dfPosition.set_index('stockcode')
+        if _stockcode in df.index:
+            have_num = df.loc[_stockcode].values[0]
         else:
             have_num = 0
 
@@ -125,27 +132,46 @@ class Trade(object):
 
         account.dfOperate = account.dfOperate.append(row)
 
+    def get_fundvalue(self, _account):
+        """获取资金净值"""
+        # print('获取资金净值')
+        # 计算净值变化
+        df = _account.dfPosition.groupby('stockcode').sum()
+        history_stock = self.mssql.get_stock_close(df, _account.current_date)
+        history_index = self.mssql.get_index(self.benchmark, _account.current_date, 'close')
+
+        history_stock = history_stock.groupby('code').sum()
+        df = pd.merge(df, history_stock, left_index='stockcode', right_index='code')
+        df['value'] = df['referencenum'] * df['adjust_price_f']
+        df = df['value']
+        _account.fundvalue = (df.sum() + _account.cash) / self.capital_base
+
+        _account.benchmarkvalue = history_index / self.benchmark_base_value
+
+        row = pd.DataFrame(
+            [dict(date=_account.current_date, fundvalue=_account.fundvalue, benchmarkvalue=_account.benchmarkvalue), ])
+        _account.dfFundvalue = _account.dfFundvalue.append(row)
+
+        print(datetime.strftime(_account.current_date, '%Y-%m-%d') + '净值:' + str(_account.fundvalue))
+
     def run(self):
         """主运行启动"""
-        self.load_setting()
-
         account = Account(self.capital_base, self.start_day, self.chosen_num)
 
         account.current_date = self.start_day
 
         # 时间预处理
-        calendar_start_str = datetime.datetime.strftime(self.start_day, '%Y-%m-%d')
-        calendar_end_str = datetime.datetime.strftime(self.end_day, '%Y-%m-%d')
+        calendar_end_str = datetime.strftime(self.end_day, '%Y-%m-%d')
 
         # 创建日历
-        sql_str = "SELECT [date] FROM index_data WHERE [date]>='" + calendar_start_str + \
-                  "' AND [date]<='" + calendar_end_str + "'"
+        sql_str = "SELECT [date] FROM index_data WHERE [date]<='" + calendar_end_str + "'"
         calendars = self.mssql.execquery(sql_str)
         for d in calendars:
             self.tradecalendars.append(d[0])
 
         # 获取指数起始值
         self.benchmark_base_value = self.mssql.get_index(self.benchmark, self.start_day, 'open')
+        # @todo 一次获取整个的值存入内存，不要一天天获取
 
         account.benchmarkvalue = self.benchmark_base_value
 
@@ -157,12 +183,11 @@ class Trade(object):
         # 按日执行策略
         while account.current_date <= self.end_day:
             self.handle_date(account)
-            account.current_date = account.current_date + datetime.timedelta(days=1)
-
-        # @todo 测试净值曲线计算部分
+            account.current_date = account.current_date + timedelta(days=1)
 
         # 输出到csv
         account.dfFundvalue.to_csv('fundvalue.csv', index=False, encoding='gbk')
+        account.dfOperate.to_csv('operate.csv', index=False, encoding='gbk')
 
         # 绘制净值曲线
         plt.plotfile('fundvalue.csv', ('date', 'fundvalue', 'benchmarkvalue'), subplots=False)

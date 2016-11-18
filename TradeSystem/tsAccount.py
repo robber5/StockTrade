@@ -1,6 +1,7 @@
 # coding=utf-8
 
 import pandas as pd
+import datetime
 
 
 class Account(object):
@@ -27,12 +28,14 @@ class Account(object):
         # 持仓dataframe,包含股票代码,前复权的股数价格
         self.dfPosition = pd.DataFrame(columns=('stockcode', 'referencenum'))
 
-    def get_fundvalue(self):
-        """获取资金净值"""
-        print('获取资金净值')
-        # @todo 获取资金净值
-
     def get_postion(self):
         """获取当前持仓"""
-        print("获取当前持仓")
+        # print("获取当前持仓")
         # @todo 获取当前持仓
+        self.dfPosition = self.dfOperate.loc[:, ['stockcode', 'referencenum']]
+        self.dfPosition = (self.dfPosition.groupby('stockcode', as_index=False).sum())
+        self.dfPosition = self.dfPosition[self.dfPosition.referencenum > 0]
+
+        self.dfPosition.to_csv(
+            'D:/Changelog/' + datetime.datetime.strftime(self.current_date, '%Y-%m-%d') + '-position.csv',
+            encoding='gbk')
