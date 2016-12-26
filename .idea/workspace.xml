@@ -58,52 +58,30 @@
               <caret line="499" column="21" selection-start-line="499" selection-start-column="21" selection-end-line="499" selection-end-column="21" />
               <folding>
                 <element signature="e#16#31#0" expanded="true" />
-                <marker date="1482678835326" expanded="true" signature="1059:1122" ph="SELECT DISTI... " />
-                <marker date="1482678835326" expanded="true" signature="1232:1303" ph="select dateS... stock_800_1M_all_factors_for_roll" />
-                <marker date="1482678835326" expanded="true" signature="1842:2030" ph="SELECT [股票代码... " />
-                <marker date="1482678835326" expanded="true" signature="2324:3317" ph="SELECT [code... " />
-                <marker date="1482678835326" expanded="true" signature="2324:3321" ph="SELECT [code... " />
-                <marker date="1482678835326" expanded="true" signature="2324:3350" ph="SELECT [code... " />
-                <marker date="1482678835326" expanded="true" signature="11115:11192" ph="select * fro... " />
-                <marker date="1482678835326" expanded="true" signature="11694:11777" ph="select * fro... " />
-                <marker date="1482678835326" expanded="true" signature="15012:15190" ph="select * fro... v_stock_1m" />
-                <marker date="1482678835326" expanded="true" signature="17442:17737" ph="select code,... " />
-                <marker date="1482678835326" expanded="true" signature="17979:18274" ph="select code,... " />
-                <marker date="1482678835326" expanded="true" signature="18584:18925" ph="SELECT [股票代码... " />
+                <marker date="1482739319010" expanded="true" signature="1059:1122" ph="SELECT DISTI... " />
+                <marker date="1482739319010" expanded="true" signature="1232:1303" ph="select dateS... stock_800_1M_all_factors_for_roll" />
+                <marker date="1482739319010" expanded="true" signature="1842:2030" ph="SELECT [股票代码... " />
+                <marker date="1482739319010" expanded="true" signature="2324:3317" ph="SELECT [code... " />
+                <marker date="1482739319010" expanded="true" signature="2324:3321" ph="SELECT [code... " />
+                <marker date="1482739319010" expanded="true" signature="2324:3350" ph="SELECT [code... " />
+                <marker date="1482739319010" expanded="true" signature="11115:11192" ph="select * fro... " />
+                <marker date="1482739319010" expanded="true" signature="11694:11777" ph="select * fro... " />
+                <marker date="1482739319010" expanded="true" signature="15012:15190" ph="select * fro... v_stock_1m" />
+                <marker date="1482739319010" expanded="true" signature="17442:17737" ph="select code,... " />
+                <marker date="1482739319010" expanded="true" signature="17979:18274" ph="select code,... " />
+                <marker date="1482739319010" expanded="true" signature="18584:18925" ph="SELECT [股票代码... " />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tsMain.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="tsMain.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TradeSystem/tsMain.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+            <state relative-caret-position="467">
+              <caret line="33" column="12" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
               <folding>
                 <element signature="e#16#27#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rmEngine.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/riskManager/rmEngine.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="21" column="39" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tsRiskManage.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/TradeSystem/riskManage/tsRiskManage.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="627">
-              <caret line="93" column="21" selection-start-line="93" selection-start-column="21" selection-end-line="93" selection-end-column="21" />
-              <folding>
-                <element signature="e#501#2375#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -112,18 +90,8 @@
       <file leaf-file-name="tsPositionManage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TradeSystem/positionManage/tsPositionManage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RM_setting.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/riskManager/RM_setting.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="285">
+              <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -191,10 +159,10 @@
         <option value="$PROJECT_DIR$/TradeDataRecorder/S3_CalculateFactors_1Q.py" />
         <option value="$PROJECT_DIR$/TradeSystem/Trade_Setting.json" />
         <option value="$PROJECT_DIR$/TradeDataRecorder/drDataUpdate.py" />
-        <option value="$PROJECT_DIR$/TradeSystem/tsMain.py" />
         <option value="$PROJECT_DIR$/TradeSystem/tsTrade.py" />
-        <option value="$PROJECT_DIR$/TradeSystem/riskManage/tsRiskManage.py" />
         <option value="$PROJECT_DIR$/TradeSystem/positionManage/tsPositionManage.py" />
+        <option value="$PROJECT_DIR$/TradeSystem/riskManage/tsRiskManage.py" />
+        <option value="$PROJECT_DIR$/TradeSystem/tsMain.py" />
       </list>
     </option>
   </component>
@@ -835,9 +803,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1856" height="1096" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14253898" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14253898" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16648106" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1155,8 +1123,8 @@
           <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="84" selection-end-column="22" />
           <folding>
             <element signature="e#221#1873#0" expanded="false" />
-            <marker date="1481619194405" expanded="true" signature="2528:2591" ph="SELECT DISTI... " />
-            <marker date="1481619194405" expanded="true" signature="3051:3207" ph="select * fro... v_stock_1m" />
+            <marker date="1482739319008" expanded="true" signature="2528:2591" ph="SELECT DISTI... " />
+            <marker date="1482739319008" expanded="true" signature="3051:3207" ph="select * fro... v_stock_1m" />
           </folding>
         </state>
       </provider>
@@ -1166,9 +1134,9 @@
         <state relative-caret-position="2527">
           <caret line="195" column="0" selection-start-line="195" selection-start-column="0" selection-end-line="198" selection-end-column="13" />
           <folding>
-            <marker date="1482640000184" expanded="true" signature="2253:2316" ph="SELECT DISTI... " />
-            <marker date="1482640000184" expanded="true" signature="2582:2848" ph="select code,... " />
-            <marker date="1482640000184" expanded="true" signature="3110:3398" ph="SELECT [股票代码... " />
+            <marker date="1482739319008" expanded="true" signature="2253:2316" ph="SELECT DISTI... " />
+            <marker date="1482739319008" expanded="true" signature="2582:2848" ph="select code,... " />
+            <marker date="1482739319008" expanded="true" signature="3110:3398" ph="SELECT [股票代码... " />
           </folding>
         </state>
       </provider>
@@ -1178,9 +1146,9 @@
         <state relative-caret-position="480">
           <caret line="142" column="97" selection-start-line="142" selection-start-column="27" selection-end-line="142" selection-end-column="99" />
           <folding>
-            <marker date="1481686076829" expanded="true" signature="2103:2166" ph="SELECT DISTI... " />
-            <marker date="1481686076829" expanded="true" signature="2453:2629" ph="SELECT [股票代码... " />
-            <marker date="1481686076829" expanded="true" signature="2905:3864" ph="SELECT [code... " />
+            <marker date="1482739319007" expanded="true" signature="2103:2166" ph="SELECT DISTI... " />
+            <marker date="1482739319007" expanded="true" signature="2453:2629" ph="SELECT [股票代码... " />
+            <marker date="1482739319007" expanded="true" signature="2905:3864" ph="SELECT [code... " />
           </folding>
         </state>
       </provider>
@@ -1191,9 +1159,9 @@
           <caret line="89" column="54" selection-start-line="89" selection-start-column="39" selection-end-line="89" selection-end-column="54" />
           <folding>
             <element signature="e#15#30#0" expanded="true" />
-            <marker date="1481619047219" expanded="true" signature="2254:2317" ph="SELECT DISTI... " />
-            <marker date="1481619047219" expanded="true" signature="2557:2622" ph="select * fro... " />
-            <marker date="1481619047219" expanded="true" signature="3292:3363" ph="select * fro... " />
+            <marker date="1482739319008" expanded="true" signature="2254:2317" ph="SELECT DISTI... " />
+            <marker date="1482739319008" expanded="true" signature="2557:2622" ph="select * fro... " />
+            <marker date="1482739319008" expanded="true" signature="3292:3363" ph="select * fro... " />
           </folding>
         </state>
       </provider>
@@ -1203,12 +1171,12 @@
         <state relative-caret-position="143">
           <caret line="138" column="5" selection-start-line="138" selection-start-column="5" selection-end-line="173" selection-end-column="127" />
           <folding>
-            <marker date="1474422058000" expanded="true" signature="1944:2007" ph="SELECT DISTI... " />
-            <marker date="1474422058000" expanded="true" signature="2160:2221" ph="SELECT DISTI... " />
-            <marker date="1474422058000" expanded="true" signature="2601:2735" ph="select [code... " />
-            <marker date="1474422058000" expanded="true" signature="3006:3265" ph="select [code... " />
-            <marker date="1474422058000" expanded="true" signature="3708:3907" ph="select [code... " />
-            <marker date="1474422058000" expanded="true" signature="4212:4441" ph="select [code... " />
+            <marker date="1482739319009" expanded="true" signature="1944:2007" ph="SELECT DISTI... " />
+            <marker date="1482739319009" expanded="true" signature="2160:2221" ph="SELECT DISTI... " />
+            <marker date="1482739319009" expanded="true" signature="2601:2735" ph="select [code... " />
+            <marker date="1482739319009" expanded="true" signature="3006:3265" ph="select [code... " />
+            <marker date="1482739319009" expanded="true" signature="3708:3907" ph="select [code... " />
+            <marker date="1482739319009" expanded="true" signature="4212:4441" ph="select [code... " />
           </folding>
         </state>
       </provider>
@@ -1218,11 +1186,11 @@
         <state relative-caret-position="137">
           <caret line="143" column="17" selection-start-line="143" selection-start-column="8" selection-end-line="143" selection-end-column="17" />
           <folding>
-            <marker date="1481627060606" expanded="true" signature="1920:1983" ph="SELECT DISTI... " />
-            <marker date="1481627060606" expanded="true" signature="2589:2723" ph="select [code... " />
-            <marker date="1481627060606" expanded="true" signature="2994:3253" ph="select [code... " />
-            <marker date="1481627060606" expanded="true" signature="3696:3895" ph="select [code... " />
-            <marker date="1481627060606" expanded="true" signature="4200:4429" ph="select [code... " />
+            <marker date="1482739319009" expanded="true" signature="1920:1983" ph="SELECT DISTI... " />
+            <marker date="1482739319009" expanded="true" signature="2589:2723" ph="select [code... " />
+            <marker date="1482739319009" expanded="true" signature="2994:3253" ph="select [code... " />
+            <marker date="1482739319009" expanded="true" signature="3696:3895" ph="select [code... " />
+            <marker date="1482739319009" expanded="true" signature="4200:4429" ph="select [code... " />
           </folding>
         </state>
       </provider>
@@ -1233,13 +1201,13 @@
           <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding>
             <element signature="e#16#30#0" expanded="true" />
-            <marker date="1481254463013" expanded="true" signature="2094:2316" ph="SELECT code,... " />
-            <marker date="1481254463013" expanded="true" signature="2589:2666" ph="SELECT code,... stock_data" />
-            <marker date="1481254463013" expanded="true" signature="3785:3862" ph="SELECT code,... stock_data" />
-            <marker date="1481254463013" expanded="true" signature="4218:4343" ph="SELECT [clos... " />
-            <marker date="1481254463013" expanded="true" signature="4521:4559" ph="SELECT DISTI... " />
-            <marker date="1481254463013" expanded="true" signature="4521:4592" ph="SELECT DISTI... " />
-            <marker date="1481254463013" expanded="true" signature="5356:5484" ph="SELECT [clos... " />
+            <marker date="1482739319022" expanded="true" signature="2094:2316" ph="SELECT code,... " />
+            <marker date="1482739319022" expanded="true" signature="2589:2666" ph="SELECT code,... stock_data" />
+            <marker date="1482739319022" expanded="true" signature="3785:3862" ph="SELECT code,... stock_data" />
+            <marker date="1482739319022" expanded="true" signature="4218:4343" ph="SELECT [clos... " />
+            <marker date="1482739319022" expanded="true" signature="4521:4559" ph="SELECT DISTI... " />
+            <marker date="1482739319022" expanded="true" signature="4521:4592" ph="SELECT DISTI... " />
+            <marker date="1482739319022" expanded="true" signature="5356:5484" ph="SELECT [clos... " />
           </folding>
         </state>
       </provider>
@@ -1276,7 +1244,7 @@
           <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
           <folding>
             <element signature="e#17#36#0" expanded="true" />
-            <marker date="1481700346000" expanded="true" signature="196:322" ph="select [code... " />
+            <marker date="1482739319009" expanded="true" signature="196:322" ph="select [code... " />
           </folding>
         </state>
       </provider>
@@ -1286,7 +1254,7 @@
         <state relative-caret-position="741">
           <caret line="43" column="22" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
           <folding>
-            <marker date="1476087042000" expanded="true" signature="252:312" ph="select DISTI... " />
+            <marker date="1482739319007" expanded="true" signature="252:312" ph="select DISTI... " />
           </folding>
         </state>
       </provider>
@@ -1312,8 +1280,8 @@
         <state relative-caret-position="1270">
           <caret line="116" column="30" selection-start-line="116" selection-start-column="30" selection-end-line="116" selection-end-column="30" />
           <folding>
-            <marker date="1482736122508" expanded="true" signature="5118:5197" ph="SELECT [date... " />
-            <marker date="1482736122508" expanded="true" signature="5118:5218" ph="SELECT DISTI... " />
+            <marker date="1482739319023" expanded="true" signature="5118:5197" ph="SELECT [date... " />
+            <marker date="1482739319023" expanded="true" signature="5118:5218" ph="SELECT DISTI... " />
           </folding>
         </state>
       </provider>
@@ -1342,34 +1310,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TradeSystem/tsMain.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
-          <folding>
-            <element signature="e#16#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TradeDataRecorder/drDataUpdate.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1843">
           <caret line="499" column="21" selection-start-line="499" selection-start-column="21" selection-end-line="499" selection-end-column="21" />
           <folding>
             <element signature="e#16#31#0" expanded="true" />
-            <marker date="1482678835326" expanded="true" signature="1059:1122" ph="SELECT DISTI... " />
-            <marker date="1482678835326" expanded="true" signature="1232:1303" ph="select dateS... stock_800_1M_all_factors_for_roll" />
-            <marker date="1482678835326" expanded="true" signature="1842:2030" ph="SELECT [股票代码... " />
-            <marker date="1482678835326" expanded="true" signature="2324:3317" ph="SELECT [code... " />
-            <marker date="1482678835326" expanded="true" signature="2324:3321" ph="SELECT [code... " />
-            <marker date="1482678835326" expanded="true" signature="2324:3350" ph="SELECT [code... " />
-            <marker date="1482678835326" expanded="true" signature="11115:11192" ph="select * fro... " />
-            <marker date="1482678835326" expanded="true" signature="11694:11777" ph="select * fro... " />
-            <marker date="1482678835326" expanded="true" signature="15012:15190" ph="select * fro... v_stock_1m" />
-            <marker date="1482678835326" expanded="true" signature="17442:17737" ph="select code,... " />
-            <marker date="1482678835326" expanded="true" signature="17979:18274" ph="select code,... " />
-            <marker date="1482678835326" expanded="true" signature="18584:18925" ph="SELECT [股票代码... " />
+            <marker date="1482739319010" expanded="true" signature="1059:1122" ph="SELECT DISTI... " />
+            <marker date="1482739319010" expanded="true" signature="1232:1303" ph="select dateS... stock_800_1M_all_factors_for_roll" />
+            <marker date="1482739319010" expanded="true" signature="1842:2030" ph="SELECT [股票代码... " />
+            <marker date="1482739319010" expanded="true" signature="2324:3317" ph="SELECT [code... " />
+            <marker date="1482739319010" expanded="true" signature="2324:3321" ph="SELECT [code... " />
+            <marker date="1482739319010" expanded="true" signature="2324:3350" ph="SELECT [code... " />
+            <marker date="1482739319010" expanded="true" signature="11115:11192" ph="select * fro... " />
+            <marker date="1482739319010" expanded="true" signature="11694:11777" ph="select * fro... " />
+            <marker date="1482739319010" expanded="true" signature="15012:15190" ph="select * fro... v_stock_1m" />
+            <marker date="1482739319010" expanded="true" signature="17442:17737" ph="select code,... " />
+            <marker date="1482739319010" expanded="true" signature="17979:18274" ph="select code,... " />
+            <marker date="1482739319010" expanded="true" signature="18584:18925" ph="SELECT [股票代码... " />
           </folding>
         </state>
       </provider>
@@ -1384,14 +1342,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/riskManager/rmEngine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="21" column="39" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/riskManager/RM_setting.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1400,20 +1350,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/riskManager/rmEngine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-65">
+          <caret line="21" column="39" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/TradeSystem/positionManage/tsPositionManage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
+        <state relative-caret-position="285">
+          <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TradeSystem/riskManage/tsRiskManage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="93" column="21" selection-start-line="93" selection-start-column="21" selection-end-line="93" selection-end-column="21" />
+        <state relative-caret-position="95">
+          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
           <folding>
             <element signature="e#501#2375#0" expanded="false" />
+            <element signature="e#2443#3262#0" expanded="false" />
+            <element signature="e#3314#3934#0" expanded="false" />
+            <element signature="e#3989#4038#0" expanded="false" />
+            <element signature="e#4092#4141#0" expanded="false" />
+            <element signature="e#4187#4239#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeSystem/tsMain.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="33" column="12" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
+          <folding>
+            <element signature="e#16#27#0" expanded="true" />
           </folding>
         </state>
       </provider>

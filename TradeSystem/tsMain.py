@@ -26,11 +26,9 @@ def main():
         setting['sqlite_DB'].encode('utf-8')
     )
 
-    # DataUpdate(main_engine).run()
+    DataUpdate(main_engine).run()
 
     if setting['engine_type'] == "backtest":
-        # 运行
-        # 初始资金
         StrategyTest(main_engine).run()
     else:
         pass
