@@ -54,32 +54,88 @@
       <file leaf-file-name="drDataUpdate.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TradeDataRecorder/drDataUpdate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1843">
-              <caret line="499" column="21" selection-start-line="499" selection-start-column="21" selection-end-line="499" selection-end-column="21" />
+            <state relative-caret-position="-502">
+              <caret line="325" column="36" selection-start-line="325" selection-start-column="36" selection-end-line="325" selection-end-column="36" />
               <folding>
                 <element signature="e#16#31#0" expanded="true" />
-                <marker date="1482739319010" expanded="true" signature="1059:1122" ph="SELECT DISTI... " />
-                <marker date="1482739319010" expanded="true" signature="1232:1303" ph="select dateS... stock_800_1M_all_factors_for_roll" />
-                <marker date="1482739319010" expanded="true" signature="1842:2030" ph="SELECT [股票代码... " />
-                <marker date="1482739319010" expanded="true" signature="2324:3317" ph="SELECT [code... " />
-                <marker date="1482739319010" expanded="true" signature="2324:3321" ph="SELECT [code... " />
-                <marker date="1482739319010" expanded="true" signature="2324:3350" ph="SELECT [code... " />
-                <marker date="1482739319010" expanded="true" signature="11115:11192" ph="select * fro... " />
-                <marker date="1482739319010" expanded="true" signature="11694:11777" ph="select * fro... " />
-                <marker date="1482739319010" expanded="true" signature="15012:15190" ph="select * fro... v_stock_1m" />
-                <marker date="1482739319010" expanded="true" signature="17442:17737" ph="select code,... " />
-                <marker date="1482739319010" expanded="true" signature="17979:18274" ph="select code,... " />
-                <marker date="1482739319010" expanded="true" signature="18584:18925" ph="SELECT [股票代码... " />
+                <marker date="1482741395407" expanded="true" signature="1059:1122" ph="SELECT DISTI... " />
+                <marker date="1482741395407" expanded="true" signature="1232:1303" ph="select dateS... stock_800_1M_all_factors_for_roll" />
+                <marker date="1482741395407" expanded="true" signature="1842:2030" ph="SELECT [股票代码... " />
+                <marker date="1482741395407" expanded="true" signature="2324:3317" ph="SELECT [code... " />
+                <marker date="1482741395407" expanded="true" signature="2324:3321" ph="SELECT [code... " />
+                <marker date="1482741395407" expanded="true" signature="2324:3350" ph="SELECT [code... " />
+                <marker date="1482741395407" expanded="true" signature="11115:11192" ph="select * fro... " />
+                <marker date="1482741395407" expanded="true" signature="11694:11777" ph="select * fro... " />
+                <marker date="1482741395407" expanded="true" signature="15012:15190" ph="select * fro... v_stock_1m" />
+                <marker date="1482741395407" expanded="true" signature="17442:17737" ph="select code,... " />
+                <marker date="1482741395407" expanded="true" signature="17979:18274" ph="select code,... " />
+                <marker date="1482741395407" expanded="true" signature="18584:18925" ph="SELECT [股票代码... " />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tsMain.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ctaBase.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/ctaAlgo/ctaBase.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="513">
+              <caret line="39" column="16" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vtConstant.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/vtConstant.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-627">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vtMain.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/vtMain.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vtEngine.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/vtEngine.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1965">
+              <caret line="204" column="4" selection-start-line="204" selection-start-column="4" selection-end-line="210" selection-end-column="37" />
+              <folding>
+                <element signature="e#19#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tsTrade.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TradeSystem/tsTrade.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="695">
+              <caret line="116" column="30" selection-start-line="116" selection-start-column="30" selection-end-line="116" selection-end-column="30" />
+              <folding>
+                <marker date="1482739319023" expanded="true" signature="5118:5197" ph="SELECT [date... " />
+                <marker date="1482739319023" expanded="true" signature="5118:5218" ph="SELECT DISTI... " />
+                <marker date="1482739319023" expanded="true" signature="5560:5929" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tsMain.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TradeSystem/tsMain.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="467">
-              <caret line="33" column="12" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
+            <state relative-caret-position="486">
+              <caret line="34" column="37" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
               <folding>
                 <element signature="e#16#27#0" expanded="true" />
               </folding>
@@ -87,11 +143,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tsPositionManage.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TradeSystem/positionManage/tsPositionManage.py">
+      <file leaf-file-name="tsEngine.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TradeSystem/tsEngine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+            <state relative-caret-position="209">
+              <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tsAccount.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/TradeSystem/tsAccount.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="429">
+              <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -153,16 +219,16 @@
         <option value="$PROJECT_DIR$/TradeSystem/tsStrategy.py" />
         <option value="$PROJECT_DIR$/TradeSystem/selectStrategy/tsTrade.py" />
         <option value="$PROJECT_DIR$/TradeSystem/tsEngine.py" />
-        <option value="$PROJECT_DIR$/TradeSystem/tsAccount.py" />
         <option value="$PROJECT_DIR$/TradeSystem/selectStrategy/tsStrategy.py" />
         <option value="$PROJECT_DIR$/TradeDataRecorder/drDataBase.py" />
         <option value="$PROJECT_DIR$/TradeDataRecorder/S3_CalculateFactors_1Q.py" />
         <option value="$PROJECT_DIR$/TradeSystem/Trade_Setting.json" />
-        <option value="$PROJECT_DIR$/TradeDataRecorder/drDataUpdate.py" />
         <option value="$PROJECT_DIR$/TradeSystem/tsTrade.py" />
         <option value="$PROJECT_DIR$/TradeSystem/positionManage/tsPositionManage.py" />
         <option value="$PROJECT_DIR$/TradeSystem/riskManage/tsRiskManage.py" />
         <option value="$PROJECT_DIR$/TradeSystem/tsMain.py" />
+        <option value="$PROJECT_DIR$/TradeDataRecorder/drDataUpdate.py" />
+        <option value="$PROJECT_DIR$/TradeSystem/tsAccount.py" />
       </list>
     </option>
   </component>
@@ -338,7 +404,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="riskManager" />
+              <option name="myItemId" value="ctaAlgo" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -903,42 +969,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/ctaAlgo/datayesClient.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#75#90#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TradeSystem/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TradeDataRecorder/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/dataRecorder/uiDrWidget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#45#56#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/dataRecorder/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -951,24 +981,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/vtMain.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#19#29#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/vtEngine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="12" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="12" />
           <folding />
         </state>
       </provider>
@@ -1073,14 +1085,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="479">
           <caret line="140" column="36" selection-start-line="140" selection-start-column="36" selection-end-line="140" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/ctaAlgo/ctaBase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1212,24 +1216,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TradeSystem/tsEngine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TradeSystem/tsAccount.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding>
-            <element signature="e#16#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TradeSystem/Trade_Setting.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
@@ -1275,17 +1261,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TradeSystem/tsTrade.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1270">
-          <caret line="116" column="30" selection-start-line="116" selection-start-column="30" selection-end-line="116" selection-end-column="30" />
-          <folding>
-            <marker date="1482739319023" expanded="true" signature="5118:5197" ph="SELECT [date... " />
-            <marker date="1482739319023" expanded="true" signature="5118:5218" ph="SELECT DISTI... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TradeSystem/tsMain.py.lprof">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1307,28 +1282,6 @@
         <state relative-caret-position="315">
           <caret line="179" column="0" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TradeDataRecorder/drDataUpdate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1843">
-          <caret line="499" column="21" selection-start-line="499" selection-start-column="21" selection-end-line="499" selection-end-column="21" />
-          <folding>
-            <element signature="e#16#31#0" expanded="true" />
-            <marker date="1482739319010" expanded="true" signature="1059:1122" ph="SELECT DISTI... " />
-            <marker date="1482739319010" expanded="true" signature="1232:1303" ph="select dateS... stock_800_1M_all_factors_for_roll" />
-            <marker date="1482739319010" expanded="true" signature="1842:2030" ph="SELECT [股票代码... " />
-            <marker date="1482739319010" expanded="true" signature="2324:3317" ph="SELECT [code... " />
-            <marker date="1482739319010" expanded="true" signature="2324:3321" ph="SELECT [code... " />
-            <marker date="1482739319010" expanded="true" signature="2324:3350" ph="SELECT [code... " />
-            <marker date="1482739319010" expanded="true" signature="11115:11192" ph="select * fro... " />
-            <marker date="1482739319010" expanded="true" signature="11694:11777" ph="select * fro... " />
-            <marker date="1482739319010" expanded="true" signature="15012:15190" ph="select * fro... v_stock_1m" />
-            <marker date="1482739319010" expanded="true" signature="17442:17737" ph="select code,... " />
-            <marker date="1482739319010" expanded="true" signature="17979:18274" ph="select code,... " />
-            <marker date="1482739319010" expanded="true" signature="18584:18925" ph="SELECT [股票代码... " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1381,13 +1334,121 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/ctaAlgo/ctaEngine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-228">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/ctaAlgo/uiCtaWidget.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/ibGateway/ibGateway.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2679">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/vtEngine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1965">
+          <caret line="204" column="4" selection-start-line="204" selection-start-column="4" selection-end-line="210" selection-end-column="37" />
+          <folding>
+            <element signature="e#19#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/vtMain.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/vtConstant.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-627">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/ctaAlgo/ctaBase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="39" column="16" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeDataRecorder/drDataUpdate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-502">
+          <caret line="325" column="36" selection-start-line="325" selection-start-column="36" selection-end-line="325" selection-end-column="36" />
+          <folding>
+            <element signature="e#16#31#0" expanded="true" />
+            <marker date="1482741395407" expanded="true" signature="1059:1122" ph="SELECT DISTI... " />
+            <marker date="1482741395407" expanded="true" signature="1232:1303" ph="select dateS... stock_800_1M_all_factors_for_roll" />
+            <marker date="1482741395407" expanded="true" signature="1842:2030" ph="SELECT [股票代码... " />
+            <marker date="1482741395407" expanded="true" signature="2324:3317" ph="SELECT [code... " />
+            <marker date="1482741395407" expanded="true" signature="2324:3321" ph="SELECT [code... " />
+            <marker date="1482741395407" expanded="true" signature="2324:3350" ph="SELECT [code... " />
+            <marker date="1482741395407" expanded="true" signature="11115:11192" ph="select * fro... " />
+            <marker date="1482741395407" expanded="true" signature="11694:11777" ph="select * fro... " />
+            <marker date="1482741395407" expanded="true" signature="15012:15190" ph="select * fro... v_stock_1m" />
+            <marker date="1482741395407" expanded="true" signature="17442:17737" ph="select code,... " />
+            <marker date="1482741395407" expanded="true" signature="17979:18274" ph="select code,... " />
+            <marker date="1482741395407" expanded="true" signature="18584:18925" ph="SELECT [股票代码... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeSystem/tsTrade.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="695">
+          <caret line="116" column="30" selection-start-line="116" selection-start-column="30" selection-end-line="116" selection-end-column="30" />
+          <folding>
+            <marker date="1482739319023" expanded="true" signature="5118:5197" ph="SELECT [date... " />
+            <marker date="1482739319023" expanded="true" signature="5118:5218" ph="SELECT DISTI... " />
+            <marker date="1482739319023" expanded="true" signature="5560:5929" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/TradeSystem/tsMain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="33" column="12" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
+        <state relative-caret-position="486">
+          <caret line="34" column="37" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
           <folding>
             <element signature="e#16#27#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeSystem/tsEngine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeSystem/tsAccount.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>

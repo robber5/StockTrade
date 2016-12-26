@@ -338,7 +338,7 @@ class DataUpdate:
                 typePre = stock_data_qt.report_type[i + 1]
                 stock_data_qt.loc[typeNow, 'report_term'] = round((typeNow - typePre).days / 30.0)
                 if typePre.month == 12:
-                    stock_data_qt.loc[typeNow, 'qt_net_profit'] = stock_data_qt.loc[typeNow, 'net_profit']
+                    stock_data_qt.loc[typeNow, 'qt_net_pr   ofit'] = stock_data_qt.loc[typeNow, 'net_profit']
                     stock_data_qt.loc[typeNow, 'qt_op_profit'] = stock_data_qt.loc[typeNow, 'op_profit']
                     stock_data_qt.loc[typeNow, 'qt_op_earning'] = stock_data_qt.loc[typeNow, 'op_earning']
                 else:

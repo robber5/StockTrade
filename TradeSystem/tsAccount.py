@@ -21,21 +21,16 @@ class Account(object):
         # 买入股票池
         self.buylist = []
         # 净值记录表,包含日期,基金净值,指数净值
-        # columns=('date', 'fundvalue', 'benchmarkvalue')
         self.list_fundvalue = []
         # 调仓记录dataframe,包含日期,股票代码,股票名称,操作方向,操作手数,操作价格(前复权)
-        # columns=('date', 'stockcode', 'operatetype', 'referencenum','referenceprice')
         self.list_operate = []
         # 持仓dataframe,包含股票代码,前复权的股数价格
-        # columns=('stockcode', 'referencenum')
         self.list_position = {}
         # 账户初始资金
         self.capital_base = _capital_base
 
     def get_postion(self):
         """获取当前持仓"""
-        # print("获取当前持仓")
-        # @todo 获取当前持仓
         writer = csv.writer(open('D:/position_log/' + datetime.datetime.strftime(self.current_date, '%Y-%m-%d') + '-position.csv', 'wb'))
         writer.writerow(['stockcode', 'referencenum', 'buy_price', 'new_price'])
         for item in self.list_position:
