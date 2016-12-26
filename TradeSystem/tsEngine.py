@@ -26,7 +26,6 @@ class MainEngine(object):
         self.init_gateway()
 
         # 扩展模块(行情更新模块DataEngine,风控模块RiskEngine)
-        # self.dataEngine = DataEngine(self, self.eventEngine)
         self.riskEngine = RiskEngine()
         self.positionEngine = PositionEngine()
 

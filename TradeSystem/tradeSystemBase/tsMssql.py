@@ -142,11 +142,6 @@ class MSSQL:
             sql_tuple = self.execquery("SELECT DISTINCT [code] FROM stock_data where adjust_price_f is NOT NULL ")
             df = pd.DataFrame(sql_tuple)
             stockpool = df[0].tolist()
-
-        # if key == 'ZZ500':
-        #     sql_tuple = self.execquery("")
-        #     df = pd.DataFrame(sql_tuple)
-        #     stockpool = df[0].tolist()
         return stockpool
 
     def get_history(self, column_list, current_date):
