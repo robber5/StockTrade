@@ -20,3 +20,7 @@ def is_num(value):
         return False
     else:
         return True
+
+
+def get_format_date(date):
+    return datetime.strftime(date, '%Y-%m-%d')

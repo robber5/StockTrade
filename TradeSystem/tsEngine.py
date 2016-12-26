@@ -1,9 +1,11 @@
 # encoding: UTF-8
 
-from tsHedgeEngine import HedgeEngine
-from tsMssql import MSSQL
-from sqlalchemy import create_engine
 from collections import OrderedDict
+from sqlalchemy import create_engine
+from TradeSystem.riskManage.tsHedgeEngine import HedgeEngine
+from TradeSystem.tradeSystemBase.tsMssql import MSSQL
+from TradeSystem.riskManage.tsRiskManage import RiskEngine
+from TradeSystem.positionManage.tsPositionManage import PositionEngine
 
 
 class MainEngine(object):
@@ -17,7 +19,7 @@ class MainEngine(object):
 
         # 数据库连接
         self.mssqlDB = MSSQL(host=_host, user=_user, pwd=_pwd, db=_db)
-        self.sqliteDB = create_engine('sqlite:///'+_sqlite_path)
+        self.sqliteDB = create_engine('sqlite:///' + _sqlite_path)
 
         # 调用一个个初始化函数
         self.gatewayDict = None
@@ -25,7 +27,8 @@ class MainEngine(object):
 
         # 扩展模块(行情更新模块DataEngine,风控模块RiskEngine)
         # self.dataEngine = DataEngine(self, self.eventEngine)
-        # self.riskEngine = RiskEngine(self, self.eventEngine)
+        self.riskEngine = RiskEngine()
+        self.positionEngine = PositionEngine()
 
     def init_gateway(self):
         """初始化接口对象"""

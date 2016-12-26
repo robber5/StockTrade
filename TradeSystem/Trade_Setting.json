@@ -8,8 +8,8 @@
     "engine_type": "backtest",
     "benchmark": "sh000001",
     "start_day": "2000-01-04",
-    "end_day": "2016-06-10",
-    "capital_base": "100000000",
+    "end_day": "2016-06-01",
+    "capital_base": "10000000",
     "chosen_num": "2000",
     "stock_pool": "A"
 }

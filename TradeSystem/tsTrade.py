@@ -1,12 +1,12 @@
 # coding=utf-8
 
-from tsAccount import Account
-from tsFunction import *
+import csv
 import json
-import pandas as pd
-import matplotlib.pyplot as plt
-from datetime import *
 from datetime import timedelta
+import matplotlib.pyplot as plt
+import numpy as np
+from TradeSystem.tradeSystemBase.tsFunction import *
+from TradeSystem.tsAccount import Account
 
 
 class Trade(object):
@@ -30,12 +30,6 @@ class Trade(object):
         self.capital_base = 10000000
         # 持仓股票数量
         self.chosen_num = 10
-        # 滑点
-        self.slippage = 0.001
-        # 买入手续费
-        self.buy_commission = 0.0003
-        # 卖出手续费
-        self.sell_commission = 0.0013
         # 数据获取
         self.mssql = _main_engine.mssqlDB
         # 基准指数基础值
@@ -46,8 +40,20 @@ class Trade(object):
         self.changecalendars = []
         # sqlite数据库连接
         self.sqlite = _main_engine.sqliteDB
+        # zig的记录表
+        self.list_zig_log = []
         # 读取用户设置
         self.load_setting()
+        # 在策略中初始化账户
+        self.account = Account(self.capital_base, self.start_day, self.chosen_num)
+        # 开仓后高点的记录表
+        self.dic_high_stk_position = {}
+        # 引入风控引擎
+        self.riskEngine = _main_engine.riskEngine
+        # 引入仓控引擎
+        self.positionEngine = _main_engine.positionEngine
+        self.positionEngine.target_pool = self.stock_pool
+        self.positionEngine.stock_risk_ration_init()
 
     def print_info(self):
         """信息显示"""
@@ -59,23 +65,20 @@ class Trade(object):
         print('调仓周期:{0}'.format(self.freq))
         print('初始资金:{0}'.format(str(self.capital_base)))
         print('持仓股票数量:{0}'.format(str(self.chosen_num)))
-        print('滑点:{0}'.format(str(self.slippage)))
-        print('买入手续费:{0}'.format(str(self.buy_commission)))
-        print('卖出手续费:{0}'.format(str(self.sell_commission)))
 
     def back_test(self):
         """回测"""
-        account = Account(self.capital_base, self.start_day, self.chosen_num)
-        account.current_date = self.start_day
+
+        self.account.current_date = self.start_day
 
         output(u'开始回测')
 
-        while account.current_date <= self.end_day:
-            self.handle_date(account)
+        while self.account.current_date <= self.end_day:
+            self.handle_date()
 
         output(u'回测结束')
 
-    def handle_date(self, _account):
+    def handle_date(self):
         print("每日调仓变化")
         pass
 
@@ -92,12 +95,6 @@ class Trade(object):
             self.capital_base = int(str(setting['capital_base']))
         if 'chosen_num' in setting and str(setting['chosen_num']).isdigit():
             self.chosen_num = int(str(setting["chosen_num"]))
-        if 'slippage' in setting and is_num(setting['slippage']):
-            self.slippage = setting["slippage"]
-        if 'buy_commission' in setting and is_num(setting['buy_commission']):
-            self.buy_commission = setting["buy_commission"]
-        if 'sell_commission' in setting and is_num(setting["sell_commission"]):
-            self.sell_commission = setting["sell_commission"]
         if 'stock_pool' in setting:
             self.stock_pool = self.get_stock_pool_by_mark(str(setting['stock_pool']))
 
@@ -110,84 +107,90 @@ class Trade(object):
         """获取历史行情"""
         return self.mssql.get_history(column_list, self.tradecalendars[self.tradecalendars.index(current_day) + 1])
 
-    def order_to(self, account, _stockcode, _referencenum, _price):
-        """买卖操作"""
-        df = account.dfPosition.set_index('stockcode')
-        if _stockcode in df.index:
-            have_num = df.loc[_stockcode].values[0]
-        else:
-            have_num = 0
+    def buy(self, buy_list):
+        """买入操作"""
+        buy_result = self.riskEngine.buy(self.account, buy_list, self.positionEngine)
+        for s in buy_result:
+            if s not in self.dic_high_stk_position.keys():
+                self.dic_high_stk_position[s] = dict(high_price=0, buy_date=self.account.current_date)
 
-        if _referencenum >= have_num:
-            _operatetype = '买入'
-            account.cash = account.cash - (_referencenum - have_num) * _price - abs(
-                (_referencenum - have_num) * _price) * (self.slippage + self.buy_commission)
-        else:
-            _operatetype = '卖出'
-            account.cash = account.cash - (_referencenum - have_num) * _price - abs(
-                (_referencenum - have_num) * _price) * (self.slippage + self.sell_commission)
-
-        row = pd.DataFrame([dict(date=account.current_date, stockcode=_stockcode, operatetype=_operatetype,
-                                 referencenum=(_referencenum - have_num), referenceprice=_price), ])
-
-        account.dfOperate = account.dfOperate.append(row)
+    def sell(self, sell_list):
+        """卖出操作"""
+        sell_result = self.riskEngine.sell(self.account, sell_list)
+        for s in sell_result:
+            if sell_result[s] == 0:
+                self.dic_high_stk_position.pop(s)
 
     def get_fundvalue(self, _account):
         """获取资金净值"""
-        # print('获取资金净值')
-        # 计算净值变化
-        df = _account.dfPosition.groupby('stockcode').sum()
-        history_stock = self.mssql.get_stock_close(df, _account.current_date)
+        # 算净值
+        _account.fundvalue = 0
+
+        for item in _account.list_position:
+            _account.fundvalue += _account.list_position[item]['referencenum'] * _account.list_position[item][
+                'new_price']
+
+        _account.fundvalue = (_account.fundvalue + _account.cash) / self.capital_base
+
+        # 算基准值
         history_index = self.mssql.get_index(self.benchmark, _account.current_date, 'close')
 
-        history_stock = history_stock.groupby('code').sum()
-        df = pd.merge(df, history_stock, left_index='stockcode', right_index='code')
-        df['value'] = df['referencenum'] * df['adjust_price_f']
-        df = df['value']
-        _account.fundvalue = (df.sum() + _account.cash) / self.capital_base
+        if _account.fundvalue != 1:
+            if _account.benchmarkvalue == 1:
+                # 获取指数起始值
+                self.benchmark_base_value = self.mssql.get_index(self.benchmark, _account.current_date, 'open')
 
-        _account.benchmarkvalue = history_index / self.benchmark_base_value
+            _account.benchmarkvalue = history_index / self.benchmark_base_value
+        else:
+            _account.benchmarkvalue = 1
 
-        row = pd.DataFrame(
-            [dict(date=_account.current_date, fundvalue=_account.fundvalue, benchmarkvalue=_account.benchmarkvalue), ])
-        _account.dfFundvalue = _account.dfFundvalue.append(row)
-
-        print(datetime.strftime(_account.current_date, '%Y-%m-%d') + '净值:' + str(_account.fundvalue))
+        _account.list_fundvalue.append([_account.current_date, _account.fundvalue, _account.benchmarkvalue])
 
     def run(self):
         """主运行启动"""
-        account = Account(self.capital_base, self.start_day, self.chosen_num)
 
-        account.current_date = self.start_day
+        self.account.current_date = self.start_day
 
         # 时间预处理
         calendar_end_str = datetime.strftime(self.end_day, '%Y-%m-%d')
 
         # 创建日历
-        sql_str = "SELECT [date] FROM index_data WHERE [date]<='" + calendar_end_str + "'"
+        sql_str = "SELECT DISTINCT [date] FROM index_data WHERE [date]<='" + calendar_end_str + "' order by [date] desc"
         calendars = self.mssql.execquery(sql_str)
         for d in calendars:
             self.tradecalendars.append(d[0])
 
-        # 获取指数起始值
-        self.benchmark_base_value = self.mssql.get_index(self.benchmark, self.start_day, 'open')
-        # @todo 一次获取整个的值存入内存，不要一天天获取
-
-        account.benchmarkvalue = self.benchmark_base_value
-
         # 将净值起始设为1
-        row = pd.DataFrame(
-            [dict(date=account.current_date, fundvalue=1, benchmarkvalue=1), ])
-        account.dfFundvalue = account.dfFundvalue.append(row)
+        self.account.list_fundvalue.append([self.account.current_date, 1, 1])
 
         # 按日执行策略
-        while account.current_date <= self.end_day:
-            self.handle_date(account)
-            account.current_date = account.current_date + timedelta(days=1)
+        while self.account.current_date <= self.end_day:
+            print(self.account.current_date)
+            # @todo 加入仓控的内容——大盘择时的部分---> α和股票择时两个系统的仓位
+            if self.account.current_date in self.tradecalendars:
+                print(self.account.current_date)
+                self.positionEngine.position_manage(self.account.current_date)
+                self.handle_date()
+            self.account.current_date = self.account.current_date + timedelta(days=1)
 
         # 输出到csv
-        account.dfFundvalue.to_csv('fundvalue.csv', index=False, encoding='gbk')
-        account.dfOperate.to_csv('operate.csv', index=False, encoding='gbk')
+        writer = csv.writer(open('operate.csv', 'wb'))
+        writer.writerow(['date', 'stockcode', 'operatetype', 'referencenum', 'referenceprice'])
+        for item in self.account.list_operate:
+            item[0] = datetime.strftime(item[0], '%Y-%m-%d')
+            writer.writerow(item)
+
+        writer = csv.writer(open('fundvalue.csv', 'wb'))
+        writer.writerow(['date', 'fundvalue', 'benchmarkvalue'])
+        for item in self.account.list_fundvalue:
+            item[0] = datetime.strftime(item[0], '%Y-%m-%d')
+            writer.writerow(item)
+
+        writer = csv.writer(open('zig_log.csv', 'wb'))
+        writer.writerow(['code', 'date', 'price'])
+        for item in self.list_zig_log:
+            item[1] = datetime.strftime(item[1], '%Y-%m-%d')
+            writer.writerow(item)
 
         # 绘制净值曲线
         plt.plotfile('fundvalue.csv', ('date', 'fundvalue', 'benchmarkvalue'), subplots=False)

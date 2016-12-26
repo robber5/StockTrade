@@ -1,8 +1,9 @@
 # coding=utf-8
 
 import json
+from TradeSystem.selectStrategy.tsStrategy import StrategyTest
 from tsEngine import MainEngine
-from tsStrategy import StrategyTest
+from TradeDataRecorder.drDataUpdate import DataUpdate
 
 
 def main():
@@ -25,12 +26,15 @@ def main():
         setting['sqlite_DB'].encode('utf-8')
     )
 
+    # DataUpdate(main_engine).run()
+
     if setting['engine_type'] == "backtest":
         # 运行
         # 初始资金
         StrategyTest(main_engine).run()
-    # else:
-    #     Strategy(main_engine).run()
+    else:
+        pass
+        # Strategy(main_engine).run()
 
 if __name__ == '__main__':
     main()

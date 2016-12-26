@@ -69,7 +69,7 @@ class MSSQL:
         self.conn.commit()
         self.conn.close()
 
-    def get_open_history(self, current_date, _operate_list):
+    def get_open_price(self, current_date, _operate_list):
         """获取当日开盘价(前复权)"""
         select_date = datetime.strftime(current_date, '%Y-%m-%d')
 
@@ -80,43 +80,11 @@ class MSSQL:
 
         select_str = select_str[:-1]
 
-        sql_tuple = self.execquery("SELECT code,[open]*adjust_price_f/[close] AS adjust_open_f FROM stock_data WHERE date = '" + select_date + "' AND code IN (" + select_str + ")")
+        sql_tuple = self.execquery("SELECT code,[open]*adjust_price_f/[close] AS open_price,high*adjust_price_f/[close] as high_price,low*adjust_price_f/[close] as low_price  FROM stock_data WHERE date = '" + select_date + "' AND code IN (" + select_str + ")")
 
-        df = pd.DataFrame(sql_tuple, columns=('stockcode', 'adjust_open_f'))
+        df = pd.DataFrame(sql_tuple, columns=('stockcode', 'open', 'high', 'low'))
 
         return df
-
-    # def get_stock_close(self, df, current_date):
-    #     """获取股票池收盘价(前复权)"""
-    #     select_date = datetime.strftime(current_date, '%Y-%m-%d')
-    #
-    #     select_list = ''
-    #
-    #     for stk in df.index.values:
-    #         select_list = select_list + '\'' + stk + '\','
-    #
-    #     select_list = select_list[:-1]
-    #
-    #     query_line = "SELECT code,adjust_price_f FROM stock_data WHERE date = '" + select_date + \
-    #                 "' AND code IN ( " + select_list + " )"
-    #
-    #     sql_tuple = self.execquery(query_line)
-    #
-    #     history = pd.DataFrame(sql_tuple, columns=['code', 'adjust_price_f'])
-    #
-    #     # 对停牌的价格做下处理
-    #     suspension = list(set(df.index.values).difference(set(history['code'].values)))
-    #
-    #     if len(suspension) != 0:
-    #         for stk in suspension:
-    #             query_line = "SELECT top 1 code,adjust_price_f FROM stock_data WHERE date < '" + select_date + \
-    #                         "' AND code = '" + stk + "' order by date DESC"
-    #
-    #             sql_tuple = self.execquery(query_line)
-    #             df = pd.DataFrame(sql_tuple, columns=('code', 'adjust_price_f'))
-    #             history = pd.concat([history, df])
-    #
-    #     return history
 
     def get_stock_close(self, df, current_date):
         """获取股票池收盘价(前复权)"""
@@ -137,12 +105,25 @@ class MSSQL:
             for stk in suspension:
                 select_list = select_list + '\'' + stk + '\','
 
-            query_line = "SELECT top 1 code,adjust_price_f FROM stock_data WHERE date < '" + select_date + \
-                         "' AND code = '" + stk + "' order by date DESC"
+            select_list = select_list[:-1]
+
+            query_line = "WITH rank_stock(code, adjust_price_f ,rank_rn) AS (SELECT code, adjust_price_f ,DENSE_RANK() OVER(PARTITION BY code ORDER BY [date] desc) FROM stock_data where date<'" + select_date +"' and code in(" + select_list + ")) SELECT code,adjust_price_f FROM rank_stock WHERE rank_rn = 1"
 
             sql_tuple = self.execquery(query_line)
             df = pd.DataFrame(sql_tuple, columns=('code', 'adjust_price_f'))
             history = pd.concat([history, df])
+
+        return history
+
+    def get_close_price(self, current_date):
+        """获取股票池收盘价(前复权)"""
+        select_date = datetime.strftime(current_date, '%Y-%m-%d')
+
+        query_line = "SELECT code,adjust_price_f FROM stock_data WHERE date = '" + select_date + "'"
+
+        sql_tuple = self.execquery(query_line)
+
+        history = pd.DataFrame(sql_tuple, columns=['code', 'adjust_price_f'])
 
         return history
 
@@ -158,14 +139,19 @@ class MSSQL:
         """获取股票池"""
         stockpool = []
         if key == 'A':
-            sql_tuple = self.execquery("SELECT DISTINCT [code] FROM stock_data")
+            sql_tuple = self.execquery("SELECT DISTINCT [code] FROM stock_data where adjust_price_f is NOT NULL ")
             df = pd.DataFrame(sql_tuple)
             stockpool = df[0].tolist()
+
+        # if key == 'ZZ500':
+        #     sql_tuple = self.execquery("")
+        #     df = pd.DataFrame(sql_tuple)
+        #     stockpool = df[0].tolist()
         return stockpool
 
     def get_history(self, column_list, current_date):
         select_date = datetime.strftime(current_date, '%Y-%m-%d')
-        sql_tuple = self.execquery("SELECT code,[" + column_list + "] FROM stock_data where date ='" + select_date + "'")
+        sql_tuple = self.execquery("SELECT code," + column_list + " FROM stock_data where date ='" + select_date + "'")
         df = pd.DataFrame(sql_tuple)
         return df
 
