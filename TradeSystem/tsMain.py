@@ -29,7 +29,8 @@ def main():
     DataUpdate(main_engine).run()
 
     if setting['engine_type'] == "backtest":
-        StrategyTest(main_engine).run()
+        # StrategyTest(main_engine).run()
+        pass
     else:
         pass
         # Strategy(main_engine).run()

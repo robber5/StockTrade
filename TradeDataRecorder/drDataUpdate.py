@@ -42,7 +42,13 @@ class DataUpdate:
 
         cursor = pd.read_sql_query("select dateS from stock_800_1M_all_factors_for_roll order by dateS desc",
                                    sqlite_engine)
-        last_date_str = str(cursor.ix[0].values)[3:13]
+
+        last_date_str = '1900-01-01'
+
+        # if cursor:
+        #     last_date_str = str(cursor.ix[0].values)[3:13]
+        # else:
+        #     last_date_str = '1900-01-01'
 
         for stock_code in stock_list.stock_code:
             # @todo 分别处理日、周、月、季数据

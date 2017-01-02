@@ -130,7 +130,9 @@ class Trade(object):
             _account.fundvalue += _account.list_position[item]['referencenum'] * _account.list_position[item][
                 'new_price']
 
-        _account.fundvalue = (_account.fundvalue + _account.cash) / self.capital_base
+        position_ratio = float(_account.fundvalue / (_account.fundvalue + _account.cash))
+
+        _account.fundvalue = float((_account.fundvalue + _account.cash) / self.capital_base)
 
         # 算基准值
         history_index = self.mssql.get_index(self.benchmark, _account.current_date, 'close')
@@ -142,9 +144,9 @@ class Trade(object):
 
             _account.benchmarkvalue = history_index / self.benchmark_base_value
         else:
-            _account.benchmarkvalue = 1
+            _account.benchmarkvalue = 1.0
 
-        _account.list_fundvalue.append([_account.current_date, _account.fundvalue, _account.benchmarkvalue])
+        _account.list_fundvalue.append([_account.current_date, _account.fundvalue, _account.benchmarkvalue, position_ratio])
 
     def run(self):
         """主运行启动"""
@@ -161,7 +163,7 @@ class Trade(object):
             self.tradecalendars.append(d[0])
 
         # 将净值起始设为1
-        self.account.list_fundvalue.append([self.account.current_date, 1, 1])
+        self.account.list_fundvalue.append([self.account.current_date, 1, 1, 0])
 
         # 按日执行策略
         while self.account.current_date <= self.end_day:
@@ -181,7 +183,7 @@ class Trade(object):
             writer.writerow(item)
 
         writer = csv.writer(open('fundvalue.csv', 'wb'))
-        writer.writerow(['date', 'fundvalue', 'benchmarkvalue'])
+        writer.writerow(['date', 'fundvalue', 'benchmarkvalue', 'position_ratio'])
         for item in self.account.list_fundvalue:
             item[0] = datetime.strftime(item[0], '%Y-%m-%d')
             writer.writerow(item)
@@ -193,7 +195,7 @@ class Trade(object):
             writer.writerow(item)
 
         # 绘制净值曲线
-        plt.plotfile('fundvalue.csv', ('date', 'fundvalue', 'benchmarkvalue'), subplots=False)
+        plt.plotfile('fundvalue.csv', ('date', 'fundvalue', 'benchmarkvalue', 'position_ratio'), subplots=False)
         plt.show()
 
         # 打印各项参数

@@ -35,6 +35,14 @@ class MainEngine(object):
         self.gatewayDict = OrderedDict()
         # 各交易api的接口的调用
 
+    def writeLog(self, content):
+        """快速发出日志事件"""
+        log = VtLogData()
+        log.logContent = content
+        event = Event(type_=EVENT_LOG)
+        event.dict_['data'] = log
+        self.eventEngine.put(event)  
+
 
 
 

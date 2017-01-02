@@ -20,7 +20,7 @@ class Account(object):
         self.num = _num
         # 买入股票池
         self.buylist = []
-        # 净值记录表,包含日期,基金净值,指数净值
+        # 净值记录表,包含日期,基金净值,指数净值,仓位
         self.list_fundvalue = []
         # 调仓记录dataframe,包含日期,股票代码,股票名称,操作方向,操作手数,操作价格(前复权)
         self.list_operate = []
