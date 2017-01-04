@@ -1,5 +1,5 @@
 # encoding: UTF-8
-from TradeSystem.tradeSystemBase.tsMssql import MSSQL
+from tradeSystemBase.tsMssql import MSSQL
 
 
 class RiskEngine:
@@ -102,5 +102,3 @@ class RiskEngine:
     def switch_Engine_Status(self):
         """控制风控引擎开关"""
         self.active = not self.active
-
-
