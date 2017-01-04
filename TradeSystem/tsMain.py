@@ -1,7 +1,7 @@
 # coding=utf-8
 
 import json
-from TradeSystem.selectStrategy.tsStrategy import StrategyTest
+from selectStrategy.tsStrategy import StrategyTest
 from tsEngine import MainEngine
 from TradeDataRecorder.drDataUpdate import DataUpdate
 
@@ -29,11 +29,11 @@ def main():
     DataUpdate(main_engine).run()
 
     if setting['engine_type'] == "backtest":
-        # StrategyTest(main_engine).run()
-        pass
-    else:
-        pass
-        # Strategy(main_engine).run()
+        # 运行
+        # 初始资金
+        StrategyTest(main_engine).run()
+    # else:
+    #     Strategy(main_engine).run()
 
 if __name__ == '__main__':
     main()
