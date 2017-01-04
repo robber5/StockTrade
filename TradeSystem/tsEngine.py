@@ -2,10 +2,10 @@
 
 from collections import OrderedDict
 from sqlalchemy import create_engine
-from TradeSystem.riskManage.tsHedgeEngine import HedgeEngine
-from TradeSystem.tradeSystemBase.tsMssql import MSSQL
-from TradeSystem.riskManage.tsRiskManage import RiskEngine
-from TradeSystem.positionManage.tsPositionManage import PositionEngine
+from riskManage.tsHedgeEngine import HedgeEngine
+from tradeSystemBase.tsMssql import MSSQL
+from riskManage.tsRiskManage import RiskEngine
+from positionManage.tsPositionManage import PositionEngine
 
 
 class MainEngine(object):
@@ -37,12 +37,7 @@ class MainEngine(object):
 
     def writeLog(self, content):
         """快速发出日志事件"""
-        log = VtLogData()
-        log.logContent = content
-        event = Event(type_=EVENT_LOG)
-        event.dict_['data'] = log
-        self.eventEngine.put(event)  
-
+        pass
 
 
 
