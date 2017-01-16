@@ -104,7 +104,7 @@ class StockScreener(object):
         self.period = _period
         self.start_date = datetime.datetime.strptime(_start_date, '%Y-%m-%d')
         self.datedict = {}
-        self.engine = create_engine('sqlite:///E:\Wanda_Work\sqlite\stock.db')
+        self.engine = create_engine('sqlite:///D:\stock.db')
         self.ms = MSSQL(host="USER-GH61M1ULCU", user="sa", pwd="windows-999", db="stocks")
 
         self.date_today = datetime.datetime(1900, 1, 1)

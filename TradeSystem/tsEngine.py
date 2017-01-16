@@ -2,10 +2,9 @@
 
 from collections import OrderedDict
 from sqlalchemy import create_engine
-from riskManage.tsHedgeEngine import HedgeEngine
-from tradeSystemBase.tsMssql import MSSQL
-from riskManage.tsRiskManage import RiskEngine
+
 from positionManage.tsPositionManage import PositionEngine
+from tradeSystemBase.tsMssql import MSSQL
 
 
 class MainEngine(object):
@@ -14,7 +13,7 @@ class MainEngine(object):
     def __init__(self, _host, _user, _pwd, _db, _sqlite_path):
         """Constructor"""
         # 创建对冲引擎
-        self.eventEngine = HedgeEngine()
+        # self.eventEngine = HedgeEngine()
         # self.eventEngine.start()
 
         # 数据库连接
@@ -26,7 +25,6 @@ class MainEngine(object):
         self.init_gateway()
 
         # 扩展模块(行情更新模块DataEngine,风控模块RiskEngine)
-        self.riskEngine = RiskEngine()
         self.positionEngine = PositionEngine()
 
     def init_gateway(self):
@@ -34,10 +32,3 @@ class MainEngine(object):
         # 用来保存接口对象的字典
         self.gatewayDict = OrderedDict()
         # 各交易api的接口的调用
-
-    def writeLog(self, content):
-        """快速发出日志事件"""
-        pass
-
-
-

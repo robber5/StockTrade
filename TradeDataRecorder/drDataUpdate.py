@@ -42,17 +42,12 @@ class DataUpdate:
 
         cursor = pd.read_sql_query("select dateS from stock_800_1M_all_factors_for_roll order by dateS desc",
                                    sqlite_engine)
-
-        last_date_str = '1900-01-01'
-
-        # if cursor:
-        #     last_date_str = str(cursor.ix[0].values)[3:13]
-        # else:
-        #     last_date_str = '1900-01-01'
+        if cursor:
+            last_date_str = str(cursor.ix[0].values)[3:13]
+        else:
+            last_date_str = '1900-01-01'
 
         for stock_code in stock_list.stock_code:
-            # @todo 分别处理日、周、月、季数据
-            # @todo 验证是不是存在数据，最新的是啥时候的，按日、周、月、年的顺序
             if stock_code[0:2] == 'sh':
                 index_code = 'sh000001'
             elif stock_code[0:2] == 'sz':
@@ -571,6 +566,40 @@ class DataUpdate:
             df.to_sql('stock_all_1M_all_factors_for_weight_new', sqlite_engine, if_exists='append', index=False,
                       chunksize=100000)
 
+            df = pd.DataFrame(Mdata.loc[:, ['code', 'dateS', 'dateI']], index=Mdata.dateS,
+                              columns=['code', 'dateS', 'dateI', 'report_type', 'VOLBT' \
+                                  , 'ETOP', 'STO_1M', 'STO_3M', 'STO_6M', 'STO_12M', 'STO_60M' \
+                                  , 'RSTR_1M', 'RSTR_3M', 'RSTR_6M', 'RSTR_12M', 'LNCAP', 'BTOP', 'STOP', 'HILO',
+                                       'DASTD', 'LPRI', 'CMRA' \
+                                  , 'ALPHA', 'BTSG', 'SERDP', 'BETA', 'SIGMA' \
+                                  , 'ETP5', 'AGRO', 'MLEV', 'S_GPM', 'C_GPM', 'T_GPM' \
+                                  , 'S_NPM', 'C_NPM', 'T_NPM', 'S_ROE', 'C_ROE', 'T_ROE', 'S_ROA', 'C_ROA', 'T_ROA'
+                                  , 'stock_change', 'index_change'])
+
+            query_line = ("select * from stock_all_1M_industry_concept order by [dateS]")
+            dfStockIndustry = pd.read_sql(query_line, self.drEngine)
+            dfStockIndustry.set_index('dateS', drop=False, inplace=True)
+
+            df = pd.merge(df, dfStockIndustry, how='left', on=['code', 'dateS'])
+            df.set_index('dateI', drop=False, inplace=True)
+
+            # print df
+
+            query_line = ("select * from industry_change order by [dateI]")
+            dfIndustryChange = pd.read_sql(query_line, self.drEngine)
+            dfIndustryChange.set_index('dateI', drop=False, inplace=True)
+            # print dfIndustryChange
+
+            df['IndustryChange'] = None
+            for dateI in df.dateI.unique():  # len(df)):
+                for industry in df.industry.unique():
+                    print str(dateI) + ':  ' + str(industry)
+                    if isinstance(industry, basestring):  # 判断是否 字符型
+                        if industry is not None:
+                            df.loc[(df['dateI'] == dateI) & (df['industry'] == industry), 'IndustryChange'] = dfIndustryChange.loc[dateI, industry]
+
+            df.to_sql('stock_all_F_1M_weighting_new', self.drEngine, if_exists='append', index=False, chunksize=100000)
+
             for i in range(0, len(Mdata) - 1):
                 # print i
                 dateNw = Mdata.dateS[i]
@@ -610,6 +639,8 @@ class DataUpdate:
 
             # print df.T
             df.to_sql('stock_all_1M_all_factors_for_roll_new', sqlite_engine, if_exists='append', index=False, chunksize=100000)
+
+
 
 
 

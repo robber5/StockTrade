@@ -18,9 +18,10 @@ class Account(object):
         self.current_date = _start_date
         # 最大持仓股票数量
         self.num = _num
-        # 买入股票池
-        self.buylist = []
-        # 净值记录表,包含日期,基金净值,指数净值,仓位
+        # 买卖列表
+        self.buy_list = {}
+        self.sell_list = []
+        # 净值记录表,包含日期,基金净值,指数净值,zig仓位,alpha仓位
         self.list_fundvalue = []
         # 调仓记录dataframe,包含日期,股票代码,股票名称,操作方向,操作手数,操作价格(前复权)
         self.list_operate = []
@@ -28,6 +29,19 @@ class Account(object):
         self.list_position = {}
         # 账户初始资金
         self.capital_base = _capital_base
+        # 各部分头寸的比例
+        self.zig_position_ratio = 0
+        self.alpha_position_ratio = 0
+        # 对冲相关
+        # self.hedge_profit = 0
+        self.hedge_deposit = 0
+        # self.hedge_cash = 0
+        self.hedge_position = []
+        self.hedge_last_month_change = 0
+        # 期货相关
+        self.futures_leverage = 10
+        # 开仓后高点的记录表
+        self.dic_high_stk_position = {}
 
     def get_postion(self):
         """获取当前持仓"""

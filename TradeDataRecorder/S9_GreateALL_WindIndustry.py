@@ -32,7 +32,7 @@ if w.isconnected():
         print stock + '  :  ' + date
 
         # stock = '601628.SH'
-        data = w.wsd(stock,"concept,industry2,industrycode",date,date,"industryType=1","industryStandard=1","Period=M","PriceAdj=B")
+        data = w.wsd(stock, "concept,industry2,industrycode",date,date,"industryType=1","industryStandard=1","Period=M","PriceAdj=B")
 
         df.concept[i] = data.Data[0][0]
         df.industry[i] = data.Data[1][0]

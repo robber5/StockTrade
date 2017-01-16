@@ -69,6 +69,15 @@ class MSSQL:
         self.conn.commit()
         self.conn.close()
 
+    def get_futures(self, benchmark, current_date, column):
+        """获取期货收盘价"""
+        futures_value = 0
+        select_date = datetime.strftime(current_date, '%Y-%m-%d')
+        select_result = self.execquery("SELECT [" + column + "] FROM futures_data WHERE futuresID = '" + benchmark + "' AND date = '" + select_date + "'")
+        if select_result:
+            futures_value = select_result[0][0]
+        return futures_value
+
     def get_open_price(self, current_date, _operate_list):
         """获取当日开盘价(前复权)"""
         select_date = datetime.strftime(current_date, '%Y-%m-%d')
