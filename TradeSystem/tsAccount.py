@@ -33,9 +33,7 @@ class Account(object):
         self.zig_position_ratio = 0
         self.alpha_position_ratio = 0
         # 对冲相关
-        # self.hedge_profit = 0
         self.hedge_deposit = 0
-        # self.hedge_cash = 0
         self.hedge_position = []
         self.hedge_last_month_change = 0
         # 期货相关

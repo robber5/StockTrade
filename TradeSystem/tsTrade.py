@@ -67,18 +67,6 @@ class Trade(object):
         print('初始资金:{0}'.format(str(self.capital_base)))
         print('持仓股票数量:{0}'.format(str(self.chosen_num)))
 
-    # def back_test(self):
-    #     """回测"""
-    #
-    #     self.account.current_date = self.start_day
-    #
-    #     output(u'开始回测')
-    #
-    #     while self.account.current_date <= self.end_day:
-    #         self.timing_strategy()
-    #
-    #     output(u'回测结束')
-
     def timing_strategy(self):
         print("每日调仓变化")
         pass
@@ -130,12 +118,13 @@ class Trade(object):
 
         alpha_stock_fundvalue = self.positionEngine.get_alpha_fundvalue()
 
-        self.account.fundvalue = zig_fundvalue + self.account.cash + alpha_stock_fundvalue + self.account.hedge_cash + self.account.hedge_deposit  # + _account.hedge_profit
+        self.account.fundvalue = zig_fundvalue + self.account.cash + alpha_stock_fundvalue + self.account.hedge_deposit
 
+        # 算zig突破的持仓比例: position_ratio
         position_ratio = float(zig_fundvalue / self.account.fundvalue)
 
-        # 算alpha的持仓alpha_fundvalue
-        alpha_ratio = float(alpha_stock_fundvalue + self.account.hedge_cash + self.account.hedge_deposit / self.account.fundvalue)
+        # 算alpha的持仓: alpha_fundvalue
+        alpha_ratio = float((alpha_stock_fundvalue + self.account.hedge_deposit + (alpha_stock_fundvalue / self.account.futures_leverage)) / self.account.fundvalue)
 
         self.account.fundvalue = float(self.account.fundvalue / self.capital_base)
 
@@ -216,7 +205,7 @@ class Trade(object):
                 self.account.get_postion()
 
                 # 计算净值变化
-                if self.account.list_position:
+                if self.account.list_position or self.positionEngine.alpha_position_list:
                     self.get_fundvalue()
 
             self.account.current_date = self.account.current_date + timedelta(days=1)
@@ -241,7 +230,7 @@ class Trade(object):
             writer.writerow(item)
 
         # 绘制净值曲线
-        plt.plotfile('fundvalue.csv', ('date', 'fundvalue', 'benchmarkvalue', 'position_ratio'), subplots=False)
+        plt.plotfile('fundvalue.csv', ('date', 'fundvalue', 'benchmarkvalue', 'position_ratio', 'alpha_ratio'), subplots=False)
         plt.show()
 
         # 打印各项参数

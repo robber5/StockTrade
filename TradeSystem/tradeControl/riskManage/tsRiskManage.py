@@ -82,16 +82,42 @@ class RiskEngine:
     def operate(self):
         """整体仓位控制"""
         # 择时部分的买卖操作
-        if len(self.account.buy_list):
-            buy_result = self.buy(self.account.buy_list)
-            for s in buy_result:
-                if s not in self.account.dic_high_stk_position.keys():
-                    self.account.dic_high_stk_position[s] = dict(high_price=0, buy_date=self.account.current_date)
         if len(self.account.sell_list):
             sell_result = self.sell(self.account.sell_list)
             for s in sell_result:
                 if sell_result[s] == 0:
                     self.account.dic_high_stk_position.pop(s)
+
+        if self.account.list_fundvalue:
+            zig_fundvalue = self.account.list_fundvalue[-1][1]
+        else:
+            zig_fundvalue = 1
+
+        require_zig_fundvalue = zig_fundvalue * self.account.capital_base * self.position_engine.break_position_ratio
+
+        real_zig_fundvalue = 0
+
+        for item in self.account.list_position:
+            real_zig_fundvalue += self.account.list_position[item]['referencenum'] * self.account.list_position[item]['new_price']
+
+        if real_zig_fundvalue > require_zig_fundvalue:
+            print('zig持仓超标，等比例减少')
+
+            sell_price = self.sql_conn.get_open_price(self.account.current_date, self.account.list_position)
+
+            sell_price = sell_price.set_index('stockcode')
+            sell_price = sell_price[sell_price['high'] != sell_price['low']]
+            dic_sell_price = sell_price.to_dict()
+
+            for s in sell_price.index.values:
+                referencenum = self.account.list_position[s]['referencenum'] * 0.9   # 非停牌股票等比例减少10%
+                OperateManage().order_to(self.account, s, referencenum, dic_sell_price['open'][s])
+
+        elif len(self.account.buy_list):
+            buy_result = self.buy(self.account.buy_list)
+            for s in buy_result:
+                if s not in self.account.dic_high_stk_position.keys():
+                    self.account.dic_high_stk_position[s] = dict(high_price=0, buy_date=self.account.current_date)
 
         # alpha部分的股票的买、期货的卖操作
         hedge_position_new = self.hedge_engine.est_hedge_position()

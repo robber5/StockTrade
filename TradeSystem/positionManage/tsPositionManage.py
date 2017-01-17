@@ -39,7 +39,7 @@ class PositionEngine:
 
         # 大盘趋势 模型开关
         self.market_trend_active = False
-        self.alpha_position_ratio = 0.4
+        self.alpha_position_ratio = 1.0
         self.break_position_ratio = 0.0
         self.future_short_ratio = 0.0
 
