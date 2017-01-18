@@ -7,7 +7,7 @@ from TradeSystem.tradeSystemBase.tsMssql import MSSQL
 
 class PositionEngine:
     def __init__(self):
-        # 单只股票最大可亏损比例
+        # 单只股票趋势追踪最大可亏损比例
         self.risk_ratio_once = 0.0005
         self.dic_risk_ratio = {}
         self.target_pool = []
@@ -21,17 +21,18 @@ class PositionEngine:
         # alpha测算所用股票池
         self.alpha_stock_pool = 'All'
         # alpha模型建议持仓股票数量
-        self.alpha_stock_num = 50
-        self.alpha_start_date = '2007-04-01'
+        self.alpha_stock_num = 60
+        self.alpha_start_date = '2007-01-01'
         # 取当日之前alpha_est_len个自然的数据做线性回归
-        self.alpha_est_len = 365 * 2
+        self.alpha_est_len = 366 * 0.5
         # alpha模型的建议持仓列表
         self.alpha_buy_list = []
         # alpha实际买卖操作
         self.alpha_operate_list = []
+        self.alpha_stop_list = []
         # alpha实际持仓列表，包括实际最后买入的数量，买入的价格，当前的价格，一共3项
         self.alpha_position_list = {}
-        self.alpha_risk_levels = 5.0
+        self.alpha_risk_levels = 10.0    # alpha 控制的风险分组的数量
         self.stockScreener = StockScreener(self.alpha_stock_pool, self.alpha_period, self.alpha_start_date)
         self.sql_conn = MSSQL(host='127.0.0.1', user='sa', pwd='windows-999', db='stocks')
 
@@ -47,9 +48,15 @@ class PositionEngine:
         """alpha的净值"""
         alpha_fundvalue = 0
         for item in self.alpha_position_list:
-            alpha_fundvalue += self.alpha_position_list[item]['referencenum'] * self.alpha_position_list[item][
-                'new_price']
+            alpha_fundvalue += self.alpha_position_list[item]['referencenum'] * self.alpha_position_list[item]['new_price']
         return alpha_fundvalue
+
+    def get_alpha_stop_fundvalue(self):
+        """alpha停牌个股"""
+        alpha_stop_fundvalue = 0
+        for item in self.alpha_stop_list:
+            alpha_stop_fundvalue += self.alpha_position_list[item]['referencenum'] * self.alpha_position_list[item]['new_price']
+        return alpha_stop_fundvalue
 
     def update_alpha_position_price(self, current_date):
         df_close = self.sql_conn.get_close_price(current_date)

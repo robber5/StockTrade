@@ -3,6 +3,7 @@
 from TradeSystem.tradeSystemBase.tsMssql import MSSQL
 from TradeSystem.tradeControl.operateManage.tsOperateManage import OperateManage
 from TradeSystem.tradeControl.HedgeManage.tsHedgeEngine import HedgeEngine
+from TradeSystem.tradeSystemBase.tsFunction import *
 
 
 class RiskEngine:
@@ -16,7 +17,8 @@ class RiskEngine:
         # 数据库连接MSSQL
         self.sql_conn = MSSQL(host='127.0.0.1', user='sa', pwd='windows-999', db='stocks')
         alpha_max_position = self.account.list_fundvalue[-1][1] * self.account.capital_base * self.position_engine.alpha_position_ratio
-        self.hedge_engine = HedgeEngine(self.account, alpha_max_position)
+        # 减去停牌的个股后进行对冲
+        self.hedge_engine = HedgeEngine(self.account, alpha_max_position, self.position_engine.get_alpha_stop_fundvalue())
 
     def buy(self, _buy_list):
         """买入"""
@@ -119,10 +121,11 @@ class RiskEngine:
                 if s not in self.account.dic_high_stk_position.keys():
                     self.account.dic_high_stk_position[s] = dict(high_price=0, buy_date=self.account.current_date)
 
-        # alpha部分的股票的买、期货的卖操作
-        hedge_position_new = self.hedge_engine.est_hedge_position()
-        self.alpha_buy_stock(hedge_position_new)  # alpha 股票买操作
-        self.hedge_engine.open_hedge_trade(hedge_position_new, len(self.position_engine.alpha_position_list))
+        if self.account.current_date > get_format_date(self.position_engine.alpha_start_date):
+            # alpha部分的股票的买、期货的卖操作
+            hedge_position_new = self.hedge_engine.est_hedge_position()
+            self.alpha_buy_stock(hedge_position_new)  # alpha 股票买操作
+            self.hedge_engine.open_hedge_trade(hedge_position_new, len(self.position_engine.alpha_position_list))
 
     def future_close_settlement(self):
         self.hedge_engine.future_close_settlement()
@@ -146,8 +149,15 @@ class RiskEngine:
                 if s in operate_price.index.values.tolist():
                     operate_buy_list.append(s)
 
+            self.position_engine.alpha_stop_list = [s for s in position_list if s not in buy_list]
+
             for s in operate_buy_list:
-                stock_cash = hedge_position_new * self.account.hedge_position[1] * 300 / len(operate_buy_list)
+                # 将alpha_position_list当中，停牌的股票减去，因为无法调仓（已经不在新一期的alpha_buy_list中的股票不计算在hedge中）
+                position_list_stop = [s for s in position_list if s not in operate_price and s not in self.position_engine.alpha_stop_list]
+                position_list_stop_value = 0
+                for item in position_list_stop:
+                    position_list_stop_value += self.position_engine.alpha_position_list[item]['referencenum'] * self.position_engine.alpha_position_list[item]['new_price']
+                stock_cash = (hedge_position_new * self.account.hedge_position[1] * 300 - position_list_stop_value) / len(operate_buy_list)
                 referencenum = stock_cash / dic_operate_price['open'][s]
                 operate_dic[s] = referencenum
 
@@ -157,3 +167,7 @@ class RiskEngine:
 
             for s in operate_dic.keys():
                 OperateManage().alpha_order_to(self.account, self.position_engine, s, operate_dic[s], dic_operate_price['open'][s])
+
+        if self.account.cash < 0:
+            print self.position_engine.get_alpha_fundvalue()
+            print('alpha调仓导致cash不足')

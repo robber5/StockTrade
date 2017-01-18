@@ -80,7 +80,4 @@ class OperateManage(object):
 
             _position_engine.alpha_position_list[_stockcode] = dict(referencenum=_referencenum, buy_price=_price, new_price=0)
 
-        if _account.cash < 0:
-            print('alpha调仓导致cash不足')
-
         _position_engine.alpha_operate_list.append([_account.current_date, _stockcode, _operatetype, operate_num, _price])

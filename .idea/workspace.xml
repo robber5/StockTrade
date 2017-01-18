@@ -24,7 +24,7 @@
     <SUITE FILE_PATH="coverage/StockTrade$dataAnalysis.coverage" NAME="dataAnalysis Coverage Results" MODIFIED="1479709195829" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/StockTrade$S3_CalculateFactors_1D.coverage" NAME="S3_CalculateFactors_1D Coverage Results" MODIFIED="1481617637273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TradeRolling" />
     <SUITE FILE_PATH="coverage/StockTrade$test3.coverage" NAME="test3 Coverage Results" MODIFIED="1482117058562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TradeSystem" />
-    <SUITE FILE_PATH="coverage/StockTrade$tsMain.coverage" NAME="tsMain Coverage Results" MODIFIED="1484639413381" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TradeSystem" />
+    <SUITE FILE_PATH="coverage/StockTrade$tsMain.coverage" NAME="tsMain Coverage Results" MODIFIED="1484730914403" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TradeSystem" />
     <SUITE FILE_PATH="coverage/StockTrade$S3_CalculateFactors_1D__1_.coverage" NAME="S3_CalculateFactors_1D (1) Coverage Results" MODIFIED="1482641570034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TradeDataRecorder" />
     <SUITE FILE_PATH="coverage/StockTrade$mongotest.coverage" NAME="mongotest Coverage Results" MODIFIED="1477557147120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../quantdigger-master/demo" />
     <SUITE FILE_PATH="coverage/StockTrade$test2.coverage" NAME="test2 Coverage Results" MODIFIED="1482111402570" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TradeSystem" />
@@ -54,8 +54,8 @@
       <file leaf-file-name="tsRiskManage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TradeSystem/tradeControl/riskManage/tsRiskManage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+            <state relative-caret-position="1938">
+              <caret line="102" column="59" selection-start-line="102" selection-start-column="59" selection-end-line="102" selection-end-column="59" />
               <folding>
                 <element signature="e#19#72#0" expanded="true" />
               </folding>
@@ -63,11 +63,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tsAccount.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tsEngine.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TradeSystem/tsEngine.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tsAccount.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TradeSystem/tsAccount.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="34" column="14" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="14" />
+            <state relative-caret-position="23">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tsPositionManage.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TradeSystem/positionManage/tsPositionManage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="748">
+              <caret line="57" column="128" selection-start-line="57" selection-start-column="36" selection-end-line="57" selection-end-column="128" />
               <folding />
             </state>
           </provider>
@@ -76,60 +96,21 @@
       <file leaf-file-name="tsTrade.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TradeSystem/tsTrade.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3722">
-              <caret line="228" column="60" selection-start-line="228" selection-start-column="60" selection-end-line="228" selection-end-column="60" />
+            <state relative-caret-position="1030">
+              <caret line="193" column="44" selection-start-line="193" selection-start-column="34" selection-end-line="193" selection-end-column="44" />
               <folding>
-                <marker date="1484637861841" expanded="true" signature="6197:6297" ph="SELECT DISTI... " />
+                <element signature="e#16#26#0" expanded="true" />
+                <marker date="1484725414840" expanded="true" signature="6187:6287" ph="SELECT DISTI... " />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tsPositionManage.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TradeSystem/positionManage/tsPositionManage.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="33" column="36" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tsOperateManage.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TradeSystem/tradeControl/operateManage/tsOperateManage.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tsHedgeEngine.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="tsHedgeEngine.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TradeSystem/tradeControl/HedgeManage/tsHedgeEngine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-344">
-              <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tsEngine.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TradeSystem/tsEngine.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tsMain.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TradeSystem/tsMain.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="5" column="53" selection-start-line="5" selection-start-column="53" selection-end-line="5" selection-end-column="53" />
+            <state relative-caret-position="570">
+              <caret line="75" column="44" selection-start-line="75" selection-start-column="44" selection-end-line="75" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -151,7 +132,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/../flask_stock/templates/index.html" />
         <option value="$PROJECT_DIR$/../flask_stock/pretest.py" />
         <option value="$PROJECT_DIR$/../flask_stock/stock_json.py" />
         <option value="$PROJECT_DIR$/TradeSystem/tsMssql.py" />
@@ -187,21 +167,22 @@
         <option value="$PROJECT_DIR$/TradeSystem/tradeControl/tsRiskManage.py" />
         <option value="$PROJECT_DIR$/TradeSystem/tsLog.py" />
         <option value="$PROJECT_DIR$/TradeSystem/tradeSystemBase/tsLog.py" />
-        <option value="$PROJECT_DIR$/TradeSystem/tsMain.py" />
         <option value="$PROJECT_DIR$/test/test.py" />
         <option value="$PROJECT_DIR$/TradeDataRecorder/S9_GreateALL_WindIndustry.py" />
         <option value="$PROJECT_DIR$/TradeDataRecorder/drDataUpdate.py" />
-        <option value="$PROJECT_DIR$/TradeSystem/tsEngine.py" />
         <option value="$PROJECT_DIR$/TradeSystem/tradeSystemBase/tsMssql.py" />
-        <option value="$PROJECT_DIR$/TradeSystem/alphaModel/tsAlphaWeight.py" />
         <option value="$PROJECT_DIR$/TradeSystem/Trade_Setting.json" />
-        <option value="$PROJECT_DIR$/TradeSystem/tradeControl/operateManage/tsOperateManage.py" />
-        <option value="$PROJECT_DIR$/TradeSystem/selectStrategy/tsStrategy.py" />
         <option value="$PROJECT_DIR$/TradeSystem/tsAccount.py" />
-        <option value="$PROJECT_DIR$/TradeSystem/tradeControl/HedgeManage/tsHedgeEngine.py" />
+        <option value="$PROJECT_DIR$/TradeSystem/alphaModel/tsAlphaWeight.py" />
+        <option value="$PROJECT_DIR$/TradeSystem/tsEngine.py" />
+        <option value="$PROJECT_DIR$/TradeSystem/tradeControl/operateManage/tsOperateManage.py" />
+        <option value="$PROJECT_DIR$/TradeSystem/tradeSystemBase/tsFunction.py" />
+        <option value="$PROJECT_DIR$/TradeSystem/selectStrategy/tsStrategy.py" />
+        <option value="$PROJECT_DIR$/TradeSystem/tsMain.py" />
+        <option value="$PROJECT_DIR$/TradeSystem/tsTrade.py" />
         <option value="$PROJECT_DIR$/TradeSystem/positionManage/tsPositionManage.py" />
         <option value="$PROJECT_DIR$/TradeSystem/tradeControl/riskManage/tsRiskManage.py" />
-        <option value="$PROJECT_DIR$/TradeSystem/tsTrade.py" />
+        <option value="$PROJECT_DIR$/TradeSystem/tradeControl/HedgeManage/tsHedgeEngine.py" />
       </list>
     </option>
   </component>
@@ -328,25 +309,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="selectStrategy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="StockTrade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="StockTrade" />
+              <option name="myItemId" value="tradeControl" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="TradeSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="positionManage" />
+              <option name="myItemId" value="HedgeManage" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -796,11 +763,11 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32987553" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33506224" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32987553" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3008299" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3008299" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1709354" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32987553" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984003" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34647304" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34751037" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -853,16 +820,6 @@
           <line>142</line>
           <option name="timeStamp" value="413" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/TradeSystem/tradeControl/HedgeManage/tsHedgeEngine.py</url>
-          <line>29</line>
-          <option name="timeStamp" value="474" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/TradeSystem/tsTrade.py</url>
-          <line>101</line>
-          <option name="timeStamp" value="475" />
-        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -874,33 +831,21 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="479" />
+      <option name="time" value="497" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="self.account.list_position" />
-        <watch expression="self.positionEngine.alpha_position_list" />
-        <watch expression="zig_fundvalue" />
-        <watch expression="self.account.cash" />
-        <watch expression="alpha_stock_fundvalue" />
-        <watch expression="self.account.hedge_deposit" />
-        <watch expression="(alpha_stock_fundvalue / self.account.futures_leverage)" />
-        <watch expression="alpha_ratio" />
-        <watch expression="self.account.fundvalue" />
+        <watch expression="buy_list" />
+        <watch expression="position_list" />
+        <watch expression="self.sql_conn.get_open_price(self.account.current_date, set(buy_list).union(set(position_list.keys())))" />
+        <watch expression="operate_buy_list" />
+        <watch expression="operate_dic" />
+        <watch expression="self.position_engine" language="Python" />
+        <watch expression="s in list_zig_base_keys" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../vnpy/vn.trader/eventEngine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="174" column="30" selection-start-line="174" selection-start-column="30" selection-end-line="174" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/readme.ipynb" />
-    <entry file="file://$PROJECT_DIR$/RealTransactionSystem/readme.txt" />
-    <entry file="file://$PROJECT_DIR$/flask_stock/operate.csv" />
     <entry file="file://$PROJECT_DIR$/flask_stock/templates/index.html" />
     <entry file="file://$PROJECT_DIR$/TradeSystem/readme.txt">
       <provider selected="true" editor-type-id="text-editor">
@@ -1026,17 +971,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TradeDataRecorder/S9_GreateALL_WindIndustry.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding>
-            <element signature="e#17#36#0" expanded="true" />
-            <marker date="1484117730247" expanded="true" signature="196:322" ph="select [code... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TradeDataRecorder/S20_TEST_table.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="341">
@@ -1061,37 +995,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TradeSystem/Trade_Setting.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TradeSystem/selectStrategy/tsStrategy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1026">
-          <caret line="54" column="30" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
-          <folding>
-            <element signature="e#64#82#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TradeSystem/alphaModel/tsAlphaWeight.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1938">
-          <caret line="104" column="51" selection-start-line="104" selection-start-column="51" selection-end-line="104" selection-end-column="51" />
-          <folding>
-            <element signature="e#251#1907#0" expanded="false" />
-            <element signature="e#1944#2373#0" expanded="false" />
-            <marker date="1484300038025" expanded="true" signature="6755:7047" ph="SELECT * FRO... stock_all_F_1M_weighting" />
-            <marker date="1484300038025" expanded="true" signature="11335:11423" ph="SELECT * FRO... stock_all_F_1M_rolling" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TradeSystem/tradeSystemBase/tsMssql.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="158">
@@ -1103,24 +1006,6 @@
             <marker date="1484223357372" expanded="true" signature="4954:5025" ph="SELECT DISTI... " />
             <marker date="1484223357372" expanded="true" signature="5630:5758" ph="SELECT [clos... " />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TradeSystem/tradeControl/riskManage/tsRiskManage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
-          <folding>
-            <element signature="e#19#72#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TradeSystem/tradeControl/operateManage/tsOperateManage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1140,52 +1025,145 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TradeSystem/tradeControl/HedgeManage/tsHedgeEngine.py">
+    <entry file="file://$PROJECT_DIR$/TradeSystem/alphaModel/tsAlphaWeight.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-344">
-          <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+        <state relative-caret-position="532">
+          <caret line="114" column="0" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+          <folding>
+            <element signature="e#251#1907#0" expanded="false" />
+            <element signature="e#1944#2379#0" expanded="false" />
+            <marker date="1484643411106" expanded="true" signature="5108:5425" ph="SELECT * FRO... stock_all_F_1M_weighting_standard_de_industry" />
+            <marker date="1484643411106" expanded="true" signature="10596:10705" ph="SELECT * FRO... stock_all_F_1M_rolling_standard_de_industry" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/tsPositionManage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeSystem/Trade_Setting.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeSystem/tradeControl/operateManage/tsOperateManage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="834">
+          <caret line="69" column="35" selection-start-line="69" selection-start-column="35" selection-end-line="69" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeDataRecorder/S9_GreateALL_WindIndustry.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="37" column="40" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
+          <folding>
+            <element signature="e#17#36#0" expanded="true" />
+            <marker date="1484117730247" expanded="true" signature="196:322" ph="select [code... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2016.1/system/python_stubs/1716091371/datetime.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="51" column="8" selection-start-line="51" selection-start-column="8" selection-end-line="51" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeSystem/selectStrategy/tsStrategy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1539">
+          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+          <folding>
+            <element signature="e#64#82#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Anaconda2/Lib/collections.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TradeSystem/tsMain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="5" column="53" selection-start-line="5" selection-start-column="53" selection-end-line="5" selection-end-column="53" />
+        <state relative-caret-position="182">
+          <caret line="17" column="36" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TradeSystem/tsEngine.py">
+    <entry file="file://$PROJECT_DIR$/TradeSystem/tradeSystemBase/tsFunction.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+        <state relative-caret-position="456">
+          <caret line="24" column="30" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TradeSystem/tsTrade.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3722">
-          <caret line="228" column="60" selection-start-line="228" selection-start-column="60" selection-end-line="228" selection-end-column="60" />
+        <state relative-caret-position="1030">
+          <caret line="193" column="44" selection-start-line="193" selection-start-column="34" selection-end-line="193" selection-end-column="44" />
           <folding>
-            <marker date="1484637861841" expanded="true" signature="6197:6297" ph="SELECT DISTI... " />
+            <element signature="e#16#26#0" expanded="true" />
+            <marker date="1484725414840" expanded="true" signature="6187:6287" ph="SELECT DISTI... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeSystem/tsAccount.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeSystem/tsEngine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeSystem/tradeControl/riskManage/tsRiskManage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1938">
+          <caret line="102" column="59" selection-start-line="102" selection-start-column="59" selection-end-line="102" selection-end-column="59" />
+          <folding>
+            <element signature="e#19#72#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TradeSystem/positionManage/tsPositionManage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="33" column="36" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="36" />
+        <state relative-caret-position="748">
+          <caret line="57" column="128" selection-start-line="57" selection-start-column="36" selection-end-line="57" selection-end-column="128" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TradeSystem/tsAccount.py">
+    <entry file="file://$PROJECT_DIR$/TradeSystem/tradeControl/HedgeManage/tsHedgeEngine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="34" column="14" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="14" />
+        <state relative-caret-position="570">
+          <caret line="75" column="44" selection-start-line="75" selection-start-column="44" selection-end-line="75" selection-end-column="44" />
           <folding />
         </state>
       </provider>

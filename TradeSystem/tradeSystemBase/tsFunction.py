@@ -22,5 +22,9 @@ def is_num(value):
         return True
 
 
-def get_format_date(date):
+def get_format_date_str(date):
     return datetime.strftime(date, '%Y-%m-%d')
+
+
+def get_format_date(string):
+    return datetime.strptime(string, '%Y-%m-%d')

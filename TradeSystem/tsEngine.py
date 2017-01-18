@@ -2,7 +2,6 @@
 
 from collections import OrderedDict
 from sqlalchemy import create_engine
-
 from positionManage.tsPositionManage import PositionEngine
 from tradeSystemBase.tsMssql import MSSQL
 
@@ -12,9 +11,6 @@ class MainEngine(object):
 
     def __init__(self, _host, _user, _pwd, _db, _sqlite_path):
         """Constructor"""
-        # 创建对冲引擎
-        # self.eventEngine = HedgeEngine()
-        # self.eventEngine.start()
 
         # 数据库连接
         self.mssqlDB = MSSQL(host=_host, user=_user, pwd=_pwd, db=_db)

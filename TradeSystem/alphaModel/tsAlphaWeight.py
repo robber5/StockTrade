@@ -85,8 +85,8 @@ def standardize_f(fctor):
         # #因子去极值处理
         m_X = np.median(X0)
         mad_X = np.median(abs(X0-m_X))
-        thresh_max = m_X+5*mad_X
-        thresh_min = m_X-5*mad_X
+        thresh_max = m_X+15.0*mad_X
+        thresh_min = m_X-15.0*mad_X
         X1[X1 > thresh_max] = thresh_max
         X1[X1 < thresh_min] = thresh_min
         # 因子值标准化
@@ -123,63 +123,28 @@ class StockScreener(object):
                 self.datedict['est_date_now'] = self.date_yesterday  # 取上个月最后一个交易日期
                 act_flag = True
 
-
-
         return act_flag
 
     def get_linear_beta(self, stockR, stockF, F_name):
-        # dfTMP = pd.merge(stockF.loc[:, ['code', F_name]].dropna(), stockR.dropna(), on='code', how='inner')
-
-        if F_name == 'All':
-            dfTMP = stockF.copy()
-            dfTMP = dfTMP.dropna()
-            # print dfTMP
-            X = dfTMP.loc[:,['ETOP', 'ETP5', 'Growth', 'Leverage', 'STO_1M', 'STO_3M', 'STO_6M', 'STO_12M', 'STO_60M', 'ALPHA',
-                             'RSTR_1M', 'RSTR_3M', 'RSTR_6M', 'RSTR_12M', 'Size', 'BTOP', 'STOP', 'HILO', 'BTSG', 'DASTD', 'LPRI', 'CMRA', 'VOLBT',
-                             'SERDP', 'BETA', 'SIGMA', 'S_GPM', 'C_GPM', 'T_GPM', 'S_NPM', 'C_NPM', 'T_NPM', 'S_ROE', 'C_ROE', 'T_ROE',
-                             'S_ROA', 'C_ROA', 'T_ROA']]
-            # 所有因子列做标准化处理
-            for i in range(1, len(X.T)):
-                # print X.iloc[:, i]
-                X.iloc[:, i] = standardize_f(X.iloc[:, i])
-        elif F_name == 'Test':
-            dfTMP = stockF.loc[:, ['code', 'Size', 'Value', 'stock_change']].copy()
-            dfTMP = dfTMP.dropna()
-            X = dfTMP.loc[:,['Size', 'Value']]
-            # 所有因子列做标准化处理
-            for i in range(0, len(X.T)):
-                # print X.iloc[:, i].head(1)
-                X.iloc[:, i] = standardize_f(X.iloc[:, i])
-        else:
-            dfTMP = stockF.loc[:, ['code', F_name, 'stock_change']].copy()
-            dfTMP = dfTMP.dropna()
-            X = dfTMP[F_name]
-            X.iloc[:, 1] = standardize_f(X.iloc[:, 1])
+        dfTMP = stockF.loc[:, ['code', F_name]].copy()
+        X = dfTMP[F_name]
 
         # print X
-
-
-        Y = dfTMP['stock_change']*100.
+        Y = stockR['stock_change'] - stockF['IndustryChange']
         bench = sm.add_constant(X)
         model = regression.linear_model.OLS(Y, bench).fit()
 
         alpha = model.params[0]
-        beta = model.params[1:len(model.params)]
-        # beta = beta[0]
+        beta = model.params[1]
 
-        # # 计算残差
-        # # print X
-        # print F_name + '    ' + str(beta)
-        # Y_hat = np.dot(X, beta) + alpha
-        # residual = Y - Y_hat
-        # # print residual
-        #
-        # # 画图 (只对 1纬X 有效)
-        # plt.scatter(X, Y, alpha=0.3)  # Plot the raw data
-        # plt.plot(X, Y_hat, 'r', alpha=0.9)  # Add the regression line, colored in red
-        # plt.xlabel('X Value')
-        # plt.ylabel('Y Value')
-        # plt.show()
+        t = model.tvalues[1]
+        rsq = model.rsquared_adj
+        f = model.fvalue
+        f_p = model.f_pvalue
+
+        test = [t, 10000.0*rsq, f, f_p]
+
+        output = beta * f
 
         return beta
 
@@ -204,23 +169,20 @@ class StockScreener(object):
         dateBegin =  datetime.datetime.strftime(dateBegin, '%Y-%m-%d %H:%M:%S')
         # print dateBegin
 
-        sqlstr = ("SELECT * FROM stock_all_F_1M_weighting \
+        sqlstr = ("SELECT * FROM stock_all_F_1M_weighting_standard_de_industry \
                 where dateI<='%(select_date_now)s' \
                 and dateI>'%(dateBegin)s' \
                   And [stock_change] is not null \
-                  And [stock_change]<=1.4 And [stock_change]>=-0.5 \
+                  And [stock_change]<=1.486 And [stock_change]>=-0.667 \
                order by dateI desc"
               % {'select_date_now': str(select_date_now), 'dateBegin': str(dateBegin)})
         # print sqlstr
-
 
         dfFactor = pd.read_sql(sqlstr, self.engine)
         # print dfFactor
         if self.basestockpool != 'All':
             dfFactor = pd.merge(dfstockpool, dfFactor, on='code', how='left')     # merge会去掉前一期的股票, 计算beta值时会减少样本数量
-        # print dfFactor
-        # 公式计算修正处
-        # industry_list = pd.read_csv('.\Industry_IndexCode.csv')
+
         dfFactor.set_index('dateI', drop=False, inplace=True)
         # print dfFactor
         T0_stockR = dfFactor.loc[:, ['code', 'stock_change']].copy()
@@ -228,65 +190,57 @@ class StockScreener(object):
             :, ['code', 'ETOP', 'ETP5', 'Growth', 'Leverage', 'STO_1M', 'STO_3M', 'STO_6M', 'STO_12M', 'STO_60M', 'ALPHA',
                 'RSTR_1M', 'RSTR_3M', 'RSTR_6M', 'RSTR_12M', 'Size', 'BTOP', 'STOP', 'HILO', 'BTSG', 'DASTD', 'LPRI', 'CMRA', 'VOLBT',
                 'SERDP', 'BETA', 'SIGMA', 'S_GPM', 'C_GPM', 'T_GPM', 'S_NPM', 'C_NPM', 'T_NPM', 'S_ROE', 'C_ROE', 'T_ROE',
-                'S_ROA', 'C_ROA', 'T_ROA' , 'stock_change']].copy()
+                'S_ROA', 'C_ROA', 'T_ROA', 'IndustryChange']].copy()
         # print T1_stockF
-        T1_F_Beta = pd.DataFrame(np.zeros([2, 39]),
-                                 columns=[  'ETOP', 'ETP5', 'Growth', 'Leverage', 'STO_1M', 'STO_3M', 'STO_6M', 'STO_12M', 'STO_60M', 'ALPHA',
+        hist_f_beta_r = pd.DataFrame(np.zeros([2, 39]), columns=[ 'ETOP', 'ETP5', 'Growth', 'Leverage', 'STO_1M', 'STO_3M', 'STO_6M', 'STO_12M', 'STO_60M', 'ALPHA',
                                             'RSTR_1M', 'RSTR_3M', 'RSTR_6M', 'RSTR_12M', 'Size', 'BTOP', 'STOP', 'HILO', 'BTSG', 'DASTD', 'LPRI', 'CMRA', 'VOLBT',
                                             'SERDP', 'BETA', 'SIGMA', 'S_GPM', 'C_GPM', 'T_GPM', 'S_NPM', 'C_NPM', 'T_NPM', 'S_ROE', 'C_ROE', 'T_ROE',
                                             'S_ROA', 'C_ROA', 'T_ROA', 'Industry'])
-        T1_F_Beta = T1_F_Beta.head(1)
-        # print T1_F_Beta
+        hist_f_beta_r   = hist_f_beta_r.head(1)
+        # print hist_f_beta_r
 
-        F_Beta_tmp = self.get_linear_beta(T0_stockR, T1_stockF, 'All')
-        # print F_Beta_tmp
-        # print len(F_Beta_tmp)
+        hist_f_beta_r.Industry[0]  = 1.
+        hist_f_beta_r.ETOP[0]      = self.get_linear_beta(T0_stockR, T1_stockF, 'ETOP')
+        hist_f_beta_r.ETP5[0]      = self.get_linear_beta(T0_stockR, T1_stockF, 'ETP5')
+        hist_f_beta_r.Growth[0]    = self.get_linear_beta(T0_stockR, T1_stockF, 'Growth')
+        hist_f_beta_r.Leverage[0]  = self.get_linear_beta(T0_stockR, T1_stockF, 'Leverage')
+        hist_f_beta_r.STO_1M[0]    = self.get_linear_beta(T0_stockR, T1_stockF, 'STO_1M')
+        hist_f_beta_r.STO_3M[0]    = self.get_linear_beta(T0_stockR, T1_stockF, 'STO_3M')
+        hist_f_beta_r.STO_6M[0]    = self.get_linear_beta(T0_stockR, T1_stockF, 'STO_6M')
+        hist_f_beta_r.STO_12M[0]   = self.get_linear_beta(T0_stockR, T1_stockF, 'STO_12M')
+        hist_f_beta_r.STO_60M[0]   = self.get_linear_beta(T0_stockR, T1_stockF, 'STO_60M')
+        hist_f_beta_r.ALPHA[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'ALPHA')
+        hist_f_beta_r.RSTR_1M[0]   = self.get_linear_beta(T0_stockR, T1_stockF, 'RSTR_1M')
+        hist_f_beta_r.RSTR_3M[0]   = self.get_linear_beta(T0_stockR, T1_stockF, 'RSTR_3M')
+        hist_f_beta_r.RSTR_6M[0]   = self.get_linear_beta(T0_stockR, T1_stockF, 'RSTR_6M')
+        hist_f_beta_r.RSTR_12M[0]  = self.get_linear_beta(T0_stockR, T1_stockF, 'RSTR_12M')
+        hist_f_beta_r.Size[0]      = self.get_linear_beta(T0_stockR, T1_stockF, 'Size')
+        hist_f_beta_r.BTOP[0]      = self.get_linear_beta(T0_stockR, T1_stockF, 'BTOP')
+        hist_f_beta_r.STOP[0]      = self.get_linear_beta(T0_stockR, T1_stockF, 'STOP')
+        hist_f_beta_r.HILO[0]      = self.get_linear_beta(T0_stockR, T1_stockF, 'HILO')
+        hist_f_beta_r.BTSG[0]      = self.get_linear_beta(T0_stockR, T1_stockF, 'BTSG')
+        hist_f_beta_r.DASTD[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'DASTD')
+        hist_f_beta_r.LPRI[0]      = self.get_linear_beta(T0_stockR, T1_stockF, 'LPRI')
+        hist_f_beta_r.CMRA[0]      = self.get_linear_beta(T0_stockR, T1_stockF, 'CMRA')
+        hist_f_beta_r.VOLBT[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'VOLBT')
+        hist_f_beta_r.SERDP[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'SERDP')
+        hist_f_beta_r.BETA[0]      = self.get_linear_beta(T0_stockR, T1_stockF, 'BETA')
+        hist_f_beta_r.SIGMA[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'SIGMA')
+        hist_f_beta_r.S_GPM[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'S_GPM')
+        hist_f_beta_r.C_GPM[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'C_GPM')
+        hist_f_beta_r.T_GPM[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'T_GPM')
+        hist_f_beta_r.S_NPM[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'S_NPM')
+        hist_f_beta_r.C_NPM[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'C_NPM')
+        hist_f_beta_r.T_NPM[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'T_NPM')
+        hist_f_beta_r.S_ROE[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'S_ROE')
+        hist_f_beta_r.C_ROE[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'C_ROE')
+        hist_f_beta_r.T_ROE[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'T_ROE')
+        hist_f_beta_r.S_ROA[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'S_ROA')
+        hist_f_beta_r.C_ROA[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'C_ROA')
+        hist_f_beta_r.T_ROA[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'T_ROA')
 
-        T1_F_Beta.ETOP[0]      = F_Beta_tmp.ETOP
-        T1_F_Beta.ETP5[0]      = F_Beta_tmp.ETP5
-        # T1_F_Beta.Growth[0]    = F_Beta_tmp.Growth          # 2?  # 3?
-        # T1_F_Beta.Leverage[0]  = F_Beta_tmp.Leverage        # 2?  # 3?
-        # T1_F_Beta.STO_1M[0]    = F_Beta_tmp.STO_1M          # 2?  # 3?
-        # T1_F_Beta.STO_3M[0]    = F_Beta_tmp.STO_3M          # 2?
-        T1_F_Beta.STO_6M[0]    = F_Beta_tmp.STO_6M
-        T1_F_Beta.STO_12M[0]   = F_Beta_tmp.STO_12M
-        T1_F_Beta.STO_60M[0]   = F_Beta_tmp.STO_60M
-        T1_F_Beta.ALPHA[0]     = F_Beta_tmp.ALPHA
-        T1_F_Beta.RSTR_1M[0]   = F_Beta_tmp.RSTR_1M
-        T1_F_Beta.RSTR_3M[0]   = F_Beta_tmp.RSTR_3M         # 3?
-        # T1_F_Beta.RSTR_6M[0]   = F_Beta_tmp.RSTR_6M       # 2?  # 3?
-        # T1_F_Beta.RSTR_12M[0]  = F_Beta_tmp.RSTR_12M      # 2?  # 3?
-        T1_F_Beta.Size[0]      = F_Beta_tmp.Size
-        # T1_F_Beta.BTOP[0]      = F_Beta_tmp.BTOP          # 2?   # 3?
-        T1_F_Beta.STOP[0]      = F_Beta_tmp.STOP
-        T1_F_Beta.HILO[0]      = F_Beta_tmp.HILO
-        T1_F_Beta.BTSG[0]      = F_Beta_tmp.BTSG
-        # T1_F_Beta.DASTD[0]     = F_Beta_tmp.DASTD         # 2?  # 3?
-        T1_F_Beta.LPRI[0]      = F_Beta_tmp.LPRI
-        T1_F_Beta.CMRA[0]      = F_Beta_tmp.CMRA
-        T1_F_Beta.VOLBT[0]     = F_Beta_tmp.VOLBT           # 3?
-        T1_F_Beta.SERDP[0]     = F_Beta_tmp.SERDP
-        # T1_F_Beta.BETA[0]      = F_Beta_tmp.BETA          # 2?  # 3?
-        T1_F_Beta.SIGMA[0]     = F_Beta_tmp.SIGMA           # 3?
-        T1_F_Beta.S_GPM[0]     = F_Beta_tmp.S_GPM
-        T1_F_Beta.C_GPM[0]     = F_Beta_tmp.C_GPM           #  3?
-        T1_F_Beta.T_GPM[0]     = F_Beta_tmp.T_GPM
-        T1_F_Beta.S_NPM[0]     = F_Beta_tmp.S_NPM           #  3?
-        T1_F_Beta.C_NPM[0]     = F_Beta_tmp.C_NPM
-        T1_F_Beta.T_NPM[0]     = F_Beta_tmp.T_NPM
-        T1_F_Beta.S_ROE[0]     = F_Beta_tmp.S_ROE           #  3?
-        T1_F_Beta.C_ROE[0]     = F_Beta_tmp.C_ROE
-        T1_F_Beta.T_ROE[0]     = F_Beta_tmp.T_ROE
-        T1_F_Beta.S_ROA[0]     = F_Beta_tmp.S_ROA
-        T1_F_Beta.C_ROA[0]     = F_Beta_tmp.C_ROA
-        T1_F_Beta.T_ROA[0]     = F_Beta_tmp.T_ROA           #  3?
-        T1_F_Beta.Industry[0]  = 1.
-
-        # print T1_F_Beta.T
-        # print len(T1_F_Beta.T)
-
-        # 获得当期的因子载荷, 进而与 上一期的因子Beta "T1_F_Beta" 相乘得到 当期的得分
-        sqlstr = ("SELECT * FROM stock_all_F_1M_rolling \
+        # 获得当期的因子载荷, 进而与 上一期的因子Beta "hist_f_beta_r" 相乘得到 当期的得分
+        sqlstr = ("SELECT * FROM stock_all_F_1M_rolling_standard_de_industry \
                 where dateI='%(select_date_now)s' "
               % {'select_date_now': str(select_date_now)})
         # print sqlstr
@@ -300,13 +254,11 @@ class StockScreener(object):
                          'RSTR_1M', 'RSTR_3M', 'RSTR_6M', 'RSTR_12M', 'Size', 'BTOP', 'STOP', 'HILO', 'BTSG', 'DASTD', 'LPRI', 'CMRA', 'VOLBT',
                          'SERDP', 'BETA', 'SIGMA', 'S_GPM', 'C_GPM', 'T_GPM', 'S_NPM', 'C_NPM', 'T_NPM', 'S_ROE', 'C_ROE', 'T_ROE',
                          'S_ROA', 'C_ROA', 'T_ROA', 'IndustryChange']].copy()
-        T0_stockF = T0_stockF.dropna()
-        # print T0_stockF.iloc[:,1:11]
-        # f_mtrx = np.matrix(T0_stockF.iloc[:,1:11])
-        estValue = np.dot(T0_stockF.iloc[:,1:40], T1_F_Beta.T)
+        # print T0_stockF.iloc[:, 1:40]
+
+        estValue = np.dot(T0_stockF.iloc[:,1:40], hist_f_beta_r.T)
         T0_stockF['estValue'] = estValue
         dfTMP = T0_stockF.sort_values(by='estValue', ascending=False)
         dfStockWeight = dfTMP.loc[:, ['code','estValue']]
         # print dfStockWeight
-
         return dfStockWeight

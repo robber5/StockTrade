@@ -170,7 +170,7 @@ class Trade(object):
         self.account.current_date = self.start_day
 
         # 时间预处理
-        calendar_end_str = datetime.strftime(self.end_day, '%Y-%m-%d')
+        calendar_end_str = get_format_date_str(self.end_day)
 
         # 创建日历
         sql_str = "SELECT DISTINCT [date] FROM index_data WHERE [date]<='" + calendar_end_str + "' order by [date] desc"
@@ -196,10 +196,12 @@ class Trade(object):
 
                 # 根据收盘价进行择时价格更新
                 self.update_timing_position_price()
-                # 根据收盘价进行alpha价格更新
-                self.positionEngine.update_alpha_position_price(self.account.current_date)
-                # 收盘对冲结算
-                self.riskEngine.future_close_settlement()
+
+                if self.account.current_date > get_format_date(self.positionEngine.alpha_start_date):
+                    # 根据收盘价进行alpha价格更新
+                    self.positionEngine.update_alpha_position_price(self.account.current_date)
+                    # 收盘对冲结算
+                    self.riskEngine.future_close_settlement()
 
                 # 输出持仓列表
                 self.account.get_postion()
@@ -214,19 +216,19 @@ class Trade(object):
         writer = csv.writer(open('operate.csv', 'wb'))
         writer.writerow(['date', 'stockcode', 'operatetype', 'referencenum', 'referenceprice'])
         for item in self.account.list_operate:
-            item[0] = datetime.strftime(item[0], '%Y-%m-%d')
+            item[0] = get_format_date_str(item[0])
             writer.writerow(item)
 
         writer = csv.writer(open('fundvalue.csv', 'wb'))
         writer.writerow(['date', 'fundvalue', 'benchmarkvalue', 'zig_position_ratio', 'alpha_position_ratio'])
         for item in self.account.list_fundvalue:
-            item[0] = datetime.strftime(item[0], '%Y-%m-%d')
+            item[0] = get_format_date_str(item[0])
             writer.writerow(item)
 
         writer = csv.writer(open('zig_log.csv', 'wb'))
         writer.writerow(['code', 'date', 'price'])
         for item in self.list_zig_log:
-            item[1] = datetime.strftime(item[1], '%Y-%m-%d')
+            item[1] = get_format_date_str(item[1])
             writer.writerow(item)
 
         # 绘制净值曲线

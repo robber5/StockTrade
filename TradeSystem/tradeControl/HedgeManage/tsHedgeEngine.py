@@ -6,8 +6,8 @@ from TradeSystem.tradeSystemBase.tsMssql import MSSQL
 class HedgeEngine(object):
     """对冲引擎"""
 
-    def __init__(self, _account, _alpha_max_position):
-        self.slippage = 0.8
+    def __init__(self, _account, _alpha_max_position, _alpha_stop_fundvalue):
+        self.slippage = 0.4
         # 数据库连接MSSQL
         self.sql_conn = MSSQL(host='127.0.0.1', user='sa', pwd='windows-999', db='stocks')
         self.account = _account
@@ -15,19 +15,30 @@ class HedgeEngine(object):
         self.futures_max_ratio = 0.1
         self.futures_min_cash_ratio = 0.1
         self.stock_max_ratio = 1.0 - self.futures_max_ratio - self.futures_min_cash_ratio
+        self.alpha_stop_fundvalue = _alpha_stop_fundvalue
 
     def est_hedge_position(self):
         # 计算应持仓单数
         hedge_position_new = 0
 
         if self.account.hedge_last_month_change != 0:
-            max_future_num = int(self.alpha_max_position * self.stock_max_ratio / (self.account.hedge_position[1] * 300))
-            future_budget = int(self.alpha_max_position * self.futures_max_ratio * self.account.futures_leverage / (self.account.hedge_position[1] * 300))
+            max_future_num = int((self.alpha_max_position - self.alpha_stop_fundvalue) * self.stock_max_ratio / (self.account.hedge_position[1] * 300))
+            future_budget = int((self.alpha_max_position - self.alpha_stop_fundvalue) * self.futures_max_ratio * self.account.futures_leverage / (self.account.hedge_position[1] * 300))
 
             hedge_position_new = min(max_future_num, future_budget)
 
-            if self.account.cash - self.account.hedge_position[1] * 300 * (1.0 + 0.1 + 1.0 / self.account.futures_leverage) < 0:
-                print('判断hedge仓位部分： 出现保证金把账户现金耗尽情况，需要重新思考仓位控制方案')
+            de_cnt = 0
+            tmp_cash = self.account.cash
+            while tmp_cash - self.account.hedge_position[1] * hedge_position_new * 300 * 0.12 < 0:  # 现金如果不够期货持仓权益的12%, 也就是说几乎不能抵抗1天的涨停
+                hedge_position_new -= 1
+                tmp_cash += self.account.hedge_position[1] * 300 * (1.0 + 1.0 / self.account.futures_leverage)
+                de_cnt += 1
+            if de_cnt > 0:
+                print('判断hedge仓位部分： 出现账户现金可能耗尽的情况，期望对冲仓位 hedge_position_new 减少' + str(de_cnt) + '张')
+            if hedge_position_new > self.account.hedge_position[2]:
+                print('判断hedge仓位部分： 实际对冲仓位变动: ' + str(hedge_position_new - self.account.hedge_position[2]) + '张')
+            elif hedge_position_new < self.account.hedge_position[2]:
+                print('判断hedge仓位部分： 实际对冲仓位变动: ' + str(hedge_position_new - self.account.hedge_position[2]) + '张')
 
         return hedge_position_new
 
@@ -62,7 +73,7 @@ class HedgeEngine(object):
 
             # 每个月第一天需要增加一次成本
             if self.account.current_date.month != self.account.hedge_last_month_change:
-                self.account.cash -= 300 * self.slippage * self.account.hedge_position[2]
+                self.account.cash -= 300 * (self.slippage * 2) * self.account.hedge_position[2]
                 self.account.hedge_last_month_change = self.account.current_date.month
 
             # 调整实际持仓

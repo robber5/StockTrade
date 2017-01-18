@@ -13,9 +13,9 @@ def main():
     try:
         f = file("Trade_Setting.json")
         setting = json.load(f)
-        print(setting['StrategyTitle'].encode('utf-8') + "开始运行")
+        print(setting['StrategyTitle'].encode('utf-8') + " start")
     except Exception, ex:
-        print('配置文件载入错误：' + ex.message)
+        print('profile loading error：' + ex.message)
 
     # 载入配置到交易模块
     main_engine = MainEngine(

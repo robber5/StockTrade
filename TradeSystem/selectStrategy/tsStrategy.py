@@ -9,14 +9,6 @@ import numpy as np
 from TradeSystem.tsTrade import Trade
 
 
-def b_in_list(stock_list, stock):
-    if stock in stock_list:
-        b_in = True
-    else:
-        b_in = False
-    return b_in
-
-
 class StrategyTest(Trade):
     """策略"""
 
@@ -74,15 +66,10 @@ class StrategyTest(Trade):
             list_zig_base_keys = set(self.dic_Zig_base.keys())
             list_atr_keys = set(self.dic_ATR.keys())
 
-            b_In_list_zig_base_keys = False
-
             for s in hist.index.values:
                 newPrice = dict_hist['close'][s]
 
-                if list_zig_base_keys:
-                    b_In_list_zig_base_keys = b_in_list(list_zig_base_keys, s)
-
-                if list_zig_base_keys and b_In_list_zig_base_keys:
+                if list_zig_base_keys and s in list_zig_base_keys:
                     if s in list_last_hist_keys:
                         stock_TR = max(abs(dict_hist['open'][s] - dict_hist['close'][s]),
                                        abs(dict_last_hist['close'][s] - dict_hist['close'][s]))
@@ -150,13 +137,13 @@ class StrategyTest(Trade):
 
                     if self.dic_Zig_price[s][0] != 0:
                         if s in self.account.dic_high_stk_position:
-                            # 在持仓列表里面只管平仓
+                            # 在持仓列表里面只平仓
                             min_zig_temp = min(self.dic_Zig_price[s][-self.zig_sell:])
                             stop_line_temp = self.account.dic_high_stk_position[s]['high_price'] - self.down_ATR * self.dic_ATR[s]['ATR']
                             if newPrice < min_zig_temp or newPrice < stop_line_temp:
                                 self.account.sell_list.append(s)
                         else:
-                            # 不在持仓列表只管开仓
+                            # 不在持仓列表只开仓
                             max_zig_temp = max(self.dic_Zig_price[s])
                             min_zig_temp = min(self.dic_Zig_price[s][-self.zig_sell:])
                             risk_temp = self.down_ATR * self.dic_ATR[s]['ATR']
