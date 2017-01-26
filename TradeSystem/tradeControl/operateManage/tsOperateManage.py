@@ -45,7 +45,7 @@ class OperateManage(object):
             _account.list_position[_stockcode] = dict(referencenum=_referencenum, buy_price=_price, new_price=0)
 
         if _account.cash < 0:
-            print('zig调仓导致cash不足')
+            print('zig调仓导致cash不足,不应该出现')
 
         _account.list_operate.append([_account.current_date, _stockcode, _operatetype, operate_num, _price])
 

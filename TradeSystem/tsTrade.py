@@ -68,8 +68,8 @@ class Trade(object):
         print('持仓股票数量:{0}'.format(str(self.chosen_num)))
 
     def timing_strategy(self):
-        print("每日调仓变化")
-        pass
+        """行情循环推送推送（必须由用户继承实现）"""
+        raise NotImplementedError
 
     def load_setting(self):
         """读取配置"""
@@ -120,6 +120,10 @@ class Trade(object):
 
         self.account.fundvalue = zig_fundvalue + self.account.cash + alpha_stock_fundvalue + self.account.hedge_deposit
 
+        self.account.zig_fundvalue = zig_fundvalue
+        self.account.alpha_stock_fundvalue = alpha_stock_fundvalue
+        self.account.alpha_stop_value = self.positionEngine.get_alpha_stop_fundvalue()
+
         # 算zig突破的持仓比例: position_ratio
         position_ratio = float(zig_fundvalue / self.account.fundvalue)
 
@@ -129,6 +133,8 @@ class Trade(object):
         self.account.fundvalue = float(self.account.fundvalue / self.capital_base)
 
         self.account.list_fundvalue.append([self.account.current_date, self.account.fundvalue, self.account.benchmarkvalue, position_ratio, alpha_ratio])
+
+        print(self.account.list_fundvalue[-1])
 
     def update_timing_position_price(self):
         # 信息更新
@@ -179,17 +185,23 @@ class Trade(object):
             self.tradecalendars.append(d[0])
 
         # 将净值起始设为1
-        self.account.list_fundvalue.append([self.account.current_date, 1, 1, 0])
+        self.account.list_fundvalue.append([self.account.current_date, 1, 1, 0, 0])
 
         # 按日执行策略
         while self.account.current_date <= self.end_day:
             if self.account.current_date in self.tradecalendars:
                 print(self.account.current_date)
+                # 重置择时系统的buy_list和sell_list
+                self.account.buy_list = {}
+                self.account.sell_list = []
+
                 # @todo 加入仓控的内容——大盘择时的部分---> α和股票择时两个系统的仓位
                 self.positionEngine.position_manage(self.account.current_date)
 
                 # 择时获取买卖列表
                 self.timing_strategy()
+                self.account.dic_ATR = self.dic_ATR
+
 
                 self.riskEngine = RiskEngine(self.positionEngine, self.account)
                 self.riskEngine.operate()
@@ -204,7 +216,7 @@ class Trade(object):
                     self.riskEngine.future_close_settlement()
 
                 # 输出持仓列表
-                self.account.get_postion()
+                self.account.get_position()
 
                 # 计算净值变化
                 if self.account.list_position or self.positionEngine.alpha_position_list:
@@ -220,7 +232,7 @@ class Trade(object):
             writer.writerow(item)
 
         writer = csv.writer(open('fundvalue.csv', 'wb'))
-        writer.writerow(['date', 'fundvalue', 'benchmarkvalue', 'zig_position_ratio', 'alpha_position_ratio'])
+        writer.writerow(['date', 'fundvalue', 'benchmarkvalue', 'timing_position_ratio', 'alpha_position_ratio', 'alpha_stock', 'deposit', 'cash'])
         for item in self.account.list_fundvalue:
             item[0] = get_format_date_str(item[0])
             writer.writerow(item)
@@ -232,7 +244,10 @@ class Trade(object):
             writer.writerow(item)
 
         # 绘制净值曲线
-        plt.plotfile('fundvalue.csv', ('date', 'fundvalue', 'benchmarkvalue', 'position_ratio', 'alpha_ratio'), subplots=False)
+        df = pd.read_csv('fundvalue.csv')
+        df = df.loc[:,['date', 'fundvalue', 'benchmarkvalue', 'timing_position_ratio', 'alpha_position_ratio']]
+        df.to_csv('fundvalue_plot.csv')
+        plt.plotfile('fundvalue_plot.csv', ('date', 'fundvalue', 'benchmarkvalue', 'timing_position_ratio', 'alpha_position_ratio'), subplots=False)
         plt.show()
 
         # 打印各项参数

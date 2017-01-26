@@ -1,8 +1,8 @@
 # coding=utf-8
 
 import json
-from selectStrategy.tsStrategy import StrategyTest
-from tsEngine import MainEngine
+from TradeSystem.selectStrategy.tsStrategy import StrategyTest
+from TradeSystem.tsEngine import MainEngine
 from TradeDataRecorder.drDataUpdate import DataUpdate
 
 

@@ -41,6 +41,13 @@ class Account(object):
         # 开仓后高点的记录表
         self.dic_high_stk_position = {}
 
+        self.zig_fundvalue = 0.
+        self.alpha_stock_fundvalue = 0.
+        self.alpha_stop_value = 0.
+
+        # 一些基础指标
+        self.dic_ATR = {}
+
     def get_postion(self):
         """获取当前持仓"""
         writer = csv.writer(open('D:/position_log/' + datetime.datetime.strftime(self.current_date, '%Y-%m-%d') + '-position.csv', 'wb'))

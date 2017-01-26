@@ -78,6 +78,7 @@ class MSSQL:
             futures_value = select_result[0][0]
         return futures_value
 
+    # @profile
     def get_open_price(self, current_date, _operate_list):
         """获取当日开盘价(前复权)"""
         select_date = datetime.strftime(current_date, '%Y-%m-%d')

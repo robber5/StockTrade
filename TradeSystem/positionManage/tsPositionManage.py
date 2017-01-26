@@ -24,7 +24,7 @@ class PositionEngine:
         self.alpha_stock_num = 60
         self.alpha_start_date = '2007-01-01'
         # 取当日之前alpha_est_len个自然的数据做线性回归
-        self.alpha_est_len = 366 * 0.5
+        self.alpha_est_len = 366 * 1.0
         # alpha模型的建议持仓列表
         self.alpha_buy_list = []
         # alpha实际买卖操作
@@ -32,16 +32,18 @@ class PositionEngine:
         self.alpha_stop_list = []
         # alpha实际持仓列表，包括实际最后买入的数量，买入的价格，当前的价格，一共3项
         self.alpha_position_list = {}
-        self.alpha_risk_levels = 10.0    # alpha 控制的风险分组的数量
+        self.alpha_risk_levels = 4.0    # alpha 控制的风险分组的数量
         self.stockScreener = StockScreener(self.alpha_stock_pool, self.alpha_period, self.alpha_start_date)
         self.sql_conn = MSSQL(host='127.0.0.1', user='sa', pwd='windows-999', db='stocks')
+        # alpha调仓flag
+        self.alpha_change_stock_flag = False
 
         # 大盘判断相关参数
 
         # 大盘趋势 模型开关
         self.market_trend_active = False
-        self.alpha_position_ratio = 1.0
-        self.break_position_ratio = 0.0
+        self.alpha_position_ratio = 0.5
+        self.break_position_ratio = 0.15
         self.future_short_ratio = 0.0
 
     def get_alpha_fundvalue(self):
@@ -77,6 +79,7 @@ class PositionEngine:
         if self.active:
             if self.alpha_active:
                 if self.stockScreener.handle_date(current_date):
+                    self.alpha_change_stock_flag = True
                     df_stock_weight = self.stockScreener.get_weight_list(self.alpha_est_len)
                     # 生成alpha因子模型的持仓列表
                     df_tmp = df_stock_weight.head(self.alpha_stock_num)
@@ -90,6 +93,8 @@ class PositionEngine:
                         self.dic_risk_ratio[s] = risk_weight * self.risk_ratio_once
                         cnt += cnt
                     # print self.dic_risk_ratio
+                else:
+                    self.alpha_change_stock_flag = False
             # todo 根据大盘分级配置各模型仓位
             if self.market_trend_active:
                 # todo 调用market_trend判断的模型

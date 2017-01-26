@@ -146,7 +146,7 @@ class StockScreener(object):
 
         output = beta * f
 
-        return beta
+        return output
 
     # 返回股票池
     def get_weight_list(self, est_len):
