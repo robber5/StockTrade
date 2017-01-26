@@ -48,7 +48,7 @@ class Account(object):
         # 一些基础指标
         self.dic_ATR = {}
 
-    def get_postion(self):
+    def get_position(self):
         """获取当前持仓"""
         writer = csv.writer(open('D:/position_log/' + datetime.datetime.strftime(self.current_date, '%Y-%m-%d') + '-position.csv', 'wb'))
         writer.writerow(['stockcode', 'referencenum', 'buy_price', 'new_price'])
