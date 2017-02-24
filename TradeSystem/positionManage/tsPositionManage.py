@@ -3,6 +3,8 @@
 import math
 from TradeSystem.alphaModel.tsAlphaWeight import StockScreener
 from TradeSystem.tradeSystemBase.tsMssql import MSSQL
+import csv
+import datetime
 
 
 class PositionEngine:
@@ -32,7 +34,7 @@ class PositionEngine:
         self.alpha_stop_list = []
         # alpha实际持仓列表，包括实际最后买入的数量，买入的价格，当前的价格，一共3项
         self.alpha_position_list = {}
-        self.alpha_risk_levels = 4.0    # alpha 控制的风险分组的数量
+        self.alpha_risk_levels = 10.0    # alpha 控制的风险分组的数量
         self.stockScreener = StockScreener(self.alpha_stock_pool, self.alpha_period, self.alpha_start_date)
         self.sql_conn = MSSQL(host='127.0.0.1', user='sa', pwd='windows-999', db='stocks')
         # alpha调仓flag
@@ -42,8 +44,8 @@ class PositionEngine:
 
         # 大盘趋势 模型开关
         self.market_trend_active = False
-        self.alpha_position_ratio = 0.5
-        self.break_position_ratio = 0.15
+        self.alpha_position_ratio = 0.59
+        self.break_position_ratio = 0.00
         self.future_short_ratio = 0.0
 
     def get_alpha_fundvalue(self):
@@ -74,6 +76,17 @@ class PositionEngine:
         for stk in self.alpha_position_list.keys():
             if stk in list_df_close_index:
                 self.alpha_position_list[stk]['new_price'] = dic_close_all['adjust_price_f'][stk]
+
+    def get_alpha_position(self, current_date):
+        """获取当前alpha持仓"""
+        writer = csv.writer(
+            open('D:/alpha_position_log/' + datetime.datetime.strftime(current_date, '%Y-%m-%d') + '-position.csv',
+                 'wb'))
+        writer.writerow(['stockcode', 'referencenum', 'buy_price', 'new_price'])
+        for item in self.alpha_position_list:
+            row = [item, self.alpha_position_list[item]['referencenum'], self.alpha_position_list[item]['buy_price'],
+                   self.alpha_position_list[item]['new_price']]
+            writer.writerow(row)
 
     def position_manage(self, current_date):
         if self.active:

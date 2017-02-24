@@ -36,6 +36,7 @@ class Account(object):
         self.hedge_deposit = 0
         self.hedge_position = []
         self.hedge_last_month_change = 0
+        self.hedge_operate_list = []
         # 期货相关
         self.futures_leverage = 10
         # 开仓后高点的记录表
@@ -48,10 +49,19 @@ class Account(object):
         # 一些基础指标
         self.dic_ATR = {}
 
-    def get_position(self):
-        """获取当前持仓"""
-        writer = csv.writer(open('D:/position_log/' + datetime.datetime.strftime(self.current_date, '%Y-%m-%d') + '-position.csv', 'wb'))
+    def get_zig_position(self):
+        """获取当前持仓持仓"""
+        writer = csv.writer(open('D:/zig_position_log/' + datetime.datetime.strftime(self.current_date, '%Y-%m-%d') + '-position.csv', 'wb'))
         writer.writerow(['stockcode', 'referencenum', 'buy_price', 'new_price'])
         for item in self.list_position:
             row = [item, self.list_position[item]['referencenum'], self.list_position[item]['buy_price'], self.list_position[item]['new_price']]
             writer.writerow(row)
+
+    def get_hedge_position(self):
+        """获取当前对冲持仓"""
+        writer = csv.writer(
+            open('D:/hedge_position_log/' + datetime.datetime.strftime(self.current_date, '%Y-%m-%d') + '-position.csv',
+                 'wb'))
+        writer.writerow(['code', 'price', 'number'])
+        for item in self.hedge_position:
+            writer.writerow(item)

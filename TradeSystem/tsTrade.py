@@ -132,9 +132,7 @@ class Trade(object):
 
         self.account.fundvalue = float(self.account.fundvalue / self.capital_base)
 
-        self.account.list_fundvalue.append([self.account.current_date, self.account.fundvalue, self.account.benchmarkvalue, position_ratio, alpha_ratio])
-
-        print(self.account.list_fundvalue[-1])
+        self.account.list_fundvalue.append([self.account.current_date, self.account.fundvalue, self.account.benchmarkvalue, position_ratio, alpha_ratio, alpha_stock_fundvalue, self.account.hedge_deposit, self.account.cash])
 
     def update_timing_position_price(self):
         # 信息更新
@@ -202,7 +200,6 @@ class Trade(object):
                 self.timing_strategy()
                 self.account.dic_ATR = self.dic_ATR
 
-
                 self.riskEngine = RiskEngine(self.positionEngine, self.account)
                 self.riskEngine.operate()
 
@@ -216,7 +213,9 @@ class Trade(object):
                     self.riskEngine.future_close_settlement()
 
                 # 输出持仓列表
-                self.account.get_position()
+                self.account.get_zig_position()
+                self.positionEngine.get_alpha_position(self.account.current_date)
+                self.account.get_hedge_position()
 
                 # 计算净值变化
                 if self.account.list_position or self.positionEngine.alpha_position_list:
@@ -225,10 +224,21 @@ class Trade(object):
             self.account.current_date = self.account.current_date + timedelta(days=1)
 
         # 输出到csv
-        writer = csv.writer(open('operate.csv', 'wb'))
+        writer = csv.writer(open('zig_operate.csv', 'wb'))
         writer.writerow(['date', 'stockcode', 'operatetype', 'referencenum', 'referenceprice'])
         for item in self.account.list_operate:
             item[0] = get_format_date_str(item[0])
+            writer.writerow(item)
+
+        writer = csv.writer(open('alpha_operate.csv', 'wb'))
+        writer.writerow(['date', 'stockcode', 'operatetype', 'referencenum', 'referenceprice'])
+        for item in self.positionEngine.alpha_operate_list:
+            item[0] = get_format_date_str(item[0])
+            writer.writerow(item)
+
+        writer = csv.writer(open('hedge_operate.csv', 'wb'))
+        writer.writerow(['date', 'code', 'number'])
+        for item in self.account.hedge_operate_list:
             writer.writerow(item)
 
         writer = csv.writer(open('fundvalue.csv', 'wb'))
@@ -245,7 +255,7 @@ class Trade(object):
 
         # 绘制净值曲线
         df = pd.read_csv('fundvalue.csv')
-        df = df.loc[:,['date', 'fundvalue', 'benchmarkvalue', 'timing_position_ratio', 'alpha_position_ratio']]
+        df = df.loc[:, ['date', 'fundvalue', 'benchmarkvalue', 'timing_position_ratio', 'alpha_position_ratio']]
         df.to_csv('fundvalue_plot.csv')
         plt.plotfile('fundvalue_plot.csv', ('date', 'fundvalue', 'benchmarkvalue', 'timing_position_ratio', 'alpha_position_ratio'), subplots=False)
         plt.show()

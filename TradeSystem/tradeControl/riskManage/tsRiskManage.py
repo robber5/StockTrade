@@ -6,6 +6,7 @@ from TradeSystem.tradeControl.HedgeManage.tsHedgeEngine import HedgeEngine
 from TradeSystem.tradeSystemBase.tsFunction import *
 import numpy as np
 
+
 class RiskEngine:
     def __init__(self, _position_engine, _account):
         # 是否启动风控
@@ -22,14 +23,12 @@ class RiskEngine:
 
     def buy(self, _buy_list):
         """买入"""
-        if datetime.strftime(self.account.current_date, '%Y-%m-%d') == '2006-04-11':
-            pass
-
         dic_buy_result = {}
 
         buy_price = self.sql_conn.get_open_price(self.account.current_date, _buy_list)
         buy_price = buy_price.set_index('stockcode')
-        buy_price = buy_price[buy_price['high'] != buy_price['low']]
+        buy_price = buy_price[buy_price['h'] != buy_price['l']]
+        # buy_price = buy_price[buy_price['o'] != buy_price['l']]
         dic_buy_price = buy_price.to_dict()
 
         fundvalue = self.account.list_fundvalue[-1][1] * self.account.capital_base
@@ -50,14 +49,15 @@ class RiskEngine:
 
         return dic_buy_result
 
-    # @profile
     def sell(self, _sell_list):
         """卖出"""
         dic_sell_result = {}
 
+        # if self.account.current_date > datetime.datetime.strptime('2014-09-01', "%Y-%m-%d"):
+        #     pass
         sell_price = self.sql_conn.get_open_price(self.account.current_date, _sell_list)
         sell_price = sell_price.set_index('stockcode')
-        sell_price = sell_price[sell_price['high'] != sell_price['low']]
+        sell_price = sell_price[sell_price['h'] != sell_price['l']]
         dic_sell_price = sell_price.to_dict()
 
         for stk in sell_price.index.values:
@@ -78,9 +78,6 @@ class RiskEngine:
 
     def buy_check(self, referencenum, price, rest_cash):
         """买入控制"""
-        if datetime.strftime(self.account.current_date, '%Y-%m-%d') == '2010-02-02':
-            pass
-
         cash_use = referencenum * price
 
         if self.account.cash >= cash_use and rest_cash >= cash_use:
@@ -120,7 +117,7 @@ class RiskEngine:
             sell_price = self.sql_conn.get_open_price(self.account.current_date, self.account.list_position)
 
             sell_price = sell_price.set_index('stockcode')
-            sell_price = sell_price[sell_price['high'] != sell_price['low']]
+            sell_price = sell_price[sell_price['h'] != sell_price['l']]
             dic_sell_price = sell_price.to_dict()
 
             for s in sell_price.index.values:
@@ -142,7 +139,8 @@ class RiskEngine:
                 operate_price = self.sql_conn.get_open_price(self.account.current_date, set(alpha_buy_list).union(set(alpha_position_list.keys())))
                 operate_price = operate_price.set_index('stockcode')
                 operate_price = operate_price.dropna(how='any')
-                operate_price = operate_price[operate_price['high'] != operate_price['low']]
+                operate_price = operate_price[operate_price['h'] != operate_price['l']]
+                # operate_price = operate_price[operate_price['o'] != operate_price['l']]
                 # 当天开盘时更新 alpha需卖出 但由于停牌无法卖出的 股票的列表
                 alpha_to_sell_list = [s for s in alpha_position_list if s not in alpha_buy_list]  # 早晨不在buy_list内的持仓
                 self.position_engine.alpha_stop_list = [s for s in alpha_to_sell_list if s not in list(operate_price.index)]
@@ -188,34 +186,36 @@ class RiskEngine:
                                            self.position_engine.alpha_position_list[s]['new_price']  # 计算该list所占权益
 
             # @test@ 根据波动大小配权
-            atr_to_r_dic = {}
-            list_atr_keys = set(self.account.dic_ATR.keys())
-            for s in operate_buy_list:
-                if s in list_atr_keys:
-                    atr_to_r_dic[s] = self.account.dic_ATR[s]['ATR'] * 10.0 / dic_operate_price['open'][s]
-
-            max_atr_r = np.max(atr_to_r_dic.values())
-            min_atr_r = np.min(atr_to_r_dic.values())
-            atr_r_weight_dic = {}
-            sum_atr_r_weight = 0.0
-            for s in operate_buy_list:
-                if s in atr_to_r_dic.keys():
-                    # atr_r_weight_dic[s] = max_atr_r + min_atr_r - atr_to_r_dic[s]
-                    atr_r_weight_dic[s] = atr_to_r_dic[s]
-                else:
-                    atr_r_weight_dic[s] = min_atr_r
-                sum_atr_r_weight += atr_r_weight_dic[s]
-
-            stock_cash = hedge_position_new * self.account.hedge_position[1] * 300 - tmp_stop_list_value
-            for s in operate_buy_list:
-                referencenum = stock_cash * atr_r_weight_dic[s] / sum_atr_r_weight / dic_operate_price['open'][s]
-                operate_dic[s] = referencenum
+            # atr_to_r_dic = {}
+            # list_atr_keys = set(self.account.dic_ATR.keys())
+            # for s in operate_buy_list:
+            #     if s in list_atr_keys:
+            #         atr_to_r_dic[s] = self.account.dic_ATR[s]['ATR'] * 10.0 / dic_operate_price['open'][s]
+            #
+            # max_atr_r = np.max(atr_to_r_dic.values())
+            # min_atr_r = np.min(atr_to_r_dic.values())
+            # atr_r_weight_dic = {}
+            # sum_atr_r_weight = 0.0
+            # for s in operate_buy_list:
+            #     if s in atr_to_r_dic.keys():
+            #         # atr_r_weight_dic[s] = max_atr_r + min_atr_r - atr_to_r_dic[s]
+            #         atr_r_weight_dic[s] = atr_to_r_dic[s]
+            #     else:
+            #         atr_r_weight_dic[s] = min_atr_r
+            #     sum_atr_r_weight += atr_r_weight_dic[s]
+            #
+            # stock_cash = hedge_position_new * self.account.hedge_position[1] * 300 - tmp_stop_list_value
+            # for s in operate_buy_list:
+            #     referencenum = stock_cash * atr_r_weight_dic[s] / sum_atr_r_weight / dic_operate_price['open'][s]
+            #     one_hand_money = dic_operate_price['o'][s] * 100.0
+            #     referencenum = round(referencenum / one_hand_money) * one_hand_money
+            #     operate_dic[s] = referencenum
 
             # 等仓位配股
-            # stock_cash = (hedge_position_new * self.account.hedge_position[1] * 300 - tmp_stop_list_value) / len(operate_buy_list)
-            # for s in operate_buy_list:
-            #     referencenum = stock_cash / dic_operate_price['open'][s]
-            #     operate_dic[s] = referencenum
+            stock_cash = (hedge_position_new * self.account.hedge_position[1] * 300 - tmp_stop_list_value) / len(operate_buy_list)
+            for s in operate_buy_list:
+                referencenum = stock_cash / dic_operate_price['open'][s]
+                operate_dic[s] = referencenum
 
             for s in position_list.keys():
                 if s in operate_price.index.values.tolist() and s not in operate_dic.keys():

@@ -73,7 +73,7 @@ class MSSQL:
         self.conn.commit()
         self.conn.close()
 
-@profile
+# @profile
 def ss():
     # 查找已有文件
     dir = './quarter_factors'

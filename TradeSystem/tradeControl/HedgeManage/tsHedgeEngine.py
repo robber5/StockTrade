@@ -22,42 +22,48 @@ class HedgeEngine(object):
     def est_hedge_position(self, _alpha_stop_fundvalue):
         # 计算应持仓单数
         hedge_position_new = 0
+        date_yesterday = 0
+        if date_yesterday == 0:
+            date_yesterday = self.account.current_date
 
         if self.account.hedge_last_month_change != 0:
             # @test@ 非alpha调仓期 不加仓
-            if self.alpha_change_stock_flag:
+            if self.alpha_change_stock_flag:    # 调仓周期之时
                 max_future_num = int((self.alpha_max_position - _alpha_stop_fundvalue) * self.stock_max_ratio / (self.account.hedge_position[1] * 300))
                 future_budget = int((self.alpha_max_position - _alpha_stop_fundvalue) * self.futures_max_ratio * self.account.futures_leverage / (self.account.hedge_position[1] * 300))
 
                 hedge_position_new = min(max_future_num, future_budget)
 
                 # @test@ 价差估计
-                futures_00 = self.sql_conn.get_futures('IF00', self.account.current_date, 'open')
-                futures_01 = self.sql_conn.get_futures('IF01', self.account.current_date, 'open')
-                futures_02 = self.sql_conn.get_futures('IF02', self.account.current_date, 'open')
-                index_open_today = self.sql_conn.get_index('sh000300', self.account.current_date, 'open')
-                if futures_00 != 0 and hedge_position_new > 1:
-                    if futures_01 < futures_00:
-                        hedge_position_new = int(hedge_position_new * 0.65)
-                    if futures_00 < index_open_today:
-                        hedge_position_new = int(hedge_position_new * 0.60)
-                    if futures_00 / index_open_today > 1.02:
-                        hedge_position_new = int(hedge_position_new * 0.55)
+                # futures_00 = self.sql_conn.get_futures('IF00', date_yesterday, 'close')  # self.account.current_date, 'open')
+                # futures_01 = self.sql_conn.get_futures('IF01', date_yesterday, 'close')  # self.account.current_date, 'open')
+                # futures_02 = self.sql_conn.get_futures('IF02', date_yesterday, 'close')  # self.account.current_date, 'open')
+                # index_open_today = self.sql_conn.get_index('sh000300', date_yesterday, 'close')  # self.account.current_date, 'open')
+                # if futures_00 != 0 and hedge_position_new > 2:
+                #     if futures_01 < futures_00:
+                #         hedge_position_new = int(hedge_position_new * 0.75)
+                #     if futures_00 < index_open_today:
+                #         hedge_position_new = int(hedge_position_new * 0.70)
+                #     if futures_00 / index_open_today > 1.02:
+                #         hedge_position_new = int(hedge_position_new * 0.60)
             else:
-                hedge_position_new = self.account.hedge_position[2]
+                max_future_num = int((self.alpha_max_position - _alpha_stop_fundvalue) * self.stock_max_ratio / (self.account.hedge_position[1] * 300))
+                future_budget = int((self.alpha_max_position - _alpha_stop_fundvalue) * self.futures_max_ratio * self.account.futures_leverage / (self.account.hedge_position[1] * 300))
+                hedge_position_new = min(max_future_num, future_budget)
 
                 # @test@ 价差估计
-                futures_00 = self.sql_conn.get_futures('IF00', self.account.current_date, 'open')
-                futures_01 = self.sql_conn.get_futures('IF01', self.account.current_date, 'open')
-                futures_02 = self.sql_conn.get_futures('IF02', self.account.current_date, 'open')
-                index_open_today = self.sql_conn.get_index('sh000300', self.account.current_date, 'open')
-                if futures_00 != 0:
-                    if futures_01 < futures_00 and hedge_position_new > 1:
-                        hedge_position_new = int(hedge_position_new * 0.95)
-                    if futures_00 < index_open_today:
-                        hedge_position_new = int(hedge_position_new * 0.90)
-                    if futures_00 / index_open_today > 1.02:
-                        hedge_position_new = int(hedge_position_new * 0.85)
+                # hedge_position_new = self.account.hedge_position[2]
+                # futures_00 = self.sql_conn.get_futures('IF00', date_yesterday, 'close')  # self.account.current_date, 'open')
+                # futures_01 = self.sql_conn.get_futures('IF01', date_yesterday, 'close')  # self.account.current_date, 'open')
+                # futures_02 = self.sql_conn.get_futures('IF02', date_yesterday, 'close')  # self.account.current_date, 'open')
+                # index_open_today = self.sql_conn.get_index('sh000300', date_yesterday, 'close')  # self.account.current_date, 'open')
+                # if futures_00 != 0 and hedge_position_new > 2:
+                #     if futures_01 < futures_00 and hedge_position_new > 1:
+                #         hedge_position_new = int(hedge_position_new * 0.98)
+                #     elif futures_00 < index_open_today:
+                #         hedge_position_new = int(hedge_position_new * 0.98)
+                #     elif futures_00 / index_open_today > 1.02:
+                #         hedge_position_new = int(hedge_position_new * 0.99)
 
             de_cnt = 0
             tmp_cash = self.account.cash
@@ -74,6 +80,7 @@ class HedgeEngine(object):
             elif hedge_position_new < self.account.hedge_position[2]:
                 print('判断hedge仓位部分： 实际对冲仓位变动: '+str(hedge_position_new - self.account.hedge_position[2])+'张')
 
+        date_yesterday = self.account.current_date
         return [hedge_position_new, self.future_position_change]
 
     def open_hedge_trade(self, _hedge_position_new, len_alpha_position_list):
@@ -92,17 +99,19 @@ class HedgeEngine(object):
             # 每天早晨根据alpha的仓位调整
             operate_hedge_position = self.future_position_change  # 需要变化的合约数
 
+            self.account.hedge_operate_list.append([self.account.current_date, self.account.hedge_position[0], self.future_position_change])
+
             trade_cost = 300 * self.slippage * abs(operate_hedge_position)
 
             if futures_open_today != 0:
                 deposit_change = operate_hedge_position * futures_open_today * 300 / self.account.futures_leverage
                 self.account.hedge_deposit += deposit_change
-                self.account.cash -= deposit_change + trade_cost
+                self.account.cash -= (deposit_change + trade_cost)
                 self.future_open_price = futures_open_today
             else:
                 deposit_change = operate_hedge_position * index_open_today * 300 / self.account.futures_leverage
                 self.account.hedge_deposit += deposit_change
-                self.account.cash -= deposit_change + trade_cost
+                self.account.cash -= (deposit_change + trade_cost)
                 self.future_open_price = index_open_today
 
             if self.account.cash < 0:

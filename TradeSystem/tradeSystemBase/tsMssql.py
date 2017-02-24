@@ -3,7 +3,7 @@
 import pymssql
 import pandas as pd
 from datetime import *
-
+import numpy as np
 
 class MSSQL:
     def __init__(self, host, user, pwd, db):
@@ -78,7 +78,6 @@ class MSSQL:
             futures_value = select_result[0][0]
         return futures_value
 
-    # @profile
     def get_open_price(self, current_date, _operate_list):
         """获取当日开盘价(前复权)"""
         select_date = datetime.strftime(current_date, '%Y-%m-%d')
@@ -90,10 +89,10 @@ class MSSQL:
 
         select_str = select_str[:-1]
 
-        sql_tuple = self.execquery("SELECT code,[open]*adjust_price_f/[close] AS open_price,high*adjust_price_f/[close] as high_price,low*adjust_price_f/[close] as low_price  FROM stock_data WHERE date = '" + select_date + "' AND code IN (" + select_str + ")")
-
-        df = pd.DataFrame(sql_tuple, columns=('stockcode', 'open', 'high', 'low'))
-
+        sql_tuple = self.execquery("SELECT code,[open],[high],[low],[open]*adjust_price_f/[close] AS open_price,high*adjust_price_f/[close] as high_price,low*adjust_price_f/[close] as low_price  FROM stock_data WHERE date = '" + select_date + "' AND code IN (" + select_str + ")")
+        # print sql_tuple
+        df = pd.DataFrame(sql_tuple, columns=('stockcode', 'o', 'h', 'l', 'open', 'high', 'low'))
+        df.iloc[:, 1:4] = np.round(df.iloc[:, 1:4] * 100.0) / 100.0
         return df
 
     def get_stock_close(self, df, current_date):

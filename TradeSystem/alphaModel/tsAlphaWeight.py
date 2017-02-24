@@ -169,7 +169,7 @@ class StockScreener(object):
         dateBegin =  datetime.datetime.strftime(dateBegin, '%Y-%m-%d %H:%M:%S')
         # print dateBegin
 
-        sqlstr = ("SELECT * FROM stock_all_F_1M_weighting_standard_de_industry \
+        sqlstr = ("SELECT * FROM all_F_1M_weighting_update_std \
                 where dateI<='%(select_date_now)s' \
                 and dateI>'%(dateBegin)s' \
                   And [stock_change] is not null \
@@ -199,7 +199,7 @@ class StockScreener(object):
         hist_f_beta_r   = hist_f_beta_r.head(1)
         # print hist_f_beta_r
 
-        hist_f_beta_r.Industry[0]  = 1.
+        hist_f_beta_r.Industry[0]  = 1.0
         hist_f_beta_r.ETOP[0]      = self.get_linear_beta(T0_stockR, T1_stockF, 'ETOP')
         hist_f_beta_r.ETP5[0]      = self.get_linear_beta(T0_stockR, T1_stockF, 'ETP5')
         hist_f_beta_r.Growth[0]    = self.get_linear_beta(T0_stockR, T1_stockF, 'Growth')
@@ -240,7 +240,7 @@ class StockScreener(object):
         hist_f_beta_r.T_ROA[0]     = self.get_linear_beta(T0_stockR, T1_stockF, 'T_ROA')
 
         # 获得当期的因子载荷, 进而与 上一期的因子Beta "hist_f_beta_r" 相乘得到 当期的得分
-        sqlstr = ("SELECT * FROM stock_all_F_1M_rolling_standard_de_industry \
+        sqlstr = ("SELECT * FROM all_F_1M_rolling_update_std \
                 where dateI='%(select_date_now)s' "
               % {'select_date_now': str(select_date_now)})
         # print sqlstr
@@ -256,9 +256,9 @@ class StockScreener(object):
                          'S_ROA', 'C_ROA', 'T_ROA', 'IndustryChange']].copy()
         # print T0_stockF.iloc[:, 1:40]
 
-        estValue = np.dot(T0_stockF.iloc[:,1:40], hist_f_beta_r.T)
+        estValue = np.dot(T0_stockF.iloc[:, 1:40], hist_f_beta_r.T)
         T0_stockF['estValue'] = estValue
         dfTMP = T0_stockF.sort_values(by='estValue', ascending=False)
-        dfStockWeight = dfTMP.loc[:, ['code','estValue']]
+        dfStockWeight = dfTMP.loc[:, ['code', 'estValue']]
         # print dfStockWeight
         return dfStockWeight
