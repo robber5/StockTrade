@@ -53,18 +53,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="tsTrade.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tsTrade.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TradeSystem/tsTrade.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="365">
-              <caret line="242" column="29" selection-start-line="242" selection-start-column="29" selection-end-line="242" selection-end-column="29" />
+              <caret line="240" column="29" selection-start-line="240" selection-start-column="29" selection-end-line="240" selection-end-column="29" />
               <folding>
                 <element signature="e#338#1492#0" expanded="false" />
                 <element signature="e#1528#1948#0" expanded="false" />
                 <element signature="e#2086#2876#0" expanded="false" />
                 <element signature="e#2929#3022#0" expanded="false" />
-                <element signature="e#5025#6266#0" expanded="false" />
-                <marker date="1487914927151" expanded="true" signature="6472:6572" ph="SELECT DISTI... " />
+                <element signature="e#5047#6288#0" expanded="false" />
+                <marker date="1487916211241" expanded="true" signature="6494:6594" ph="SELECT DISTI... " />
               </folding>
             </state>
           </provider>
@@ -101,6 +101,7 @@
               <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
               <folding>
                 <element signature="e#19#72#0" expanded="true" />
+                <marker date="1487916137657" expanded="true" signature="10286:10670" ph="..." />
               </folding>
             </state>
           </provider>
@@ -109,8 +110,8 @@
       <file leaf-file-name="tsHedgeEngine.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TradeSystem/tradeControl/HedgeManage/tsHedgeEngine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
-              <caret line="94" column="43" selection-start-line="94" selection-start-column="25" selection-end-line="94" selection-end-column="43" />
+            <state relative-caret-position="522">
+              <caret line="101" column="43" selection-start-line="101" selection-start-column="43" selection-end-line="101" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -122,6 +123,82 @@
             <state relative-caret-position="802">
               <caret line="82" column="121" selection-start-line="82" selection-start-column="51" selection-end-line="82" selection-end-column="121" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="drBasisDateUpdate.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TradeDataRecorder/drBasisDateUpdate.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="8607">
+              <caret line="459" column="0" selection-start-line="459" selection-start-column="0" selection-end-line="459" selection-end-column="0" />
+              <folding>
+                <marker date="1487919057815" expanded="true" signature="1786:1890" ph="INSERT INTO " />
+                <marker date="1487919057815" expanded="true" signature="1959:2059" ph="INSERT INTO " />
+                <marker date="1487919057815" expanded="true" signature="2126:2468" ph="INSERT INTO " />
+                <marker date="1487919057815" expanded="true" signature="2539:2831" ph="INSERT INTO " />
+                <marker date="1487919057815" expanded="true" signature="3158:3217" ph="select disti... " />
+                <marker date="1487919057815" expanded="true" signature="3516:3600" ph="select disti... " />
+                <marker date="1487919057815" expanded="true" signature="4351:4408" ph="select disti... " />
+                <marker date="1487919057815" expanded="true" signature="4853:4909" ph="SELECT DISTI... " />
+                <marker date="1487919057815" expanded="true" signature="13790:13909" ph="select top 1... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="drDataBase.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TradeDataRecorder/drDataBase.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="7" column="14" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="drDataUpdate.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/TradeDataRecorder/drDataUpdate.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="43" column="74" selection-start-line="43" selection-start-column="74" selection-end-line="43" selection-end-column="74" />
+              <folding>
+                <marker date="1487727909647" expanded="true" signature="999:1062" ph="SELECT DISTI... " />
+                <marker date="1487727909647" expanded="true" signature="1695:1745" ph="select * fro... missing_value" />
+                <marker date="1487727909647" expanded="true" signature="2120:2291" ph="SELECT DISTI... " />
+                <marker date="1487727909647" expanded="true" signature="2794:3306" ph="SELECT A.[da... " />
+                <marker date="1487727909647" expanded="true" signature="6379:6468" ph="select DISTI... " />
+                <marker date="1487727909647" expanded="true" signature="6829:7294" ph="SELECT [code... " />
+                <marker date="1487727909647" expanded="true" signature="8450:8770" ph="SELECT [股票代码... " />
+                <marker date="1487727909647" expanded="true" signature="16509:16597" ph="select disti... missing_value" />
+                <marker date="1487727909647" expanded="true" signature="17273:17760" ph="SELECT A.[co... " />
+                <marker date="1487727909647" expanded="true" signature="18386:18912" ph="SELECT A.[in... " />
+                <marker date="1487727909647" expanded="true" signature="26121:26267" ph="select disti... missing_value" />
+                <marker date="1487727909647" expanded="true" signature="26831:27101" ph="select * fro... V_stock_1m" />
+                <marker date="1487727909647" expanded="true" signature="30577:30707" ph="select disti... missing_value" />
+                <marker date="1487727909647" expanded="true" signature="31078:31388" ph="select code,... " />
+                <marker date="1487727909647" expanded="true" signature="31689:32262" ph="SELECT [股票代码... " />
+                <marker date="1487727909647" expanded="true" signature="44653:44705" ph="select dateS... missing_value" />
+                <marker date="1487727909647" expanded="true" signature="45124:45197" ph="select * fro... industry_change_1m" />
+                <marker date="1487727909647" expanded="true" signature="45284:45357" ph="select * fro... industry_change_1w" />
+                <marker date="1487727909647" expanded="true" signature="45708:46031" ph="select [code... " />
+                <marker date="1487727909647" expanded="true" signature="46448:46757" ph="select [code... " />
+                <marker date="1487727909647" expanded="true" signature="47280:47470" ph="select [code... " />
+                <marker date="1487727909647" expanded="true" signature="47785:48085" ph="select [code... " />
+                <marker date="1487727909647" expanded="true" signature="49599:49791" ph="select code,... week_factors_update" />
+                <marker date="1487727909647" expanded="true" signature="56940:56992" ph="select dateS... missing_value" />
+                <marker date="1487727909647" expanded="true" signature="57411:57484" ph="select * fro... industry_change_1m" />
+                <marker date="1487727909647" expanded="true" signature="57571:57644" ph="select * fro... industry_change_1w" />
+                <marker date="1487727909647" expanded="true" signature="57897:58194" ph="select [code... " />
+                <marker date="1487727909647" expanded="true" signature="58723:58891" ph="select [code... " />
+                <marker date="1487727909647" expanded="true" signature="59232:59506" ph="select [code... " />
+                <marker date="1487727909647" expanded="true" signature="60138:60308" ph="select code,... week_factors_update" />
+                <marker date="1487727909647" expanded="true" signature="61372:61689" ph="select [code... " />
+                <marker date="1487727909647" expanded="true" signature="72128:72191" ph="select disti... missing_value" />
+                <marker date="1487727909647" expanded="true" signature="72578:72653" ph="select * fro... missing_value" />
+                <marker date="1487727909647" expanded="true" signature="79607:79663" ph="select disti... missing_value" />
+                <marker date="1487727909647" expanded="true" signature="80359:80441" ph="select * fro... missing_value" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -185,14 +262,14 @@
         <option value="$PROJECT_DIR$/test/test2.py" />
         <option value="$PROJECT_DIR$/test/test3.py" />
         <option value="$PROJECT_DIR$/test/test4.py" />
-        <option value="$PROJECT_DIR$/TradeDataRecorder/drBasisDateUpdate.py" />
         <option value="$PROJECT_DIR$/TradeSystem/readme.txt" />
         <option value="$PROJECT_DIR$/TradeSystem/tsMain.py" />
         <option value="$PROJECT_DIR$/TradeSystem/positionManage/tsPositionManage.py" />
         <option value="$PROJECT_DIR$/TradeSystem/tradeControl/riskManage/tsRiskManage.py" />
         <option value="$PROJECT_DIR$/TradeSystem/tsAccount.py" />
-        <option value="$PROJECT_DIR$/TradeSystem/tsTrade.py" />
         <option value="$PROJECT_DIR$/TradeSystem/tradeControl/HedgeManage/tsHedgeEngine.py" />
+        <option value="$PROJECT_DIR$/TradeSystem/tsTrade.py" />
+        <option value="$PROJECT_DIR$/TradeDataRecorder/drBasisDateUpdate.py" />
       </list>
     </option>
   </component>
@@ -347,69 +424,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="TradeSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="StockTrade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="StockTrade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TradeSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tradeControl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="StockTrade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="StockTrade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TradeSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tradeControl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="operateManage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="StockTrade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="StockTrade" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TradeSystem" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tradeControl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HedgeManage" />
+              <option name="myItemId" value="TradeDataRecorder" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -785,7 +800,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1873" height="1096" extended-state="7" />
+    <frame x="-8" y="-8" width="1873" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17815775" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -872,13 +887,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Anaconda2/Lib/site-packages/pandas/core/generic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5833">
-          <caret line="339" column="31" selection-start-line="339" selection-start-column="31" selection-end-line="339" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TradeDataRecorder/S3_CalculateFactors_1D.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
@@ -976,13 +984,6 @@
       </provider>
     </entry>
     <entry file="file://G:/周末工作/test3.py" />
-    <entry file="file://$PROJECT_DIR$/TradeDataRecorder/drDataUpdate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="37" column="105" selection-start-line="37" selection-start-column="41" selection-end-line="37" selection-end-column="105" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TradeDataRecorder/S3_CalculateFactors_1M.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -999,43 +1000,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TradeDataRecorder/drDataBase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="14" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/result_copy3.csv" />
     <entry file="file://$PROJECT_DIR$/TradeSystem/alphaModel/tsAlphaWeight.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3097">
           <caret line="171" column="80" selection-start-line="171" selection-start-column="80" selection-end-line="171" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TradeDataRecorder/drBasisDateUpdate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="251" column="23" selection-start-line="251" selection-start-column="23" selection-end-line="251" selection-end-column="23" />
-          <folding>
-            <element signature="e#17#36#0" expanded="false" />
-            <element signature="e#2475#2701#0" expanded="false" />
-            <element signature="e#2750#2974#0" expanded="false" />
-            <element signature="e#3310#3635#0" expanded="false" />
-            <element signature="e#3684#4398#0" expanded="false" />
-            <element signature="e#4451#4918#0" expanded="false" />
-            <element signature="e#5536#10084#0" expanded="false" />
-            <element signature="e#5738#6070#0" expanded="false" />
-            <element signature="e#6132#7451#0" expanded="false" />
-            <element signature="e#7810#10032#0" expanded="false" />
-            <marker date="1487586765594" expanded="true" signature="1349:1449" ph="INSERT INTO " />
-            <marker date="1487586765594" expanded="true" signature="1512:1739" ph="INSERT INTO " />
-            <marker date="1487586765594" expanded="true" signature="1867:2137" ph="INSERT INTO " />
-            <marker date="1487586765594" expanded="true" signature="2549:2608" ph="select disti... " />
-            <marker date="1487586765594" expanded="true" signature="2824:2881" ph="select disti... " />
-            <marker date="1487586765594" expanded="true" signature="10201:10270" ph="SELECT DISTI... " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1172,6 +1141,7 @@
           <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding>
             <element signature="e#19#72#0" expanded="true" />
+            <marker date="1487916137657" expanded="true" signature="10286:10670" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1186,8 +1156,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TradeSystem/tradeControl/HedgeManage/tsHedgeEngine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="94" column="43" selection-start-line="94" selection-start-column="25" selection-end-line="94" selection-end-column="43" />
+        <state relative-caret-position="522">
+          <caret line="101" column="43" selection-start-line="101" selection-start-column="43" selection-end-line="101" selection-end-column="43" />
           <folding />
         </state>
       </provider>
@@ -1215,14 +1185,102 @@
     <entry file="file://$PROJECT_DIR$/TradeSystem/tsTrade.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="365">
-          <caret line="242" column="29" selection-start-line="242" selection-start-column="29" selection-end-line="242" selection-end-column="29" />
+          <caret line="240" column="29" selection-start-line="240" selection-start-column="29" selection-end-line="240" selection-end-column="29" />
           <folding>
             <element signature="e#338#1492#0" expanded="false" />
             <element signature="e#1528#1948#0" expanded="false" />
             <element signature="e#2086#2876#0" expanded="false" />
             <element signature="e#2929#3022#0" expanded="false" />
-            <element signature="e#5025#6266#0" expanded="false" />
-            <marker date="1487914927151" expanded="true" signature="6472:6572" ph="SELECT DISTI... " />
+            <element signature="e#5047#6288#0" expanded="false" />
+            <marker date="1487916211241" expanded="true" signature="6494:6594" ph="SELECT DISTI... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/drBasisDateUpdate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1368">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="459" selection-end-column="0" />
+          <folding>
+            <marker date="1487919018125" expanded="true" signature="1786:1890" ph="INSERT INTO " />
+            <marker date="1487919018125" expanded="true" signature="1959:2059" ph="INSERT INTO " />
+            <marker date="1487919018125" expanded="true" signature="2126:2468" ph="INSERT INTO " />
+            <marker date="1487919018125" expanded="true" signature="2539:2831" ph="INSERT INTO " />
+            <marker date="1487919018125" expanded="true" signature="3158:3217" ph="select disti... " />
+            <marker date="1487919018125" expanded="true" signature="3516:3600" ph="select disti... " />
+            <marker date="1487919018125" expanded="true" signature="4351:4408" ph="select disti... " />
+            <marker date="1487919018125" expanded="true" signature="4853:4909" ph="SELECT DISTI... " />
+            <marker date="1487919018125" expanded="true" signature="13790:13909" ph="select top 1... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeDataRecorder/drBasisDateUpdate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8607">
+          <caret line="459" column="0" selection-start-line="459" selection-start-column="0" selection-end-line="459" selection-end-column="0" />
+          <folding>
+            <marker date="1487919057815" expanded="true" signature="1786:1890" ph="INSERT INTO " />
+            <marker date="1487919057815" expanded="true" signature="1959:2059" ph="INSERT INTO " />
+            <marker date="1487919057815" expanded="true" signature="2126:2468" ph="INSERT INTO " />
+            <marker date="1487919057815" expanded="true" signature="2539:2831" ph="INSERT INTO " />
+            <marker date="1487919057815" expanded="true" signature="3158:3217" ph="select disti... " />
+            <marker date="1487919057815" expanded="true" signature="3516:3600" ph="select disti... " />
+            <marker date="1487919057815" expanded="true" signature="4351:4408" ph="select disti... " />
+            <marker date="1487919057815" expanded="true" signature="4853:4909" ph="SELECT DISTI... " />
+            <marker date="1487919057815" expanded="true" signature="13790:13909" ph="select top 1... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeDataRecorder/drDataBase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="14" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TradeDataRecorder/drDataUpdate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="43" column="74" selection-start-line="43" selection-start-column="74" selection-end-line="43" selection-end-column="74" />
+          <folding>
+            <marker date="1487727909647" expanded="true" signature="999:1062" ph="SELECT DISTI... " />
+            <marker date="1487727909647" expanded="true" signature="1695:1745" ph="select * fro... missing_value" />
+            <marker date="1487727909647" expanded="true" signature="2120:2291" ph="SELECT DISTI... " />
+            <marker date="1487727909647" expanded="true" signature="2794:3306" ph="SELECT A.[da... " />
+            <marker date="1487727909647" expanded="true" signature="6379:6468" ph="select DISTI... " />
+            <marker date="1487727909647" expanded="true" signature="6829:7294" ph="SELECT [code... " />
+            <marker date="1487727909647" expanded="true" signature="8450:8770" ph="SELECT [股票代码... " />
+            <marker date="1487727909647" expanded="true" signature="16509:16597" ph="select disti... missing_value" />
+            <marker date="1487727909647" expanded="true" signature="17273:17760" ph="SELECT A.[co... " />
+            <marker date="1487727909647" expanded="true" signature="18386:18912" ph="SELECT A.[in... " />
+            <marker date="1487727909647" expanded="true" signature="26121:26267" ph="select disti... missing_value" />
+            <marker date="1487727909647" expanded="true" signature="26831:27101" ph="select * fro... V_stock_1m" />
+            <marker date="1487727909647" expanded="true" signature="30577:30707" ph="select disti... missing_value" />
+            <marker date="1487727909647" expanded="true" signature="31078:31388" ph="select code,... " />
+            <marker date="1487727909647" expanded="true" signature="31689:32262" ph="SELECT [股票代码... " />
+            <marker date="1487727909647" expanded="true" signature="44653:44705" ph="select dateS... missing_value" />
+            <marker date="1487727909647" expanded="true" signature="45124:45197" ph="select * fro... industry_change_1m" />
+            <marker date="1487727909647" expanded="true" signature="45284:45357" ph="select * fro... industry_change_1w" />
+            <marker date="1487727909647" expanded="true" signature="45708:46031" ph="select [code... " />
+            <marker date="1487727909647" expanded="true" signature="46448:46757" ph="select [code... " />
+            <marker date="1487727909647" expanded="true" signature="47280:47470" ph="select [code... " />
+            <marker date="1487727909647" expanded="true" signature="47785:48085" ph="select [code... " />
+            <marker date="1487727909647" expanded="true" signature="49599:49791" ph="select code,... week_factors_update" />
+            <marker date="1487727909647" expanded="true" signature="56940:56992" ph="select dateS... missing_value" />
+            <marker date="1487727909647" expanded="true" signature="57411:57484" ph="select * fro... industry_change_1m" />
+            <marker date="1487727909647" expanded="true" signature="57571:57644" ph="select * fro... industry_change_1w" />
+            <marker date="1487727909647" expanded="true" signature="57897:58194" ph="select [code... " />
+            <marker date="1487727909647" expanded="true" signature="58723:58891" ph="select [code... " />
+            <marker date="1487727909647" expanded="true" signature="59232:59506" ph="select [code... " />
+            <marker date="1487727909647" expanded="true" signature="60138:60308" ph="select code,... week_factors_update" />
+            <marker date="1487727909647" expanded="true" signature="61372:61689" ph="select [code... " />
+            <marker date="1487727909647" expanded="true" signature="72128:72191" ph="select disti... missing_value" />
+            <marker date="1487727909647" expanded="true" signature="72578:72653" ph="select * fro... missing_value" />
+            <marker date="1487727909647" expanded="true" signature="79607:79663" ph="select disti... missing_value" />
+            <marker date="1487727909647" expanded="true" signature="80359:80441" ph="select * fro... missing_value" />
           </folding>
         </state>
       </provider>
