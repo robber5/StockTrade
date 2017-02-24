@@ -27,6 +27,7 @@ def main():
         setting['sqlite_DB'].encode('utf-8')
     )
 
+    """
     # update 基础因子表
     # DataUpdate(main_engine).update_industry_change_table('industry_change_1w', '1w')
     # DataUpdate(main_engine).update_day_factors_table('day_factors_update')
@@ -41,7 +42,8 @@ def main():
     # 标准化表
     # DataUpdate(main_engine).update_standard_table('all_F_1M_rolling_update', 'all_F_1M_rolling_update_std')
     # DataUpdate(main_engine).update_standard_table('all_F_1M_weighting_update', 'all_F_1M_weighting_update_std')
-
+    # BasisDataUpdate(main_engine).basis_date_update()
+    """
 
     if setting['engine_type'] == "backtest":
         # 运行

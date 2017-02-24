@@ -39,7 +39,7 @@ class RiskEngine:
             referencenum = int(
                 self.position_engine.dic_risk_ratio[stk] * self.account.capital_base * self.account.list_fundvalue[-1][1] * self.position_engine.break_position_ratio / _buy_list[stk]['risk'])
 
-            if self.active:
+            if self.active and referencenum != 0:
                 referencenum = self.buy_check(referencenum, dic_buy_price['open'][stk], rest_position)
 
                 rest_position -= referencenum * dic_buy_price['open'][stk]
@@ -63,7 +63,7 @@ class RiskEngine:
         for stk in sell_price.index.values:
             referencenum = 0
 
-            if self.active:
+            if self.active and referencenum != 0:
                 referencenum = self.sell_check(stk, 0)
 
             OperateManage().order_to(self.account, stk, referencenum, dic_sell_price['open'][stk])

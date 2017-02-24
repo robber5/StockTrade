@@ -63,5 +63,5 @@ class Account(object):
             open('D:/hedge_position_log/' + datetime.datetime.strftime(self.current_date, '%Y-%m-%d') + '-position.csv',
                  'wb'))
         writer.writerow(['code', 'price', 'number'])
-        for item in self.hedge_position:
-            writer.writerow(item)
+        if self.hedge_position:
+            writer.writerow(self.hedge_position)

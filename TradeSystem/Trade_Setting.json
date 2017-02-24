@@ -6,9 +6,9 @@
     "MS_db": "stocks",
     "sqlite_DB": "D:\\stock.db",
     "engine_type": "backtest",
-    "benchmark": "sh000001",
     "start_day": "2005-01-01",
-    "end_day": "2016-06-01",
+    "benchmark": "sh000001",
+    "end_day": "2010-06-01",
     "capital_base": "20000000",
     "chosen_num": "2000",
     "stock_pool": "A"
